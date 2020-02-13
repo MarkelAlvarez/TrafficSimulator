@@ -29,21 +29,26 @@ public class TestExamples {
 
 		JSONArray tests = jo.getJSONArray("tests");
 
-		if (testMode) {
+		if (testMode)
+		{
 			System.setOut(nullStream);
 			System.setErr(nullStream);
-			for (int i = 0; i < tests.length(); i++) {
+			for (int i = 0; i < tests.length(); i++)
+			{
 				test(path, tests.getJSONObject(i));
 			}
-		} else {
-			for (int i = 0; i < tests.length(); i++) {
+		}
+		else
+		{
+			for (int i = 0; i < tests.length(); i++)
+			{
 				run(path, tests.getJSONObject(i));
 			}
 		}
-
 	}
 
 	private static void run(String path, JSONObject info) {
+		
 		String inFile = path + "/" + info.getString("file") + ".json";
 		String outFile = path + "/" + info.getString("file") + ".expout.json";
 		Integer ticks = info.getInt("ticks");
@@ -55,10 +60,10 @@ public class TestExamples {
 		} catch (Exception e) {
 			System.out.println("Failed (exception thrown).");
 		}
-
 	}
 
 	private static void test(String path, JSONObject info) {
+		
 		File inFile = new File(path + "/" + info.getString("file") + ".json");
 		File outFile = new File(path + "/" + info.getString("file") + ".expout.json");
 		File myoutFile = new File(path + "/" + info.getString("file") + ".myout.json");
@@ -66,16 +71,18 @@ public class TestExamples {
 
 		_stdOut.println("-> Running: " + inFile);
 		try {
-			simulator.launcher.Main
-					.main(new String[] { "-i", inFile.getPath(), "-o", myoutFile.getPath(), "-t", ticks.toString() });
+			simulator.launcher.Main.main(new String[] { "-i", inFile.getPath(), "-o", myoutFile.getPath(), "-t", ticks.toString() });
 
 			JSONObject jo1 = new JSONObject(new JSONTokener(new FileInputStream(outFile)));
 			JSONObject jo2 = new JSONObject(new JSONTokener(new FileInputStream(myoutFile)));
 
-			if (jo1.similar(jo2)) {
+			if (jo1.similar(jo2))
+			{
 				_stdOut.println("OK!");
-				myoutFile.delete(); // delete the file
-			} else {
+				myoutFile.delete(); //Delete the file
+			}
+			else
+			{
 				_stdOut.println("Failed (output is not equal)!");
 			}
 		} catch (Exception e) {
@@ -84,15 +91,14 @@ public class TestExamples {
 
 	}
 
-	// The full path to the examples directory, where db.json is, should be passed
-	// as the first command-line argument. If not passed it looks in the default
-	// examples directory "resources/examples"
-	//
+	/* The full path to the examples directory, where db.json is, should be passed
+	 * as the first command-line argument. If not passed it looks in the default
+	 * examples directory "resources/examples"
+	 */
 	public static void main(String[] args) throws JSONException, FileNotFoundException {
+		
 		String path = args.length == 0 ? "resources/examples" : args[0];
-
 		// change 'true' to 'false' to generate the expected output instead of testing
 		start(path, true);
 	}
-
 }
