@@ -110,4 +110,14 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		
 		return this.localizacion < o.localizacion ? 1 : this.localizacion < o.localizacion ? -1 : 0;
 	}
+	
+	public int getContTotal() {
+		
+		return contTotal;
+	}
+
+	public void setContTotal(int contTotal) {
+		
+		this.contTotal = contTotal;
+	}
 }
