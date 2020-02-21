@@ -4,6 +4,7 @@ public class InterCityRoad extends Road {
 
 	private Vehicle vehiculo;
 	private Weather clima;
+	private Road carretera;
 	private int contTotal;
 	
 	public InterCityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
@@ -22,12 +23,28 @@ public class InterCityRoad extends Road {
 	@Override
 	void updateSpeedLimit() {
 		
-		
+		if (vehiculo.getContTotal() > carretera.getLimiteCont())
+		{
+			carretera.setLimiteActual((int)(getVelocMaxima()*0.5));
+		}
+		else
+		{
+			carretera.setLimiteActual(getVelocMaxima());
+		}
 	}
 
 	@Override
 	int calculateVehicleSpeed(Vehicle v) {
-		// TODO Auto-generated method stub
+
+		if (clima == Weather.STORM)
+		{
+			v.setSpeed((int)(carretera.getLimiteActual()*0.8));
+		}
+		else
+		{
+			v.setSpeed(carretera.getLimiteActual());
+		}
+		
 		return 0;
 	}
 	

@@ -89,9 +89,39 @@ public abstract class Road extends SimulatedObject {
 		return condMet;
 	}
 
+	public int getLimiteCont() {
+		
+		return limiteCont;
+	}
+
+	public void setLimiteCont(int limiteCont) {
+		
+		this.limiteCont = limiteCont;
+	}
+
 	public int getLongitud() {
 
 		return longitud;
+	}
+
+	public int getLimiteActual() {
+		
+		return limiteActual;
+	}
+
+	public void setLimiteActual(int limiteActual) {
+		
+		this.limiteActual = limiteActual;
+	}
+
+	public int getVelocMaxima() {
+		
+		return velocMaxima;
+	}
+
+	public void setVelocMaxima(int velocMaxima) {
+		
+		this.velocMaxima = velocMaxima;
 	}
 
 	abstract void reduceTotalContamination();
