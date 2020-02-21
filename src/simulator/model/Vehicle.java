@@ -104,4 +104,14 @@ public class Vehicle extends SimulatedObject {
 		
 		return velocActual;
 	}
+
+	public int getContTotal() {
+		
+		return contTotal;
+	}
+
+	public void setContTotal(int contTotal) {
+		
+		this.contTotal = contTotal;
+	}
 }

@@ -16,9 +16,10 @@ public abstract class Road extends SimulatedObject {
 	private int contTotal;
 	private List<Vehicle> vehiculos;
 	
-	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed,
-		int contLimit, int length, Weather weather) {
+	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
+		
 		super(id);
+		
 		if(maxSpeed <= 0) throw new IllegalArgumentException("La velocidad maxima tiene que ser un numero positivo.");
 		if(contLimit < 0) throw new IllegalArgumentException("El limite de contaminacion no puede ser negativo.");
 		if(length <= 0) throw new IllegalArgumentException("La longitud tiene que ser un numero positivo.");
@@ -26,7 +27,6 @@ public abstract class Road extends SimulatedObject {
 		if(destJunc == null) throw new IllegalArgumentException("El cruce de destino no puede ser nulo.");
 		if(weather == null) throw new IllegalArgumentException("La condicion meteorologica no puede ser nula.");
 		
-
 		cruceOrigen = srcJunc;
 		cruceDestino = destJunc;
 		velocMaxima = maxSpeed;
@@ -36,6 +36,7 @@ public abstract class Road extends SimulatedObject {
 	}
 	
 	void enter(Vehicle v) {
+		
 		if(v.getLocalizacion() != 0) throw new IllegalArgumentException("La localizacion del vehiculo tiene que ser 0.");
 		if(v.getVelocActual() != 0) throw new IllegalArgumentException("La velocidad del vehiculo tiene que ser 0.");
 		
@@ -43,16 +44,12 @@ public abstract class Road extends SimulatedObject {
 	}
 	
 	void exit(Vehicle v) {
+		
 		vehiculos.remove(v);
 	}
 	
-	void setWeather(Weather w) {
-		if(w == null) throw new IllegalArgumentException("La condicion meteorologica no puede ser nula.");
-
-		condMet = w;
-	}
-	
 	void addContamination(int c) {
+		
 		if(c < 0) throw new IllegalArgumentException("La contaminacion no puede ser negativa.");
 		
 		contTotal += c;
@@ -60,11 +57,15 @@ public abstract class Road extends SimulatedObject {
 	
 	@Override
 	void advance(int time) {
+		
 		reduceTotalContamination();
 		updateSpeedLimit();
-		for (int i = 0; i < vehiculos.size(); i++) {
+		
+		for (int i = 0; i < vehiculos.size(); i++)
+		{
 			vehiculos.get(i).setSpeed(calculateVehicleSpeed(vehiculos.get(i)));
 		}
+		
 		vehiculos.sort();
 	}
 
@@ -74,12 +75,26 @@ public abstract class Road extends SimulatedObject {
 		return null;
 	}
 
+	/*GETS & SETS*/
+	
+	void setWeather(Weather w) {
+		
+		if(w == null) throw new IllegalArgumentException("La condicion meteorologica no puede ser nula.");
+
+		condMet = w;
+	}
+	
+	public Weather getCondMet() {
+		
+		return condMet;
+	}
+
 	public int getLongitud() {
+		
 		return longitud;
 	}
 	
 	abstract void reduceTotalContamination();
 	abstract void updateSpeedLimit();
 	abstract int calculateVehicleSpeed(Vehicle v);
-
 }
