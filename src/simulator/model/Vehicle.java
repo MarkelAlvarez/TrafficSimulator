@@ -20,7 +20,7 @@ public class Vehicle extends SimulatedObject {
 		
 		super(id);
 		
-		if(maxSpeed < 0) throw new IllegalArgumentException("La velocidad maxima tiene que ser un numero positivo.");
+		if(maxSpeed <= 0) throw new IllegalArgumentException("La velocidad maxima tiene que ser un numero positivo.");
 		if(contClass < 0 || contClass > 10) throw new IllegalArgumentException("El grado de contaminacion tiene que tener un valor entre 0 y 10.");
 		if(itinerary.length() < 2) throw new IllegalArgumentException("El itinerario tiene que tener al menos dos elementos.");
 	
@@ -31,18 +31,30 @@ public class Vehicle extends SimulatedObject {
 	
 	@Override
 	void advance(int time) {
-		// TODO Auto-generated method stub
 		
+		if(estado == VehicleStatus.TRAVELING) {
+			
+			int locNueva = localizacion + velocActual;
+			if(locNueva > carretera.getLongitud()) {
+				locNueva = carretera.getLongitud();
+				//TODO: METER EN COLA AL COCHE
+				estado = VehicleStatus.WAITING;
+			}
+			
+			int contProd = gradoCont * (locNueva - localizacion);
+			contTotal += contProd;
+			carretera.addContamination(contProd);
+			localizacion = locNueva;
+		}
 	}
 
 	@Override
 	public JSONObject report() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	void moveToNextRoad() {
-		
+		//TODO: pues eso
 	}
 	
 	/*GETS & SETS*/
@@ -72,5 +84,13 @@ public class Vehicle extends SimulatedObject {
 		}
 		
 		gradoCont = c;
+	}
+
+	public int getLocalizacion() {
+		return localizacion;
+	}
+
+	public int getVelocActual() {
+		return velocActual;
 	}
 }
