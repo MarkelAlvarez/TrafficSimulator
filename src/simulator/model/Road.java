@@ -4,7 +4,7 @@ import java.util.*;
 
 import org.json.JSONObject;
 
-public class Road extends SimulatedObject {
+public abstract class Road extends SimulatedObject {
 
 	private Junction cruceOrigen = null;
 	private Junction cruceDestino = null;
@@ -60,8 +60,12 @@ public class Road extends SimulatedObject {
 	
 	@Override
 	void advance(int time) {
-		// TODO Auto-generated method stub
-
+		reduceTotalContamination();
+		updateSpeedLimit();
+		for (int i = 0; i < vehiculos.size(); i++) {
+			vehiculos.get(i).setSpeed(calculateVehicleSpeed(vehiculos.get(i)));
+		}
+		vehiculos.sort();
 	}
 
 	@Override
@@ -74,6 +78,8 @@ public class Road extends SimulatedObject {
 		return longitud;
 	}
 	
-	
+	abstract void reduceTotalContamination();
+	abstract void updateSpeedLimit();
+	abstract int calculateVehicleSpeed(Vehicle v);
 
 }
