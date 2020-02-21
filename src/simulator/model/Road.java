@@ -65,7 +65,7 @@ public abstract class Road extends SimulatedObject {
 		for (int i = 0; i < vehiculos.size(); i++) {
 			vehiculos.get(i).setSpeed(calculateVehicleSpeed(vehiculos.get(i)));
 		}
-		vehiculos.sort();
+		Collections.sort(vehiculos);
 	}
 
 	@Override

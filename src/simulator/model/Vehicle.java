@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import java.util.*;
 import java.lang.RuntimeException;
 
-public class Vehicle extends SimulatedObject {
+public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 
 	private List<Junction> itinerario;
 	private int velocMaxima;
@@ -103,5 +103,11 @@ public class Vehicle extends SimulatedObject {
 	public int getVelocActual() {
 		
 		return velocActual;
+	}
+
+	@Override
+	public int compareTo(Vehicle o) {
+		
+		return this.localizacion < o.localizacion ? 1 : this.localizacion < o.localizacion ? -1 : 0;
 	}
 }
