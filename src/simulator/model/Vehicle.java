@@ -32,24 +32,33 @@ public class Vehicle extends SimulatedObject {
 	@Override
 	void advance(int time) {
 		
-		if(estado == VehicleStatus.TRAVELING) {
+		int locNueva = 0, contProd = 0;
+		
+		if(estado == VehicleStatus.TRAVELING) 
+		{	
+			locNueva = localizacion + velocActual;
 			
-			int locNueva = localizacion + velocActual;
-			if(locNueva > carretera.getLongitud()) {
+			if(locNueva > carretera.getLongitud())
+			{
 				locNueva = carretera.getLongitud();
 				//TODO: METER EN COLA AL COCHE
 				estado = VehicleStatus.WAITING;
 			}
 			
-			int contProd = gradoCont * (locNueva - localizacion);
+			contProd = gradoCont * (locNueva - localizacion);
 			contTotal += contProd;
 			carretera.addContamination(contProd);
 			localizacion = locNueva;
+		}
+		else
+		{
+			velocActual = 0;
 		}
 	}
 
 	@Override
 	public JSONObject report() {
+		//TODO: implementar JSON cuando se sepa como
 		return null;
 	}
 	
@@ -87,10 +96,12 @@ public class Vehicle extends SimulatedObject {
 	}
 
 	public int getLocalizacion() {
+		
 		return localizacion;
 	}
 
 	public int getVelocActual() {
+		
 		return velocActual;
 	}
 }
