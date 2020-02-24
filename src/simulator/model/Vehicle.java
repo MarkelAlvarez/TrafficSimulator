@@ -95,6 +95,11 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		gradoCont = c;
 	}
 
+	public int getGradoCont() {
+		
+		return gradoCont;
+	}
+
 	public int getLocalizacion() {
 		
 		return localizacion;
