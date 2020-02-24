@@ -71,7 +71,7 @@ public abstract class Road extends SimulatedObject {
 
 	@Override
 	public JSONObject report() {
-		// TODO Auto-generated method stub
+		// TODO JSON como funciona
 		return null;
 	}
 
