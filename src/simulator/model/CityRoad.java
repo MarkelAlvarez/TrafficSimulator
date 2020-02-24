@@ -14,6 +14,10 @@ public class CityRoad extends Road {
 		limitCont = contLimit;
 	}
 
+	/**
+	 * Reduce el total de la contaminación en x unidades de CO2,
+	 * donde x depende de las condiciones atmosféricas:
+	 */
 	@Override
 	void reduceTotalContamination() {
 		
@@ -43,7 +47,13 @@ public class CityRoad extends Road {
 	void updateSpeedLimit() {
 		//TODO Preguntar si no hay que hacer velLimite = velMaxima
 	}
-
+	
+	/**
+	 * Calcula la velocidad de un vehículo usando la siguiente expresión:
+	 * (int)(((11.0-f)/11.0)*s)
+	 * 
+	 * @param v
+	 */
 	@Override
 	int calculateVehicleSpeed(Vehicle v) {
 		

@@ -35,6 +35,12 @@ public abstract class Road extends SimulatedObject {
 		condMet = weather;
 	}
 
+	/**
+	 * Se utiliza por los vehículos para entrar a la carretera. Simplemente
+	 * añade el vehículo a la lista de vehículos de la carretera (al final).
+	 * 
+	 * @param v
+	 */
 	void enter(Vehicle v) {
 
 		if(v.getLocalizacion() != 0) throw new IllegalArgumentException("La localizacion del vehiculo tiene que ser 0.");
@@ -43,11 +49,23 @@ public abstract class Road extends SimulatedObject {
 		vehiculos.add(v);
 	}
 
+	/**
+	 * Lo utiliza un vehículo para abandonar la carretera. Simplemente
+	 * elimina el vehículo de la lista de vehículos de la carretera.
+	 * 
+	 * @param v
+	 * */
 	void exit(Vehicle v) {
 
 		vehiculos.remove(v);
 	}
 
+	/**
+	 * añade c unidades de CO2 al total de la contaminación de la carretera. Tiene
+	 * que comprobar que c no es negativo y lanzar una excepción en otro caso.
+	 * 
+	 * @param c
+	 */
 	void addContamination(int c) {
 
 		if(c < 0) throw new IllegalArgumentException("La contaminacion no puede ser negativa.");
@@ -55,6 +73,22 @@ public abstract class Road extends SimulatedObject {
 		contTotal += c;
 	}
 
+	/**
+	 * Avanza el estado de la carretera de la siguiente forma:
+	 * 
+	 * (1) llama a reduceTotalContamination para reducir la 
+	 * contaminación total, es decir, la disminución de CO2.
+	 * 
+	 * (2) llama a updateSpeedLimit para establecer el límite de
+	 * velocidad de la carretera en el paso de simulación actual.
+	 * 
+	 * (3) recorre la lista de vehículos (desde el primero al último) y,
+	 * para cada vehículo:
+	 *  	a) pone la velocidad del vehículo al valor devuelto por calculateVehicleSpeed. 
+	 * 		b) llama al método advance del vehículo.
+	 * 
+	 * @param time
+	 */
 	@Override
 	void advance(int time) {
 
@@ -69,6 +103,9 @@ public abstract class Road extends SimulatedObject {
 		Collections.sort(vehiculos);
 	}
 
+	/**
+	 * Devuelve el estado de la carretera en formato JSON
+	 */
 	@Override
 	public JSONObject report() {
 		// TODO JSON como funciona
@@ -77,6 +114,12 @@ public abstract class Road extends SimulatedObject {
 
 	/*GETS & SETS*/
 
+	/**
+	 * Pone las condiciones atmosféericas de la carretera al valor w. Debe 
+	 * comprobar que w no es null y lanzar una excepción en caso contrario.
+	 * 
+	 * @param w
+	 */
 	void setWeather(Weather w) {
 
 		if(w == null) throw new IllegalArgumentException("La condicion meteorologica no puede ser nula.");
@@ -124,7 +167,21 @@ public abstract class Road extends SimulatedObject {
 		this.velocMaxima = velocMaxima;
 	}
 
+	/**
+	 * Método abstracto para reducir el total de la contaminación de la carretera.
+	 * La implementación específica la definirán las subclases de Road.
+	 */
 	abstract void reduceTotalContamination();
+	/**
+	 * método abstracto para actualizar la velocidad límite de la carretera.
+	 * La implementación específica la definirán las subclases de Road.
+	 */
 	abstract void updateSpeedLimit();
+	/**
+	 * método abstracto para calcular la velocidad de un vehículo v.
+	 * La implementación específica la definirán las subclases de Road.
+	 * 
+	 * @param v
+	 */
 	abstract int calculateVehicleSpeed(Vehicle v);
 }

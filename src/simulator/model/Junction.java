@@ -1,7 +1,6 @@
 package simulator.model;
 
 import java.util.*;
-
 import org.json.JSONObject;
 
 public class Junction extends SimulatedObject {
@@ -15,12 +14,9 @@ public class Junction extends SimulatedObject {
 	private LightSwitchingStrategy estratSem;
 	private DequeuingStrategy estratCola;
 	
-	
-	protected Junction(String id, LightSwitchStrategy lsStrategy, DequeingStrategy
-			dqStrategy, int xCoor, int yCoor) {
+	protected Junction(String id, LightSwitchStrategy lsStrategy, DequeingStrategy dqStrategy, int xCoor, int yCoor) {
 		
 		super(id);
-		// ...
 	}
 
 	@Override
@@ -34,5 +30,4 @@ public class Junction extends SimulatedObject {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

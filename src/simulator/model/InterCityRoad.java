@@ -12,6 +12,10 @@ public class InterCityRoad extends Road {
 		super(id, srcJunc, destJunc, maxSpeed, contLimit, length, weather);
 	}
 
+	/**
+	 * Reduce la contaminación total medinte la formula:
+	 * (int)((100.0-x)/100.0)*tc)
+	 */
 	@Override
 	void reduceTotalContamination() {
 		
@@ -20,6 +24,12 @@ public class InterCityRoad extends Road {
 		contTotal = (int)((100.0-x)/100.0)*tc;
 	}
 
+	/**
+	 * Si la contaminación total excede el límite de contaminación,entonces
+	 * pone el límite de la velocidad al 50% de la velocidad máxima mediante
+	 * esta formula:
+	 * (int)(maxSpeed*0.5)
+	 */
 	@Override
 	void updateSpeedLimit() {
 		
@@ -33,6 +43,12 @@ public class InterCityRoad extends Road {
 		}
 	}
 
+	/**
+	 * Pone la velocidad del vehículo a la velocidad límite de la carretera
+	 * dependiendo del clima.
+	 * 
+	 * @param v
+	 */
 	@Override
 	int calculateVehicleSpeed(Vehicle v) {
 
@@ -48,6 +64,10 @@ public class InterCityRoad extends Road {
 		return 0;
 	}
 	
+	/**
+	 * Dependiendo del clima devuelve el valor de cada clima
+	 * para reducir la contaminación. 
+	 */
 	public int weatherANumero()
 	{
 		int condicion = 0;

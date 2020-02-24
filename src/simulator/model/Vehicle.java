@@ -22,7 +22,7 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		
 		if(maxSpeed <= 0) throw new IllegalArgumentException("La velocidad maxima tiene que ser un numero positivo.");
 		if(contClass < 0 || contClass > 10) throw new IllegalArgumentException("El grado de contaminacion tiene que tener un valor entre 0 y 10.");
-		if(itinerary.length() < 2) throw new IllegalArgumentException("El itinerario tiene que tener al menos dos elementos.");
+		if(itinerary.size() < 2) throw new IllegalArgumentException("El itinerario tiene que tener al menos dos elementos.");
 	
 		velocMaxima = maxSpeed;
 		gradoCont = contClass;
@@ -56,18 +56,33 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		}
 	}
 
+	/**
+	 * Mueve el vehículo a la siguiente carretera. Este proceso se hace 
+	 * saliendo de la carretera actual y entrando a la siguiente carretera
+	 * de su itinerario, en la localización 0.
+	 */
+	void moveToNextRoad() {
+		
+		//TODO: pues eso
+	}
+	
+	/**
+	 * Devuelve el estado del vehículo en formato JSON.
+	 */
 	@Override
 	public JSONObject report() {
 		//TODO: implementar JSON cuando se sepa como
 		return null;
 	}
 	
-	void moveToNextRoad() {
-		//TODO: pues eso
-	}
-	
 	/*GETS & SETS*/
 	
+	/**
+	 * Pone la velocidad actual al valor mínimo entre s y la velocidad
+	 * máxima del vehículo. Lanza una excepción si s es negativo.
+	 * 
+	 * @param s
+	 */
 	void setSpeed(int s) {
 		
 		if (s < 0)
@@ -85,6 +100,12 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		}
 	}
 	
+	/**
+	 * Pone el valor de contaminación del vehículo a 'c'. Lanza una 
+	 * excepción si 'c' no es un valor entre 0 y 10 (ambos incluidos).
+	 * 
+	 * @param c
+	 */
 	void setContaminationClass(int c) {
 		
 		if (gradoCont < 0 || gradoCont > 10)
