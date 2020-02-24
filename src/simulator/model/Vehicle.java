@@ -22,7 +22,7 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		
 		if(maxSpeed <= 0) throw new IllegalArgumentException("La velocidad maxima tiene que ser un numero positivo.");
 		if(contClass < 0 || contClass > 10) throw new IllegalArgumentException("El grado de contaminacion tiene que tener un valor entre 0 y 10.");
-		if(itinerary.length() < 2) throw new IllegalArgumentException("El itinerario tiene que tener al menos dos elementos.");
+		if(itinerary.size() < 2) throw new IllegalArgumentException("El itinerario tiene que tener al menos dos elementos.");
 	
 		velocMaxima = maxSpeed;
 		gradoCont = contClass;
