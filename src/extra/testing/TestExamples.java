@@ -54,6 +54,7 @@ public class TestExamples {
 		Integer ticks = info.getInt("ticks");
 
 		System.out.println("-> Running: " + inFile);
+
 		try {
 			simulator.launcher.Main.main(new String[] { "-i", inFile, "-o", outFile, "-t", ticks.toString() });
 			System.out.println("OK!");
@@ -70,6 +71,7 @@ public class TestExamples {
 		Integer ticks = info.getInt("ticks");
 
 		_stdOut.println("-> Running: " + inFile);
+		
 		try {
 			simulator.launcher.Main.main(new String[] { "-i", inFile.getPath(), "-o", myoutFile.getPath(), "-t", ticks.toString() });
 

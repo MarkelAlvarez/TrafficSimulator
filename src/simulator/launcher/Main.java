@@ -26,17 +26,18 @@ public class Main {
 
 		/*Parse the command line as provided in args*/
 		CommandLineParser parser = new DefaultParser();
-		
+
 		try {
 			CommandLine line = parser.parse(cmdLineOptions, args);
 			parseHelpOption(line, cmdLineOptions);
 			parseInFileOption(line);
 			parseOutFileOption(line);
 
-			/* If there are some remaining arguments, then something wrong is
-			 * provided in the command line!
+			/* If there are some remaining arguments, then something 
+			 * wrong is provided in the command line!
 			 */
 			String[] remaining = line.getArgs();
+
 			if (remaining.length > 0)
 			{
 				String error = "Illegal arguments:";
@@ -51,7 +52,7 @@ public class Main {
 	}
 
 	private static Options buildOptions() {
-		
+
 		Options cmdLineOptions = new Options();
 
 		cmdLineOptions.addOption(Option.builder("i").longOpt("input").hasArg().desc("Events input file").build());
@@ -62,7 +63,7 @@ public class Main {
 	}
 
 	private static void parseHelpOption(CommandLine line, Options cmdLineOptions) {
-		
+
 		if (line.hasOption("h"))
 		{
 			HelpFormatter formatter = new HelpFormatter();
@@ -72,7 +73,7 @@ public class Main {
 	}
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
-		
+
 		_inFile = line.getOptionValue("i");
 		if (_inFile == null)
 		{
@@ -81,34 +82,35 @@ public class Main {
 	}
 
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
-		
+
 		_outFile = line.getOptionValue("o");
 	}
 
 	private static void initFactories() {
-		// TODO complete this method to initialize _eventsFactory
 
+		// TODO complete this method to initialize _eventsFactory
 	}
 
 	private static void startBatchMode() throws IOException {
+
 		// TODO complete this method to start the simulation
 	}
 
 	private static void start(String[] args) throws IOException {
-		
+
 		initFactories();
 		parseArgs(args);
 		startBatchMode();
 	}
 
-	/* Example command lines:
+	/* example command lines:
 	 * -i resources/examples/ex1.json
 	 * -i resources/examples/ex1.json -t 300
 	 * -i resources/examples/ex1.json -o resources/tmp/ex1.out.json
 	 * --help
 	 */
 	public static void main(String[] args) {
-		
+
 		try {
 			start(args);
 		} catch (Exception e) {

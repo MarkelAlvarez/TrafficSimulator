@@ -37,14 +37,22 @@ public class UsageExample {
 		System.out.println();
 
 		if (jo.has("a"))
+		{
 			System.out.println("It has a key 'a'!!");
+		}
 		else
+		{
 			System.out.println("It does not have a key 'a'!!");
+		}
 
 		if (jo.has("bla"))
+		{
 			System.out.println("It has a key 'bla'!!");
+		}
 		else
+		{
 			System.out.println("It does not have a key 'bla'!!");
+		}
 
 		/* Accessing the value of a key of a known type, already converted to a specific
 		 * type (it simple uses casting!). It throws an exception if the type does not
@@ -133,10 +141,9 @@ public class UsageExample {
 	public static void main(String[] args) throws JSONException, FileNotFoundException {
 
 		/*Example 1: Parse JSON from a string or from a file*/
-
 		/*Build a JSONObject from a string*/
 		JSONObject joFromString = new JSONObject(jsonString);
-
+		
 		/*Build a JSONObject from a file*/
 		JSONObject joFromFile1 = new JSONObject(
 				new JSONTokener(new FileInputStream(new File("resources/other/json-example-1.json"))));
