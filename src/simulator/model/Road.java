@@ -15,6 +15,7 @@ public abstract class Road extends SimulatedObject {
 	private Weather condMet = null;
 	private int contTotal;
 	private List<Vehicle> vehiculos;
+	private String id;
 
 	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
 
@@ -27,6 +28,7 @@ public abstract class Road extends SimulatedObject {
 		if(destJunc == null) throw new IllegalArgumentException("El cruce de destino no puede ser nulo.");
 		if(weather == null) throw new IllegalArgumentException("La condicion meteorologica no puede ser nula.");
 
+		this.id = id;
 		cruceOrigen = srcJunc;
 		cruceDestino = destJunc;
 		velocMaxima = maxSpeed;
@@ -108,8 +110,15 @@ public abstract class Road extends SimulatedObject {
 	 */
 	@Override
 	public JSONObject report() {
-		// TODO JSON como funciona
-		return null;
+
+		JSONObject json = new JSONObject();
+		
+		json.put("id", id);
+		json.put("speedlimit", limiteActual);
+		json.put("weather", condMet);
+		json.put("vehicles", vehiculos);	
+		
+		return json;
 	}
 
 	/*GETS & SETS*/

@@ -14,7 +14,8 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 	private int localizacion = 0;
 	private int gradoCont;
 	private int contTotal;
-	private int distTotRec;
+	private int distTotRec = 0;
+	private String id;
 	
 	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
 		
@@ -24,6 +25,7 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		if(contClass < 0 || contClass > 10) throw new IllegalArgumentException("El grado de contaminacion tiene que tener un valor entre 0 y 10.");
 		if(itinerary.size() < 2) throw new IllegalArgumentException("El itinerario tiene que tener al menos dos elementos.");
 	
+		this.id = id;
 		velocMaxima = maxSpeed;
 		gradoCont = contClass;
 		itinerario = Collections.unmodifiableList(new ArrayList<>(itinerary));
@@ -46,6 +48,7 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 			}
 			
 			contProd = gradoCont * (locNueva - localizacion);
+			distTotRec += (locNueva - localizacion);
 			contTotal += contProd;
 			carretera.addContamination(contProd);
 			localizacion = locNueva;
@@ -71,8 +74,22 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 	 */
 	@Override
 	public JSONObject report() {
-		//TODO: implementar JSON cuando se sepa como
-		return null;
+
+		JSONObject json = new JSONObject();
+		
+		json.put("id", id);
+		json.put("speed", velocActual);
+		json.put("distance", distTotRec);
+		json.put("co2", contTotal);
+		json.put("class", gradoCont);
+		
+		if (estado != VehicleStatus.PENDING || estado != VehicleStatus.ARRIVED)
+		{
+			json.put("road", carretera);
+			json.put("location", localizacion);
+		}		
+		
+		return json;
 	}
 	
 	/*GETS & SETS*/

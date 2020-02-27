@@ -12,11 +12,14 @@ public class Junction extends SimulatedObject {
 	private int indiceVerde;
 	private int pasoSemaforo;
 	private LightSwitchingStrategy estratSem;
-	private DequeuingStrategy estratCola;
+	private DequeingStrategy estratCola;
+	private String id;
 	
-	protected Junction(String id, LightSwitchStrategy lsStrategy, DequeingStrategy dqStrategy, int xCoor, int yCoor) {
+	protected Junction(String id, LightSwitchingStrategy lsStrategy, DequeingStrategy dqStrategy, int xCoor, int yCoor) {
 		
 		super(id);
+		
+		this.id = id;
 	}
 
 	@Override
@@ -27,7 +30,13 @@ public class Junction extends SimulatedObject {
 
 	@Override
 	public JSONObject report() {
-		// TODO Auto-generated method stub
-		return null;
+
+		JSONObject json = new JSONObject();
+		
+		json.put("id", id);
+		json.put(, );
+		json.put("queues", listaColas);	
+		
+		return json;
 	}
 }
