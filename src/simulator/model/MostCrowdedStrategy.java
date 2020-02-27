@@ -1,6 +1,6 @@
 package simulator.model;
 
-import java.util.List;
+import java.util.*;
 
 public class MostCrowdedStrategy implements LightSwitchingStrategy {
 
@@ -13,7 +13,7 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
 
 	@Override
 	public int chooseNextGreen(List<Road> roads, List<List<Vehicle>> qs, int currGreen, int lastSwitchingTime, int currTime) {
-
+		
 		if(roads.isEmpty())
 		{
 			return -1;
@@ -31,14 +31,29 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
 					pos = i;
 				}
 			}
-			
 			return pos;
 		}
 		else if (currTime - lastSwitchingTime < ticksVerde)
 		{
 			return currGreen;
 		}
-		//TODO: la que falta
-		return 0;
+		else {
+			int tamCola = 0;
+			int pos = 0;
+			int busco = (currGreen + 1) % qs.size();
+			for (int i = 0; i < qs.size(); i++)
+			{
+				if(tamCola < qs.get(busco).size())
+				{
+					tamCola = qs.get(busco).size();
+					pos = busco;
+				}
+				busco++;
+				if(busco == qs.size()) {
+					busco = 0;
+				}
+			}
+			return pos;
+		}
 	}
 }
