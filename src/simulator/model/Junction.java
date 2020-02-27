@@ -71,7 +71,6 @@ public class Junction extends SimulatedObject {
 		return id;
 	}
 
-	@Override
 	public void setId(String id) {
 		
 		this.id = id;
