@@ -1,10 +1,13 @@
 package simulator.model;
 
 import java.util.*;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Junction extends SimulatedObject {
 
+	//TODO: Rellenar metodos
 	private List<Road> listaEntrantes;
 	private Map<Junction,Road> mapaSalientes;
 	private List<List<Vehicle >> listaColas;
@@ -20,6 +23,9 @@ public class Junction extends SimulatedObject {
 	protected Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) {
 		
 		super(id);
+		
+		if(lsStrategy == null && dqStrategy == null) throw new IllegalArgumentException("Ninguna de las estrategias no pueden ser null");
+		if((xCoor >= 0) && (yCoor >= 0)) throw new IllegalArgumentException("El grado de contaminacion tiene que tener un valor entre 0 y 10.");
 		
 		this.id = id;
 		estratSem = lsStrategy;
@@ -56,9 +62,27 @@ public class Junction extends SimulatedObject {
 
 		JSONObject json = new JSONObject();
 		
+		
 		json.put("id", id);
-		json.put(, );
-		json.put("queues", listaColas);	
+		
+		if (indiceVerde == -1)
+		{
+			json.put("green", "none");
+		}
+		else
+		{
+			json.put("green", listaEntrantes.get(indiceVerde).getId());
+		}
+		
+		JSONArray jArray = new JSONArray();
+		json.put("queues", jArray);
+		/*Estos son los de dentro de "queues"*/
+		for (Road r : listaEntrantes)
+		{
+			JSONObject jsonCarreteras = new JSONObject();
+			jArray.put(jsonCarreteras);
+			jsonCarreteras.put("road", r.getId());
+		}
 		
 		return json;
 	}

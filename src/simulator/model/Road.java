@@ -2,6 +2,7 @@ package simulator.model;
 
 import java.util.*;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public abstract class Road extends SimulatedObject {
@@ -116,7 +117,13 @@ public abstract class Road extends SimulatedObject {
 		json.put("id", id);
 		json.put("speedlimit", limiteActual);
 		json.put("weather", condMet);
-		json.put("vehicles", vehiculos);	
+		
+		JSONArray jArray = new JSONArray();
+		json.put("vehicles", jArray);
+		for (Vehicle vehicle : vehiculos)
+		{
+			jArray.put(vehicle.getId());
+		}
 		
 		return json;
 	}
