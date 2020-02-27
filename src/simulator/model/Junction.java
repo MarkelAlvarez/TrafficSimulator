@@ -12,10 +12,10 @@ public class Junction extends SimulatedObject {
 	private int indiceVerde;
 	private int pasoSemaforo;
 	private LightSwitchingStrategy estratSem;
-	private DequeingStrategy estratCola;
+	private DequeuingStrategy estratCola;
 	private String id;
 	
-	protected Junction(String id, LightSwitchingStrategy lsStrategy, DequeingStrategy dqStrategy, int xCoor, int yCoor) {
+	protected Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) {
 		
 		super(id);
 		
