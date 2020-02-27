@@ -30,7 +30,10 @@ public class RoadMap {
 	 * @param j
 	 */
 	void addJunction(Junction j) {
-		
+		if(!listaCruces.contains(j)) {
+			listaCruces.add(j);
+			mapaCruces.put(j.getId(), j);
+		}
 	}
 	
 	/**
@@ -40,7 +43,8 @@ public class RoadMap {
 	 * @param r
 	 */
 	void addRoad(Road r) {
-		
+		listaCarreteras.add(r);
+		mapaCarreteras.put(r.getId(), r);
 	}
 	
 	/**
@@ -50,15 +54,20 @@ public class RoadMap {
 	 * @param v
 	 */
 	void addVehicle(Vehicle v) {
-		
+		listaVehiculos.add(v);
+		mapaVehiculos.put(v.getId(), v);
 	}
 	
 	/**
 	 * Limpia todas las listas y mapas
 	 */
 	void reset() {
-		
-		
+		listaCarreteras.clear();
+		listaVehiculos.clear();
+		listaCruces.clear();
+		mapaCarreteras.clear();
+		mapaCruces.clear();
+		mapaVehiculos.clear();
 	}
 	
 	/**
@@ -73,32 +82,39 @@ public class RoadMap {
 	/*SETS & GETS*/
 	
 	public Junction getJunction(String id) {
-		
+		if(listaCruces.contains(mapaCruces.get(id))){
+			return mapaCruces.get(id);
+		}
 		return null;
 	}
 	
 	public Road getRoad(String id) {
-		
+		if(listaCarreteras.contains(mapaCarreteras.get(id))){
+			return mapaCarreteras.get(id);
+		}
 		return null;
 	}
 	
 	public Vehicle getVehicle(String id) {
-
+		if(listaVehiculos.contains(mapaVehiculos.get(id))){
+			return mapaVehiculos.get(id);
+		}
 		return null;
 	}
 	
+	//No se si esto está bien, pero como pide de solo lectura pues eso - JP
 	public List<Junction>getJunctions() {
-		
-		return listaCruces;
+		final List<Junction> lista = new ArrayList<Junction>(listaCruces);
+		return lista;
 	}
 	
 	public List<Road> getRoads() {
-		
-		return listaCarreteras;	
+		final List<Road> lista = new ArrayList<Road>(listaCarreteras);
+		return lista;
 	}
 	
 	public List<Vehicle> getVehicles() {
-		
-		return listaVehiculos;
+		final List<Vehicle> lista = new ArrayList<Vehicle>(listaVehiculos);
+		return lista;
 	}
 }
