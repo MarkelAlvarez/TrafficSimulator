@@ -30,7 +30,9 @@ public class RoadMap {
 	 * @param j
 	 */
 	void addJunction(Junction j) {
-		if(!listaCruces.contains(j)) {
+		
+		if(!listaCruces.contains(j))
+		{
 			listaCruces.add(j);
 			mapaCruces.put(j.getId(), j);
 		}
@@ -43,6 +45,7 @@ public class RoadMap {
 	 * @param r
 	 */
 	void addRoad(Road r) {
+		
 		listaCarreteras.add(r);
 		mapaCarreteras.put(r.getId(), r);
 	}
@@ -54,6 +57,7 @@ public class RoadMap {
 	 * @param v
 	 */
 	void addVehicle(Vehicle v) {
+		
 		listaVehiculos.add(v);
 		mapaVehiculos.put(v.getId(), v);
 	}
@@ -62,6 +66,7 @@ public class RoadMap {
 	 * Limpia todas las listas y mapas
 	 */
 	void reset() {
+		
 		listaCarreteras.clear();
 		listaVehiculos.clear();
 		listaCruces.clear();
