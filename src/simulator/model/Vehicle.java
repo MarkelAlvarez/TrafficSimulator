@@ -147,6 +147,17 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		
 		return velocActual;
 	}
+	
+	@Override
+	public String getId() {
+		
+		return id;
+	}
+
+	public void setId(String id) {
+		
+		this.id = id;
+	}
 
 	@Override
 	public int compareTo(Vehicle o) {
