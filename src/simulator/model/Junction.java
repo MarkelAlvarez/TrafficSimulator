@@ -13,6 +13,8 @@ public class Junction extends SimulatedObject {
 	private int pasoSemaforo;
 	private LightSwitchingStrategy estratSem;
 	private DequeuingStrategy estratCola;
+	private int x;
+	private int y;
 	private String id;
 	
 	protected Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) {
@@ -20,8 +22,29 @@ public class Junction extends SimulatedObject {
 		super(id);
 		
 		this.id = id;
+		estratSem = lsStrategy;
+		estratCola = dqStrategy;
+		x = xCoor;
+		y = yCoor;
 	}
 
+	void addIncommingRoad(Road r) {
+		
+	}
+	
+	void addOutGoingRoad(Road r) {
+		
+	}
+	
+	void enter(Vehicle v) {
+		
+	}
+	
+	Road roadTo(Junction j) {
+		
+		return null;
+	}
+	
 	@Override
 	void advance(int time) {
 		// TODO Auto-generated method stub
@@ -38,5 +61,19 @@ public class Junction extends SimulatedObject {
 		json.put("queues", listaColas);	
 		
 		return json;
+	}
+	
+	/*GETS Y SETS*/
+	
+	@Override
+	public String getId() {
+		
+		return id;
+	}
+
+	@Override
+	public void setId(String id) {
+		
+		this.id = id;
 	}
 }

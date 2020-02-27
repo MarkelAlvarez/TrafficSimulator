@@ -176,6 +176,17 @@ public abstract class Road extends SimulatedObject {
 		this.velocMaxima = velocMaxima;
 	}
 
+	@Override
+	public String getId() {
+		
+		return id;
+	}
+
+	public void setId(String id) {
+		
+		this.id = id;
+	}
+
 	/**
 	 * Método abstracto para reducir el total de la contaminación de la carretera.
 	 * La implementación específica la definirán las subclases de Road.
