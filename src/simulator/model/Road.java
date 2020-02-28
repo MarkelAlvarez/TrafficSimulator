@@ -39,8 +39,8 @@ public abstract class Road extends SimulatedObject {
 	}
 
 	/**
-	 * Se utiliza por los vehÌculos para entrar a la carretera. Simplemente
-	 * aÒade el vehÌculo a la lista de vehÌculos de la carretera (al final).
+	 * Se utiliza por los veh√≠culos para entrar a la carretera. Simplemente
+	 * a√±ade el veh√≠culo a la lista de veh√≠culos de la carretera (al final).
 	 * 
 	 * @param v
 	 */
@@ -53,8 +53,8 @@ public abstract class Road extends SimulatedObject {
 	}
 
 	/**
-	 * Lo utiliza un vehÌculo para abandonar la carretera. Simplemente
-	 * elimina el vehÌculo de la lista de vehÌculos de la carretera.
+	 * Lo utiliza un veh√≠culo para abandonar la carretera. Simplemente
+	 * elimina el veh√≠culo de la lista de veh√≠culos de la carretera.
 	 * 
 	 * @param v
 	 * */
@@ -64,8 +64,8 @@ public abstract class Road extends SimulatedObject {
 	}
 
 	/**
-	 * aÒade c unidades de CO2 al total de la contaminaciÛn de la carretera. Tiene
-	 * que comprobar que c no es negativo y lanzar una excepciÛn en otro caso.
+	 * a√±ade c unidades de CO2 al total de la contaminaci√≥n de la carretera. Tiene
+	 * que comprobar que c no es negativo y lanzar una excepci√≥n en otro caso.
 	 * 
 	 * @param c
 	 */
@@ -80,15 +80,15 @@ public abstract class Road extends SimulatedObject {
 	 * Avanza el estado de la carretera de la siguiente forma:
 	 * 
 	 * (1) llama a reduceTotalContamination para reducir la 
-	 * contaminaciÛn total, es decir, la disminuciÛn de CO2.
+	 * contaminaci√≥n total, es decir, la disminuci√≥n de CO2.
 	 * 
-	 * (2) llama a updateSpeedLimit para establecer el lÌmite de
-	 * velocidad de la carretera en el paso de simulaciÛn actual.
+	 * (2) llama a updateSpeedLimit para establecer el l√≠mite de
+	 * velocidad de la carretera en el paso de simulaci√≥n actual.
 	 * 
-	 * (3) recorre la lista de vehÌculos (desde el primero al ˙ltimo) y,
-	 * para cada vehÌculo:
-	 *  	a) pone la velocidad del vehÌculo al valor devuelto por calculateVehicleSpeed. 
-	 * 		b) llama al mÈtodo advance del vehÌculo.
+	 * (3) recorre la lista de veh√≠culos (desde el primero al √∫ltimo) y,
+	 * para cada veh√≠culo:
+	 *  	a) pone la velocidad del veh√≠culo al valor devuelto por calculateVehicleSpeed. 
+	 * 		b) llama al m√©todo advance del veh√≠culo.
 	 * 
 	 * @param time
 	 */
@@ -103,7 +103,7 @@ public abstract class Road extends SimulatedObject {
 			vehiculos.get(i).setSpeed(calculateVehicleSpeed(vehiculos.get(i)));
 		}
 
-		Collections.sort(vehiculos);
+		Collections.sort(vehiculos); //TODO: lo mete ordenado bien?
 	}
 
 	/**
@@ -131,8 +131,8 @@ public abstract class Road extends SimulatedObject {
 	/*GETS & SETS*/
 
 	/**
-	 * Pone las condiciones atmosfÈericas de la carretera al valor w. Debe 
-	 * comprobar que w no es null y lanzar una excepciÛn en caso contrario.
+	 * Pone las condiciones atmosf√©ericas de la carretera al valor w. Debe 
+	 * comprobar que w no es null y lanzar una excepci√≥n en caso contrario.
 	 * 
 	 * @param w
 	 */
@@ -195,18 +195,18 @@ public abstract class Road extends SimulatedObject {
 	}
 
 	/**
-	 * MÈtodo abstracto para reducir el total de la contaminaciÛn de la carretera.
-	 * La implementaciÛn especÌfica la definir·n las subclases de Road.
+	 * M√©todo abstracto para reducir el total de la contaminaci√≥n de la carretera.
+	 * La implementaci√≥n espec√≠fica la definir√°n las subclases de Road.
 	 */
 	abstract void reduceTotalContamination();
 	/**
-	 * mÈtodo abstracto para actualizar la velocidad lÌmite de la carretera.
-	 * La implementaciÛn especÌfica la definir·n las subclases de Road.
+	 * m√©todo abstracto para actualizar la velocidad l√≠mite de la carretera.
+	 * La implementaci√≥n espec√≠fica la definir√°n las subclases de Road.
 	 */
 	abstract void updateSpeedLimit();
 	/**
-	 * mÈtodo abstracto para calcular la velocidad de un vehÌculo v.
-	 * La implementaciÛn especÌfica la definir·n las subclases de Road.
+	 * m√©todo abstracto para calcular la velocidad de un veh√≠culo v.
+	 * La implementaci√≥n espec√≠fica la definir√°n las subclases de Road.
 	 * 
 	 * @param v
 	 */
