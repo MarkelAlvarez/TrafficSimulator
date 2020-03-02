@@ -24,8 +24,8 @@ public class Junction extends SimulatedObject {
 		
 		super(id);
 		
-		if(lsStrategy == null && dqStrategy == null) throw new IllegalArgumentException("Ninguna de las estrategias no pueden ser null");
-		if((xCoor >= 0) && (yCoor >= 0)) throw new IllegalArgumentException("El grado de contaminacion tiene que tener un valor entre 0 y 10.");
+		if(lsStrategy == null && dqStrategy == null) throw new IllegalArgumentException("Ninguna de las estrategias no pueden ser null.");
+		if((xCoor >= 0) && (yCoor >= 0)) throw new IllegalArgumentException("Las coordenadas deben tener un valor positivo mayor que 0.");
 		
 		this.id = id;
 		estratSem = lsStrategy;
@@ -34,6 +34,7 @@ public class Junction extends SimulatedObject {
 		y = yCoor;
 	}
 
+	//TODO: metodos de Junction
 	void addIncommingRoad(Road r) {
 		
 	}
@@ -53,15 +54,13 @@ public class Junction extends SimulatedObject {
 	
 	@Override
 	void advance(int time) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public JSONObject report() {
 
 		JSONObject json = new JSONObject();
-		
 		
 		json.put("id", id);
 		
@@ -76,7 +75,7 @@ public class Junction extends SimulatedObject {
 		
 		JSONArray jArray = new JSONArray();
 		json.put("queues", jArray);
-		/*Estos son los de dentro de "queues"*/
+		/* Estos son los de dentro de "queues" */
 		for (Road r : listaEntrantes)
 		{
 			JSONObject jsonCarreteras = new JSONObject();

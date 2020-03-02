@@ -1,6 +1,8 @@
 package simulator.model;
 
 import java.util.*;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class RoadMap {
@@ -79,47 +81,85 @@ public class RoadMap {
 	 * Devuelve el estado del mapa de carreteras en formato JSON
 	 */
 	public JSONObject report() {
+
+		JSONObject json = new JSONObject();
+		JSONArray jArray = new JSONArray();
+		JSONArray jArrayVehicle = new JSONArray();
+		JSONArray jArrayRoad = new JSONArray();
 		
-		//TODO Como va lo de los JSON
-		return null;
+		json.put("junctions", jArray);
+		for (Junction junction : listaCruces)
+		{
+			jArray.put(junction.report());
+		}
+		
+		json.put("road", jArrayRoad);
+		for (Road roads : listaCarreteras)
+		{
+			jArrayRoad.put(roads.report());
+		}
+		
+		json.put("vehicles", jArrayVehicle);
+		for (Vehicle vehicle : listaVehiculos)
+		{
+			jArrayVehicle.put(vehicle.report());
+		}
+		
+		return json;
 	}
 	
 	/*SETS & GETS*/
 	
 	public Junction getJunction(String id) {
-		if(listaCruces.contains(mapaCruces.get(id))){
+		
+		if(listaCruces.contains(mapaCruces.get(id)))
+		{
 			return mapaCruces.get(id);
 		}
+		
 		return null;
 	}
 	
 	public Road getRoad(String id) {
-		if(listaCarreteras.contains(mapaCarreteras.get(id))){
+		
+		if(listaCarreteras.contains(mapaCarreteras.get(id)))
+		{
 			return mapaCarreteras.get(id);
 		}
+		
 		return null;
 	}
 	
 	public Vehicle getVehicle(String id) {
-		if(listaVehiculos.contains(mapaVehiculos.get(id))){
+		
+		if(listaVehiculos.contains(mapaVehiculos.get(id)))
+		{
 			return mapaVehiculos.get(id);
 		}
+		
 		return null;
 	}
 	
 	//No se si esto está bien, pero como pide de solo lectura pues eso - JP
 	public List<Junction>getJunctions() {
+		
+		//TODO: revisar si esta bien
 		final List<Junction> lista = new ArrayList<Junction>(listaCruces);
+		
 		return lista;
 	}
 	
 	public List<Road> getRoads() {
+		
 		final List<Road> lista = new ArrayList<Road>(listaCarreteras);
+		
 		return lista;
 	}
 	
 	public List<Vehicle> getVehicles() {
+		
 		final List<Vehicle> lista = new ArrayList<Vehicle>(listaVehiculos);
+		
 		return lista;
 	}
 }
