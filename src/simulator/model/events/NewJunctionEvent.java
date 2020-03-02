@@ -1,4 +1,6 @@
-package simulator.model;
+package simulator.model.events;
+
+import simulator.model.RoadMap;
 
 public class NewJunctionEvent extends Event {
 

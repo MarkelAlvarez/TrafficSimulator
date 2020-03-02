@@ -1,8 +1,10 @@
-package simulator.model;
+package simulator.model.events;
 
-public class NewVehicleEvent extends Event {
+import simulator.model.RoadMap;
 
-	public NewVehicleEvent(int time) {
+public class SetWeatherEvent extends Event {
+
+	public SetWeatherEvent(int time) {
 		super(time);
 		// TODO Auto-generated constructor stub
 	}
