@@ -2,7 +2,6 @@ package simulator.model;
 
 import org.json.JSONObject;
 import java.util.*;
-import java.lang.RuntimeException;
 
 public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 
