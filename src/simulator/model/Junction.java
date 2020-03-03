@@ -76,11 +76,11 @@ public class Junction extends SimulatedObject {
 		JSONArray jArray = new JSONArray();
 		json.put("queues", jArray);
 		/* Estos son los de dentro de "queues" */
-		for (Road r : listaEntrantes)
+		for (Road roads : listaEntrantes)
 		{
 			JSONObject jsonCarreteras = new JSONObject();
 			jArray.put(jsonCarreteras);
-			jsonCarreteras.put("road", r.getId());
+			jsonCarreteras.put("road", roads.getId());
 		}
 		
 		return json;
