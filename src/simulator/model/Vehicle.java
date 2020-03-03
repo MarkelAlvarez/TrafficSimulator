@@ -173,4 +173,12 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		
 		this.contTotal = contTotal;
 	}
+	
+	public Road getCarretera() {
+		return carretera;
+	}
+
+	public void setCarretera(Road carretera) {
+		this.carretera = carretera;
+	}
 }

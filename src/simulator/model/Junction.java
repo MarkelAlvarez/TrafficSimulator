@@ -36,20 +36,24 @@ public class Junction extends SimulatedObject {
 
 	//TODO: metodos de Junction
 	void addIncommingRoad(Road r) {
-		
+		listaEntrantes.add(r);
+		LinkedList<Vehicle> aux_r = new LinkedList<Vehicle>();
+		listaColas.add(aux_r);
+		//TODO: preguntar si está bien y terminar o algo
 	}
 	
 	void addOutGoingRoad(Road r) {
-		
+		mapaSalientes.put(r.getCruceDestino(), r);
+		//TODO: excepcion
 	}
 	
 	void enter(Vehicle v) {
-		
+		v.getCarretera().getVehiculos().add(v);
 	}
 	
 	Road roadTo(Junction j) {
 		
-		return null;
+		return mapaSalientes.get(j);
 	}
 	
 	@Override

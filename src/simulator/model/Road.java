@@ -30,8 +30,8 @@ public abstract class Road extends SimulatedObject {
 		if(weather == null) throw new IllegalArgumentException("La condicion meteorologica no puede ser nula.");
 
 		this.id = id;
-		cruceOrigen = srcJunc;
-		cruceDestino = destJunc;
+		setCruceOrigen(srcJunc);
+		setCruceDestino(destJunc);
 		velocMaxima = maxSpeed;
 		limiteCont = contLimit;
 		longitud = length;
@@ -192,6 +192,30 @@ public abstract class Road extends SimulatedObject {
 	public void setId(String id) {
 		
 		this.id = id;
+	}
+
+	public List<Vehicle> getVehiculos() {
+		return vehiculos;
+	}
+
+	public void setVehiculos(List<Vehicle> vehiculos) {
+		this.vehiculos = vehiculos;
+	}
+
+	public Junction getCruceDestino() {
+		return cruceDestino;
+	}
+
+	public void setCruceDestino(Junction cruceDestino) {
+		this.cruceDestino = cruceDestino;
+	}
+
+	public Junction getCruceOrigen() {
+		return cruceOrigen;
+	}
+
+	public void setCruceOrigen(Junction cruceOrigen) {
+		this.cruceOrigen = cruceOrigen;
 	}
 
 	/**
