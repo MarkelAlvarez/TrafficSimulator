@@ -15,8 +15,8 @@ public class CityRoad extends Road {
 	}
 
 	/**
-	 * Reduce el total de la contaminación en x unidades de CO2,
-	 * donde x depende de las condiciones atmosféricas:
+	 * Reduce el total de la contaminaciï¿½n en x unidades de CO2,
+	 * donde x depende de las condiciones atmosfÃ©ricas:
 	 */
 	@Override
 	void reduceTotalContamination() {
@@ -38,18 +38,19 @@ public class CityRoad extends Road {
 		}
 		else
 		{
-			throw new IllegalArgumentException("El total de contaminación no puede ser negativo.");
+			throw new IllegalArgumentException("El total de contaminaciÃ³n no puede ser negativo.");
 		}
 		
 	}
 
 	@Override
 	void updateSpeedLimit() {
-		//TODO Preguntar si no hay que hacer velLimite = velMaxima
+		
+		carretera.setLimiteActual(carretera.getVelocMaxima());
 	}
 	
 	/**
-	 * Calcula la velocidad de un vehículo usando la siguiente expresión:
+	 * Calcula la velocidad de un vehÃ­culo usando la siguiente expresiÃ³n:
 	 * (int)(((11.0-f)/11.0)*s)
 	 * 
 	 * @param v

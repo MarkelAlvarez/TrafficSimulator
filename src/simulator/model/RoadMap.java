@@ -25,7 +25,7 @@ public class RoadMap {
 	}
 	
 	/**
-	 * Añade el cruce j al final de la lista de cruces y modifica el mapa
+	 * Aï¿½ade el cruce j al final de la lista de cruces y modifica el mapa
 	 * correspondiente. Se comprueba que no existe otro cruce con el mismo
 	 * identificcador.
 	 * 
@@ -45,7 +45,7 @@ public class RoadMap {
 	}
 	
 	/**
-	 * Añade la carretera r al final de la lista de carreteras y modifica el mapa 
+	 * Aï¿½ade la carretera r al final de la lista de carreteras y modifica el mapa 
 	 * correspondiente.
 	 * 
 	 * @param r
@@ -62,8 +62,8 @@ public class RoadMap {
 	}
 	
 	/**
-	 * Añade el vehículo v al final de la lista de vehículos y modifica el mapa 
-	 * de vehículos en concordancia.
+	 * Aï¿½ade el vehï¿½culo v al final de la lista de vehï¿½culos y modifica el mapa 
+	 * de vehï¿½culos en concordancia.
 	 * 
 	 * @param v
 	 */
@@ -164,26 +164,18 @@ public class RoadMap {
 		return null;
 	}
 	
-	//No se si esto está bien, pero como pide de solo lectura pues eso - JP
 	public List<Junction>getJunctions() {
 		
-		//TODO: revisar si esta bien
-		final List<Junction> lista = new ArrayList<Junction>(listaCruces);
-		
-		return lista;
+		return Collections.unmodifiableList(listaCruces);
 	}
 	
 	public List<Road> getRoads() {
 		
-		final List<Road> lista = new ArrayList<Road>(listaCarreteras);
-		
-		return lista;
+		return Collections.unmodifiableList(listaCarreteras);
 	}
 	
 	public List<Vehicle> getVehicles() {
 		
-		final List<Vehicle> lista = new ArrayList<Vehicle>(listaVehiculos);
-		
-		return lista;
+		return Collections.unmodifiableList(listaVehiculos);
 	}
 }
