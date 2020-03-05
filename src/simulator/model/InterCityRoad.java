@@ -54,14 +54,12 @@ public class InterCityRoad extends Road {
 
 		if (clima == Weather.STORM)
 		{
-			v.setSpeed((int)(carretera.getLimiteActual()*0.8));
+			return (int) (limiteActual*0.8);
 		}
 		else
 		{
-			v.setSpeed(carretera.getLimiteActual());
+			return limiteActual;
 		}
-		
-		return 0;
 	}
 	
 	/**

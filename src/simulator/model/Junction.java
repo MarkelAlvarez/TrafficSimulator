@@ -34,21 +34,35 @@ public class Junction extends SimulatedObject {
 		y = yCoor;
 	}
 
-	//TODO: metodos de Junction
 	void addIncommingRoad(Road r) {
+		
+		if(!this.equals(r.getCruceDestino())) {
+			throw new IllegalArgumentException("No existe el cruce.");
+		}
+		
 		listaEntrantes.add(r);
 		LinkedList<Vehicle> aux_r = new LinkedList<Vehicle>();
 		listaColas.add(aux_r);
-		//TODO: preguntar si está bien y terminar o algo
+		carretera_cola.put(r, aux_r);
 	}
 	
 	void addOutGoingRoad(Road r) {
+		
+		if(!this.equals(r.getCruceOrigen())) {
+			throw new IllegalArgumentException("No existe el cruce.");
+		}
+		
+		if(mapaSalientes.get(r.getCruceDestino()) != null) {
+			throw new IllegalArgumentException("Hay más de un cruce.");
+		}
+		
 		mapaSalientes.put(r.getCruceDestino(), r);
-		//TODO: excepcion
 	}
 	
 	void enter(Vehicle v) {
-		v.getCarretera().getVehiculos().add(v);
+		Road r = v.getCarretera();
+		List<Vehicle> q = carretera_cola.get(r);
+		q.add(v);
 	}
 	
 	Road roadTo(Junction j) {
@@ -59,6 +73,26 @@ public class Junction extends SimulatedObject {
 	@Override
 	void advance(int time) {
 		
+		int next;
+		
+		if (indiceVerde != -1)
+		{	
+			List<Vehicle> q = listaColas.get(indiceVerde);
+			List<Vehicle> pasan = estratCola.dequeue(q);
+		
+			for (Vehicle v : pasan)
+			{
+				v.moveToNextRoad();
+				q.remove(v);
+			}
+		}
+		
+		next = estratSem.chooseNextGreen(listaEntrantes, listaColas, indiceVerde, pasoSemaforo, time);
+		if (next != indiceVerde)
+		{
+			indiceVerde = next;
+			pasoSemaforo = time;
+		}
 	}
 
 	@Override

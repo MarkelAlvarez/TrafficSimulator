@@ -3,7 +3,7 @@ package simulator.model;
 import org.json.JSONObject;
 import java.util.*;
 
-public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
+public class Vehicle extends SimulatedObject {
 
 	private List<Junction> itinerario;
 	private int velocMaxima;
@@ -15,6 +15,7 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 	private int contTotal;
 	private int distTotRec = 0;
 	private String id;
+	private int ultimoCruce;
 	
 	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
 		
@@ -28,6 +29,7 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		velocMaxima = maxSpeed;
 		gradoCont = contClass;
 		itinerario = Collections.unmodifiableList(new ArrayList<>(itinerary));
+		ultimoCruce = 0;
 	}
 	
 	@Override
@@ -42,8 +44,7 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 			if(locNueva > carretera.getLongitud())
 			{
 				locNueva = carretera.getLongitud();
-				//TODO: METER EN COLA AL COCHE
-				estado = VehicleStatus.WAITING;
+				
 			}
 			
 			contProd = gradoCont * (locNueva - localizacion);
@@ -51,6 +52,13 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 			contTotal += contProd;
 			carretera.addContamination(contProd);
 			localizacion = locNueva;
+			
+			if(localizacion == carretera.getLongitud()) {
+				carretera.getCruceDestino().enter(this);
+				estado = VehicleStatus.WAITING;
+				velocActual = 0;
+				ultimoCruce++;
+			}
 		}
 		else
 		{
@@ -65,7 +73,25 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 	 */
 	void moveToNextRoad() {
 		
-		//TODO: pues eso
+		if(estado != VehicleStatus.PENDING && estado != VehicleStatus.WAITING) {
+			throw new IllegalArgumentException("Estado erroneo para moverse a otra carretera.");
+		}
+	
+		if(carretera != null) {
+			carretera.exit(this);
+		}
+		
+		if(ultimoCruce == itinerario.size() - 1) {
+			carretera = null;
+			estado = VehicleStatus.ARRIVED;
+			localizacion = 0;
+		}
+		else {
+			carretera = itinerario.get(ultimoCruce).roadTo(itinerario.get(ultimoCruce + 1));
+			estado = VehicleStatus.TRAVELING;
+			localizacion = 0;
+			carretera.enter(this);
+		}
 	}
 	
 	/**
@@ -82,7 +108,7 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		json.put("co2", contTotal);
 		json.put("class", gradoCont);
 		
-		if (estado != VehicleStatus.PENDING || estado != VehicleStatus.ARRIVED)
+		if (estado != VehicleStatus.PENDING && estado != VehicleStatus.ARRIVED)
 		{
 			json.put("road", carretera);
 			json.put("location", localizacion);
@@ -157,13 +183,15 @@ public class Vehicle extends SimulatedObject implements Comparable<Vehicle> {
 		
 		this.id = id;
 	}
-
-	@Override
-	public int compareTo(Vehicle o) {
-		
-		return this.localizacion < o.localizacion ? 1 : this.localizacion < o.localizacion ? -1 : 0;
-	}
 	
+	public List<Junction> getItinerario() {
+		return itinerario;
+	}
+
+	public void setItinerario(List<Junction> itinerario) {
+		this.itinerario = itinerario;
+	}
+
 	public int getContTotal() {
 		
 		return contTotal;

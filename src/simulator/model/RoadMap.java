@@ -14,14 +14,14 @@ public class RoadMap {
 	private Map<String,Road> mapaCarreteras;
 	private Map<String,Vehicle> mapaVehiculos;
 	
-	protected RoadMap(List<Junction> listaCruces, List<Road> listaCarreteras, List<Vehicle> listaVehiculos, Map<String, Junction> mapaCruces, Map<String, Road> mapaCarreteras, Map<String, Vehicle> mapaVehiculos) {
+	protected RoadMap() {
 		
-		this.listaCruces= listaCruces;
-		this.listaCarreteras = listaCarreteras;
-		this.listaVehiculos = listaVehiculos;
-		this.mapaCruces = mapaCruces;
-		this.mapaCarreteras = mapaCarreteras;
-		this.mapaVehiculos = mapaVehiculos;
+		listaCruces = new ArrayList<Junction>();
+		listaCarreteras = new ArrayList<Road>();
+		listaVehiculos = new ArrayList<Vehicle>();
+		mapaCruces = new HashMap<String, Junction>();
+		mapaCarreteras = new HashMap<String, Road>();
+		mapaVehiculos = new HashMap<String, Vehicle>();
 	}
 	
 	/**
@@ -38,6 +38,10 @@ public class RoadMap {
 			listaCruces.add(j);
 			mapaCruces.put(j.getId(), j);
 		}
+		else
+		{
+			throw new IllegalArgumentException("Ya existe ese cruce.");
+		}
 	}
 	
 	/**
@@ -48,6 +52,10 @@ public class RoadMap {
 	 */
 	void addRoad(Road r) {
 		
+		if (!listaCarreteras.contains(r) && mapaCruces.containsValue(r.getCruceOrigen()) && mapaCruces.containsValue(r.getCruceDestino()))
+		{
+			throw new IllegalArgumentException("No existe esa carretera.");
+		}
 		listaCarreteras.add(r);
 		mapaCarreteras.put(r.getId(), r);
 	}
@@ -60,6 +68,19 @@ public class RoadMap {
 	 */
 	void addVehicle(Vehicle v) {
 		
+		List<Junction> l = v.getItinerario();
+		
+		if (!listaVehiculos.contains(v))
+		{
+			throw new IllegalArgumentException("No existe esa carretera.");
+		}
+		for (int i = 0; i < l.size()-1; i++)
+		{
+			if (l.get(i).roadTo(l.get(i+1)) == null)
+			{
+				throw new IllegalArgumentException("El itineario es nulo.");
+			}
+		}
 		listaVehiculos.add(v);
 		mapaVehiculos.put(v.getId(), v);
 	}
@@ -93,7 +114,7 @@ public class RoadMap {
 			jArray.put(junction.report());
 		}
 		
-		json.put("road", jArrayRoad);
+		json.put("roads", jArrayRoad);
 		for (Road roads : listaCarreteras)
 		{
 			jArrayRoad.put(roads.report());

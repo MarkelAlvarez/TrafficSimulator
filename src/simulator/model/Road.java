@@ -11,12 +11,13 @@ public abstract class Road extends SimulatedObject {
 	private Junction cruceDestino = null;
 	private int longitud;
 	private int velocMaxima;
-	private int limiteActual;
+	protected int limiteActual;
 	private int limiteCont;
 	private Weather condMet = null;
 	private int contTotal;
 	private List<Vehicle> vehiculos;
 	private String id;
+	private CompararVehiculos cmp;
 
 	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
 
@@ -36,6 +37,7 @@ public abstract class Road extends SimulatedObject {
 		limiteCont = contLimit;
 		longitud = length;
 		condMet = weather;
+		cmp = new CompararVehiculos();
 	}
 
 	/**
@@ -103,7 +105,7 @@ public abstract class Road extends SimulatedObject {
 			vehiculos.get(i).setSpeed(calculateVehicleSpeed(vehiculos.get(i)));
 		}
 
-		Collections.sort(vehiculos); //TODO: lo mete ordenado bien?
+		vehiculos.sort(cmp);
 	}
 
 	/**
