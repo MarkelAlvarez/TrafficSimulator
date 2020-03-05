@@ -35,6 +35,8 @@ public class NewCityRoadEvent extends Event {
 
 	@Override
 	void execute(RoadMap map) {
-		// TODO Auto-generated method stub
+		
+		InterCityRoad r = new InterCityRoad(id, map.getJunction(srcJunction), map.getJunction(destJunction), velocMaxima, limiteCO2, longitud, clima);
+		map.addRoad(r);
 	}
 }
