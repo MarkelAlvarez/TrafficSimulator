@@ -8,6 +8,7 @@ import simulator.model.*;
 public class SetWeatherEvent extends Event {
 	
 	private int time;
+	private Road carretera;
 	private List<Pair<String,Weather>> tiempo;
 
 	public SetWeatherEvent(int time, List<Pair<String,Weather>> ws) {
@@ -22,6 +23,14 @@ public class SetWeatherEvent extends Event {
 
 	@Override
 	void execute(RoadMap map) {
-		// TODO Auto-generated method stub
+
+		for (Pair<String, Weather> w : tiempo)
+		{
+			if (!map.getRoads().contains(w))
+			{
+				throw new IllegalArgumentException("La carretera no existe en el mapa de carreteras.");
+			}
+			map.getRoad(w.getFirst()).setWeather(w.getSecond());
+		}
 	}
 }
