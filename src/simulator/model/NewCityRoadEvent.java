@@ -1,9 +1,6 @@
-package simulator.model.events;
+package simulator.model;
 
-import simulator.model.RoadMap;
-import simulator.model.Weather;
-
-public class NewInterCityRoadEvent extends Event {
+public class NewCityRoadEvent extends Event {
 
 	private int time;
 	private String id;
@@ -14,7 +11,7 @@ public class NewInterCityRoadEvent extends Event {
 	private int velocMaxima;
 	private Weather clima;
 	
-	public NewInterCityRoadEvent(int time, String id, String srcJun, String destJunc, int length, int co2Limit, int maxSpeed, Weather weather) {
+	public NewCityRoadEvent(int time, String id, String srcJun, String destJunc, int length, int co2Limit, int maxSpeed, Weather weather) {
 	
 		super(time);
 		

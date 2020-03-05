@@ -25,9 +25,9 @@ public class RoadMap {
 	}
 	
 	/**
-	 * A�ade el cruce j al final de la lista de cruces y modifica el mapa
+	 * Añade el cruce j al final de la lista de cruces y modifica el mapa
 	 * correspondiente. Se comprueba que no existe otro cruce con el mismo
-	 * identificcador.
+	 * identificador.
 	 * 
 	 * @param j
 	 */
@@ -45,7 +45,7 @@ public class RoadMap {
 	}
 	
 	/**
-	 * A�ade la carretera r al final de la lista de carreteras y modifica el mapa 
+	 * Añade la carretera r al final de la lista de carreteras y modifica el mapa 
 	 * correspondiente.
 	 * 
 	 * @param r
@@ -62,8 +62,8 @@ public class RoadMap {
 	}
 	
 	/**
-	 * A�ade el veh�culo v al final de la lista de veh�culos y modifica el mapa 
-	 * de veh�culos en concordancia.
+	 * Añade el vehículo v al final de la lista de vehículos y modifica el mapa 
+	 * de vehículos en concordancia.
 	 * 
 	 * @param v
 	 */

@@ -1,4 +1,4 @@
-package simulator.model.events;
+package simulator.model;
 
 import java.util.List;
 import simulator.model.*;

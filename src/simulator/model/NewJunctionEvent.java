@@ -1,7 +1,4 @@
-package simulator.model.events;
-
-import java.util.List;
-import java.util.Map;
+package simulator.model;
 
 import simulator.model.*;
 
@@ -31,6 +28,7 @@ public class NewJunctionEvent extends Event {
 
 	@Override
 	void execute(RoadMap map) {
-		// TODO Auto-generated method stub
+
+		
 	}
 }

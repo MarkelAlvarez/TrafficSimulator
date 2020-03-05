@@ -10,7 +10,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import simulator.factories.Factory;
-import simulator.model.events.Event;
+import simulator.model.Event;
 
 public class Main {
 
