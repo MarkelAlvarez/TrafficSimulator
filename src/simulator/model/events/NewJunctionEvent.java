@@ -31,6 +31,7 @@ public class NewJunctionEvent extends Event {
 
 	@Override
 	void execute(RoadMap map) {
-		// TODO Auto-generated method stub
+		Junction j = new Junction(id, estratSem, estratCola, x, y);
+		map.getJunctions().add(j);
 	}
 }
