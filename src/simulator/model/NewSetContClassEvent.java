@@ -1,8 +1,7 @@
-package simulator.model.events;
+package simulator.model;
 
 import java.util.*;
 import simulator.misc.Pair;
-import simulator.model.RoadMap;
 
 public class NewSetContClassEvent extends Event {
 

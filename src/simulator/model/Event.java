@@ -1,6 +1,4 @@
-package simulator.model.events;
-
-import simulator.model.RoadMap;
+package simulator.model;
 
 public abstract class Event implements Comparable<Event> {
 
