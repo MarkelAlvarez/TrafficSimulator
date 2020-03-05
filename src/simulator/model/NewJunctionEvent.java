@@ -30,6 +30,6 @@ public class NewJunctionEvent extends Event {
 	void execute(RoadMap map) {
 
 		Junction j = new Junction(id, estratSem, estratCola, x, y);
-		map.getJunctions().add(j);
+		map.addJunction(j);
 	}
 }
