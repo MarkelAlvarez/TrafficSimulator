@@ -53,7 +53,8 @@ public class Vehicle extends SimulatedObject {
 			carretera.addContamination(contProd);
 			localizacion = locNueva;
 			
-			if(localizacion == carretera.getLongitud()) {
+			if(localizacion == carretera.getLongitud())
+			{
 				carretera.getCruceDestino().enter(this);
 				estado = VehicleStatus.WAITING;
 				velocActual = 0;
@@ -73,20 +74,24 @@ public class Vehicle extends SimulatedObject {
 	 */
 	void moveToNextRoad() {
 		
-		if(estado != VehicleStatus.PENDING && estado != VehicleStatus.WAITING) {
+		if(estado != VehicleStatus.PENDING && estado != VehicleStatus.WAITING)
+		{
 			throw new IllegalArgumentException("Estado erroneo para moverse a otra carretera.");
 		}
-	
-		if(carretera != null) {
+		
+		if(carretera != null)
+		{
 			carretera.exit(this);
 		}
-		
-		if(ultimoCruce == itinerario.size() - 1) {
+	
+		if(ultimoCruce == itinerario.size() - 1)
+		{
 			carretera = null;
 			estado = VehicleStatus.ARRIVED;
 			localizacion = 0;
 		}
-		else {
+		else
+		{
 			carretera = itinerario.get(ultimoCruce).roadTo(itinerario.get(ultimoCruce + 1));
 			estado = VehicleStatus.TRAVELING;
 			localizacion = 0;

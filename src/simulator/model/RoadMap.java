@@ -56,6 +56,7 @@ public class RoadMap {
 		{
 			throw new IllegalArgumentException("No existe esa carretera.");
 		}
+		
 		listaCarreteras.add(r);
 		mapaCarreteras.put(r.getId(), r);
 	}
@@ -74,6 +75,7 @@ public class RoadMap {
 		{
 			throw new IllegalArgumentException("No existe esa carretera.");
 		}
+		
 		for (int i = 0; i < l.size()-1; i++)
 		{
 			if (l.get(i).roadTo(l.get(i+1)) == null)
@@ -81,6 +83,7 @@ public class RoadMap {
 				throw new IllegalArgumentException("El itineario es nulo.");
 			}
 		}
+		
 		listaVehiculos.add(v);
 		mapaVehiculos.put(v.getId(), v);
 	}

@@ -57,7 +57,7 @@ public class CityRoad extends Road {
 	@Override
 	int calculateVehicleSpeed(Vehicle v) {
 		
-		int s = carretera.getLimiteActual(), f = vehiculo.getGradoCont();
+		int s = limiteActual, f = vehiculo.getGradoCont();
 		
 		v.setSpeed((int)(((11.0-f)/11.0)*s));
 		

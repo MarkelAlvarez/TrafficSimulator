@@ -7,7 +7,6 @@ import org.json.JSONObject;
 
 public class Junction extends SimulatedObject {
 
-	//TODO: Rellenar metodos
 	private List<Road> listaEntrantes;
 	private Map<Junction,Road> mapaSalientes;
 	private List<List<Vehicle >> listaColas;
@@ -36,7 +35,8 @@ public class Junction extends SimulatedObject {
 
 	void addIncommingRoad(Road r) {
 		
-		if(!this.equals(r.getCruceDestino())) {
+		if(!this.equals(r.getCruceDestino()))
+		{
 			throw new IllegalArgumentException("No existe el cruce.");
 		}
 		
@@ -48,11 +48,12 @@ public class Junction extends SimulatedObject {
 	
 	void addOutGoingRoad(Road r) {
 		
-		if(!this.equals(r.getCruceOrigen())) {
+		if(!this.equals(r.getCruceOrigen()))
+		{
 			throw new IllegalArgumentException("No existe el cruce.");
 		}
-		
-		if(mapaSalientes.get(r.getCruceDestino()) != null) {
+		if(mapaSalientes.get(r.getCruceDestino()) != null)
+		{
 			throw new IllegalArgumentException("Hay más de un cruce.");
 		}
 		
@@ -60,6 +61,7 @@ public class Junction extends SimulatedObject {
 	}
 	
 	void enter(Vehicle v) {
+		
 		Road r = v.getCarretera();
 		List<Vehicle> q = carretera_cola.get(r);
 		q.add(v);
