@@ -29,6 +29,13 @@ public class NewVehicleEvent extends Event {
 
 	@Override
 	void execute(RoadMap map) {
-		// TODO Auto-generated method stub
+		
+		List<Junction> lista_pocha = null;
+		for (int i = 0; i < itinerario.size(); i++) {
+			lista_pocha.add(map.getJunction(itinerario.get(i)));
+		}
+		Vehicle v = new Vehicle(id, velocMaxima, gradoCont, lista_pocha);
+		
+		map.addVehicle(v);
 	}
 }

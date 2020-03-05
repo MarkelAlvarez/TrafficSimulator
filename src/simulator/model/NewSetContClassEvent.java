@@ -20,6 +20,12 @@ public class NewSetContClassEvent extends Event {
 
 	@Override
 	void execute(RoadMap map) {
-		// TODO Auto-generated method stub
+		for (Pair<String, Integer> c : cont) {
+			
+			if(!map.getVehicles().contains(c)){
+				throw new IllegalArgumentException("El vehiculo no existe.");
+			}
+			map.getVehicle(c.getFirst()).setContaminationClass(c.getSecond());
+		}
 	}
 }
