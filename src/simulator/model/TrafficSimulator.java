@@ -20,15 +20,20 @@ public class TrafficSimulator {
 	}
 	
 	public void addEvent(Event e) {
-		
+		//TODO: cómo va lo de la SortedArrayList
 	}
 	
 	public void advance() {
 		
+		time++;
+		//TODO: lo demás
 	}
 	
 	public void reset() {
 		
+		mapaCarreteras = null;
+		listaEventos = null;
+		time = 0;
 	}
 	
 	public JSONObject report() {
