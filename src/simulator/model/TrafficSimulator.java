@@ -7,7 +7,6 @@ import org.json.JSONObject;
 
 public class TrafficSimulator {
 
-	//TODO: metodos y report
 	private RoadMap mapaCarreteras;
 	private List<Event> listaEventos; //Ordenar?Â¿
 	private int time;
@@ -20,13 +19,12 @@ public class TrafficSimulator {
 	}
 	
 	public void addEvent(Event e) {
-		//TODO: cómo va lo de la SortedArrayList
+		//TODO: cÃ³mo va lo de la SortedArrayList
 	}
 	
 	public void advance() {
 		
-		time++;
-		//TODO: lo demás
+		time++; //TODO: lo demÃ¡s
 	}
 	
 	public void reset() {
