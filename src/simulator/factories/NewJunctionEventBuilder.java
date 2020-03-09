@@ -31,7 +31,6 @@ public class NewJunctionEventBuilder extends Builder<Event> {
 		
 		JSONObject ls = data.getJSONObject("ls_strategy");
 		JSONObject dq = data.getJSONObject("dq_strategy");
-		
 		lsStrategy = lss.createInstance(ls);
 		dqStrategy = dqs.createInstance(dq);
 		
