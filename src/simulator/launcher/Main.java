@@ -106,17 +106,19 @@ public class Main {
 	
 		//TODO: acabar factories
 		List<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
-		lsbs.add( new RoundRobinStrategyBuilder() );
-		lsbs.add( new MostCrowdedStrategyBuilder() );
+		lsbs.add(new RoundRobinStrategyBuilder());
+		lsbs.add(new MostCrowdedStrategyBuilder());
 		Factory<LightSwitchingStrategy> lssFactory = new BuilderBasedFactory<>(lsbs);
+		
 		List<Builder<DequeuingStrategy>> dqbs = new ArrayList<>();
-		dqbs.add( new MoveFirstStrategyBuilder() );
-		dqbs.add( new MoveAllStrategyBuilder() );
+		dqbs.add(new MoveFirstStrategyBuilder());
+		dqbs.add(new MoveAllStrategyBuilder());
 		Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(dqbs);
+		
 		List<Builder<Event>> ebs = new ArrayList<>();
-		ebs.add( new NewJunctionEventBuilder(lssFactory,dqsFactory) );
-		ebs.add( new NewCityRoadEventBuilder() );
-		ebs.add( new NewInterCityRoadEventBuilder() );
+		ebs.add(new NewJunctionEventBuilder(lssFactory,dqsFactory) );
+		ebs.add(new NewCityRoadEventBuilder());
+		ebs.add(new NewInterCityRoadEventBuilder());
 		// ...
 		Factory<Event> eventsFactory = new BuilderBasedFactory<>(ebs);
 	}

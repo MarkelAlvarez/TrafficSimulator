@@ -1,10 +1,7 @@
 package simulator.factories;
 
 import org.json.JSONObject;
-import simulator.model.Event;
-import simulator.model.NewCityRoadEvent;
-import simulator.model.NewJunctionEvent;
-import simulator.model.Weather;
+import simulator.model.*;
 
 public class NewCityRoadEventBuilder extends Builder<Event> {
 

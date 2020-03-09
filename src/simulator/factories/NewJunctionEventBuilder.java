@@ -13,9 +13,9 @@ public class NewJunctionEventBuilder extends Builder<Event> {
 	private int y;
 	private LightSwitchingStrategy lsStrategy;
 	private DequeuingStrategy dqStrategy;
-	
-	
+		
 	public NewJunctionEventBuilder(Factory<LightSwitchingStrategy> lssFactory, Factory<DequeuingStrategy> dqsFactory) {
+		
 		super("new_junction");
 		lss = lssFactory;
 		dqs = dqsFactory;
