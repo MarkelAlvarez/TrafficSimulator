@@ -5,15 +5,14 @@ import simulator.model.*;
 
 public class MoveFirstStrategyBuilder extends Builder<DequeuingStrategy> {
 
-	//TODO: todo
-	public MoveFirstStrategyBuilder(String type) {
+	public MoveFirstStrategyBuilder() {
 	
-		super(type);
+		super("move_first_dqs");
 	}
 
 	@Override
 	protected DequeuingStrategy createTheInstance(JSONObject data) {
 	
-		return null;
+		return new MoveFirstStrategy();
 	}
 }

@@ -5,15 +5,14 @@ import simulator.model.*;
 
 public class MoveAllStrategyBuilder extends Builder<DequeuingStrategy> {
 
-	//TODO: todo
-	public MoveAllStrategyBuilder(String type) {
+	public MoveAllStrategyBuilder() {
 	
-		super(type);
+		super("most_all_dqs");
 	}
 
 	@Override
 	protected DequeuingStrategy createTheInstance(JSONObject data) {
 	
-		return null;
+		return new MoveAllStrategy();
 	}
 }
