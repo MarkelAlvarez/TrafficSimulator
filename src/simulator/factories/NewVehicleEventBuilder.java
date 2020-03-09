@@ -2,8 +2,7 @@ package simulator.factories;
 
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.*;
 import simulator.model.*;
 
 public class NewVehicleEventBuilder extends Builder<Event> {
@@ -27,7 +26,8 @@ public class NewVehicleEventBuilder extends Builder<Event> {
 		velocMaxima = data.getInt("maxspeed");
 		gradoCont = data.getInt("class");
 		
-		for (int i = 0; i < data.getJSONArray("itinerary").length(); i++) {
+		for (int i = 0; i < data.getJSONArray("itinerary").length(); i++)
+		{
 			itinerario.add(data.getJSONArray("itinerary").getString(i));
 		}
 		

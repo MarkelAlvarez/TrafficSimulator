@@ -12,6 +12,13 @@ Controller.java
 Main.java
 
 	- initFactories()
+NewCityRoadEventBuilder.java // NewInterCityRoadEventBuilder
+
+	- get weather status
+	
+SetWeatherEventBuilder.java // SetContClassEventBuilder.java
+
+	- datos json
 
 ORDEN EN EL QUE HACER EL PROYECTO
 
