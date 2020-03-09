@@ -1,6 +1,8 @@
 package simulator.launcher;
 
 import java.io.IOException;
+import java.util.*;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -9,8 +11,8 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import simulator.factories.Factory;
-import simulator.model.Event;
+import simulator.factories.*;
+import simulator.model.*;
 
 public class Main {
 
@@ -18,6 +20,7 @@ public class Main {
 	private static String _inFile = null;
 	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null;
+	private static Integer ticks = 10;
 
 	private static void parseArgs(String[] args) {
 
@@ -32,6 +35,7 @@ public class Main {
 			parseHelpOption(line, cmdLineOptions);
 			parseInFileOption(line);
 			parseOutFileOption(line);
+			parseTicks(line);
 
 			/* If there are some remaining arguments, then something 
 			 * wrong is provided in the command line!
@@ -51,6 +55,11 @@ public class Main {
 		}
 	}
 
+	private static void parseTicks(CommandLine line) {
+		
+		ticks = Integer.parseInt(line.getOptionValue("t"));
+	}
+
 	private static Options buildOptions() {
 
 		Options cmdLineOptions = new Options();
@@ -58,7 +67,7 @@ public class Main {
 		cmdLineOptions.addOption(Option.builder("i").longOpt("input").hasArg().desc("Events input file").build());
 		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
-
+		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").hasArg().desc("Ticks to the simulator's loop.").build());
 		return cmdLineOptions;
 	}
 
@@ -87,10 +96,22 @@ public class Main {
 	}
 
 	private static void initFactories() {
-
-		// TODO complete this method to initialize _eventsFactory
+	
+		List<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
+		lsbs.add( new RoundRobinStrategyBuilder() );
+		lsbs.add( new MostCrowdedStrategyBuilder() );
+		Factory<LightSwitchingStrategy> lssFactory = new BuilderBasedFactory<>(lsbs);
+		List<Builder<DequeuingStrategy>> dqbs = new ArrayList<>();
+		dqbs.add( new MoveFirstStrategyBuilder() );
+		dqbs.add( new MoveAllStrategyBuilder() );
+		Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(dqbs);
+		List<Builder<Event>> ebs = new ArrayList<>();
+		ebs.add( new NewJunctionEventBuilder(lssFactory,dqsFactory) );
+		ebs.add( new NewCityRoadEventBuilder() );
+		ebs.add( new NewInterCityRoadEventBuilder() );
+		// ...
+		Factory<Event> eventsFactory = new BuilderBasedFactory<>(ebs);
 	}
-
 	private static void startBatchMode() throws IOException {
 
 		// TODO complete this method to start the simulation
