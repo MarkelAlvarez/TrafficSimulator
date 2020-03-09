@@ -1,6 +1,11 @@
 package simulator.launcher;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.*;
 
 import org.apache.commons.cli.CommandLine;
@@ -11,6 +16,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import simulator.control.Controller;
 import simulator.factories.*;
 import simulator.model.*;
 
@@ -55,11 +61,6 @@ public class Main {
 		}
 	}
 
-	private static void parseTicks(CommandLine line) {
-		
-		ticks = Integer.parseInt(line.getOptionValue("t"));
-	}
-
 	private static Options buildOptions() {
 
 		Options cmdLineOptions = new Options();
@@ -68,6 +69,7 @@ public class Main {
 		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
 		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").hasArg().desc("Ticks to the simulator's loop.").build());
+		
 		return cmdLineOptions;
 	}
 
@@ -94,9 +96,15 @@ public class Main {
 
 		_outFile = line.getOptionValue("o");
 	}
+	
+	private static void parseTicks(CommandLine line) {
+		
+		ticks = Integer.parseInt(line.getOptionValue("t"));
+	}
 
 	private static void initFactories() {
 	
+		//TODO: acabar factories
 		List<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
 		lsbs.add( new RoundRobinStrategyBuilder() );
 		lsbs.add( new MostCrowdedStrategyBuilder() );
@@ -112,9 +120,28 @@ public class Main {
 		// ...
 		Factory<Event> eventsFactory = new BuilderBasedFactory<>(ebs);
 	}
+	
 	private static void startBatchMode() throws IOException {
 
-		// TODO complete this method to start the simulation
+		OutputStream out;
+		InputStream in = new FileInputStream(new File(_inFile));
+		TrafficSimulator sim = new TrafficSimulator();
+		Controller controller = new Controller(sim, _eventsFactory);
+		
+		if (_outFile == null)
+		{
+			out = System.out;
+		}
+		else
+		{
+			out = new FileOutputStream(new File(_outFile));
+		}
+		
+		controller.loadEvents(in);
+		controller.run(ticks, out);
+		in.close();
+		out.flush();
+		out.close();
 	}
 
 	private static void start(String[] args) throws IOException {
