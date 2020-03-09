@@ -1,19 +1,36 @@
 package simulator.factories;
 
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import simulator.model.*;
 
 public class NewVehicleEventBuilder extends Builder<Event> {
 
-	//TODO: todo
-	NewVehicleEventBuilder(String type) {
+	private int time;
+	private String id;
+	private int gradoCont;
+	private int velocMaxima;
+	private List<String> itinerario;
 	
-		super(type);
+	public NewVehicleEventBuilder() {
+	
+		super("new_vehicle");
 	}
 
 	@Override
 	protected Event createTheInstance(JSONObject data) {
 	
-		return null;
+		time = data.getInt("time");
+		id = data.getString("id");
+		velocMaxima = data.getInt("maxspeed");
+		gradoCont = data.getInt("class");
+		
+		for (int i = 0; i < data.getJSONArray("itinerary").length(); i++) {
+			itinerario.add(data.getJSONArray("itinerary").getString(i));
+		}
+		
+		return new NewVehicleEvent(time, id, velocMaxima, gradoCont, itinerario);
 	}
 }
