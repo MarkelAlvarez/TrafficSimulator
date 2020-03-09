@@ -3,7 +3,6 @@ package simulator.model;
 import java.util.*;
 
 import simulator.misc.Pair;
-import simulator.model.*;
 
 public class SetWeatherEvent extends Event {
 	

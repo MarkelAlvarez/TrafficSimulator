@@ -1,7 +1,5 @@
 package simulator.model;
 
-import simulator.model.*;
-
 public class NewJunctionEvent extends Event {
 
 	private int time;

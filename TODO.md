@@ -1,3 +1,7 @@
+POR COMPLETAR
+TrafficSimulator.java
+	- Acabar de completarlo
+
 ORDEN EN EL QUE HACER EL PROYECTO
 
 1. Empezar con tres clases vacías: Vehicle, Road y Junction.

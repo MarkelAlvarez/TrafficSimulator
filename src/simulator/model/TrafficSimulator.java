@@ -1,14 +1,13 @@
 package simulator.model;
 
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class TrafficSimulator {
 
 	private RoadMap mapaCarreteras;
-	private List<Event> listaEventos; //Ordenar?¿
+	private List<Event> listaEventos; //¿Ordenar con lo mismo que en CompararEventos.java?
 	private int time;
 	
 	public TrafficSimulator() {
@@ -19,6 +18,7 @@ public class TrafficSimulator {
 	}
 	
 	public void addEvent(Event e) {
+		
 		//TODO: cómo va lo de la SortedArrayList
 	}
 	
