@@ -119,7 +119,9 @@ public class Main {
 		ebs.add(new NewJunctionEventBuilder(lssFactory,dqsFactory) );
 		ebs.add(new NewCityRoadEventBuilder());
 		ebs.add(new NewInterCityRoadEventBuilder());
-		// ...
+		ebs.add(new NewVehicleEventBuilder());
+		ebs.add(new SetWeatherEventBuilder());
+		ebs.add(new SetContClassEventBuilder());
 		Factory<Event> eventsFactory = new BuilderBasedFactory<>(ebs);
 	}
 	
