@@ -1,28 +1,27 @@
 package simulator.model;
 
-import java.util.Comparator;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import simulator.misc.SortedArrayList;
+
 public class TrafficSimulator {
 
 	private RoadMap mapaCarreteras;
-	private List<Event> listaEventos; //TODO: ¿Ordenar con lo mismo que en CompararVehiculos.java o con ArrayList?
+	private List<Event> listaEventos;
 	private int time;
 	
 	public TrafficSimulator() {
 
+		listaEventos = new SortedArrayList<Event>();
 		mapaCarreteras = null;
-		listaEventos = null;
 		time = 0;
 	}
 	
 	public void addEvent(Event e) {
 		
 		listaEventos.add(e);
-		Comparator<Event> compara = new CompararEventos();
-		listaEventos.sort(compara);
 	}
 	
 	public void advance() {
