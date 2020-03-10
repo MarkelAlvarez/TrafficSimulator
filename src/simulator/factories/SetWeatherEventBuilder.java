@@ -1,5 +1,6 @@
 package simulator.factories;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -11,7 +12,7 @@ import simulator.model.*;
 public class SetWeatherEventBuilder extends Builder<Event> {
 
 	private int tiempo;
-	private List<Pair<String, Weather>> lista;
+	private List<Pair<String, Weather>> lista = new ArrayList<Pair<String, Weather>>();
 	
 	public SetWeatherEventBuilder() {
 	

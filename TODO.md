@@ -2,7 +2,6 @@ POR COMPLETAR
 
 TrafficSimulator.java
 
-	- addEvent()	
 	- advance()	
 Controller.java
 
