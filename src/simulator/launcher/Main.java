@@ -99,12 +99,14 @@ public class Main {
 	
 	private static void parseTicks(CommandLine line) {
 		
-		ticks = Integer.parseInt(line.getOptionValue("t"));
+		if (line.hasOption("t"))
+		{
+			ticks = Integer.parseInt(line.getOptionValue("t"));
+		}
 	}
 
 	private static void initFactories() {
 	
-		//TODO: acabar factories
 		List<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
 		lsbs.add(new RoundRobinStrategyBuilder());
 		lsbs.add(new MostCrowdedStrategyBuilder());
@@ -116,13 +118,14 @@ public class Main {
 		Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(dqbs);
 		
 		List<Builder<Event>> ebs = new ArrayList<>();
-		ebs.add(new NewJunctionEventBuilder(lssFactory,dqsFactory) );
+		ebs.add(new NewJunctionEventBuilder(lssFactory, dqsFactory));
 		ebs.add(new NewCityRoadEventBuilder());
 		ebs.add(new NewInterCityRoadEventBuilder());
 		ebs.add(new NewVehicleEventBuilder());
 		ebs.add(new SetWeatherEventBuilder());
 		ebs.add(new SetContClassEventBuilder());
-		Factory<Event> eventsFactory = new BuilderBasedFactory<>(ebs);
+		
+		_eventsFactory = new BuilderBasedFactory<>(ebs);
 	}
 	
 	private static void startBatchMode() throws IOException {

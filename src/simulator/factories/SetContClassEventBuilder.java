@@ -13,7 +13,7 @@ public class SetContClassEventBuilder extends Builder<Event> {
 	private int tiempo;
 	private List<Pair<String, Integer>> lista;
 	
-	SetContClassEventBuilder() {
+	public SetContClassEventBuilder() {
 	
 		super("set_cont_class");
 	}

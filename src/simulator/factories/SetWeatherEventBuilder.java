@@ -13,7 +13,7 @@ public class SetWeatherEventBuilder extends Builder<Event> {
 	private int tiempo;
 	private List<Pair<String, Weather>> lista;
 	
-	SetWeatherEventBuilder() {
+	public SetWeatherEventBuilder() {
 	
 		super("set_weather");
 	}

@@ -9,9 +9,6 @@ Controller.java
 
 	- loadEvents()
 	- run()
-Main.java
-
-	- initFactories()
 
 ORDEN EN EL QUE HACER EL PROYECTO
 
