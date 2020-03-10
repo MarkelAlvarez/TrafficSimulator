@@ -30,7 +30,6 @@ public class NewCityRoadEventBuilder extends Builder<Event> {
 		limiteCO2 = data.getInt("cO2limit");
 		velocMaxima = data.getInt("maxspeed");
 		clima = Weather.valueOf(data.getString("weather"));
-
 		
 		return new NewCityRoadEvent(time, id, srcJunction, destJunction, longitud, limiteCO2, velocMaxima, clima);
 	}

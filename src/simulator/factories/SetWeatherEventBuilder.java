@@ -1,19 +1,34 @@
 package simulator.factories;
 
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import simulator.misc.Pair;
 import simulator.model.*;
 
 public class SetWeatherEventBuilder extends Builder<Event> {
 
-	//TODO: todo
-	SetWeatherEventBuilder(String type) {
+	private int tiempo;
+	private List<Pair<String, Weather>> lista;
 	
-		super(type);
+	SetWeatherEventBuilder() {
+	
+		super("set_weather");
 	}
 
 	@Override
 	protected Event createTheInstance(JSONObject data) {
 	
-		return null;
+		tiempo = data.getInt("time");
+		JSONArray jArray = data.getJSONArray("info");
+		
+		for (int i = 0; i < jArray.length(); i++)
+		{
+			lista.add(new Pair<String, Weather>(jArray.getJSONObject(i).getString("road"), Weather.valueOf(jArray.getJSONObject(i).getString("weather"))));
+		}
+		
+		return new SetWeatherEvent(tiempo, lista);
 	}
 }
