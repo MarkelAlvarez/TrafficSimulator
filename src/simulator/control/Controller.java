@@ -3,6 +3,7 @@ package simulator.control;
 import java.io.*;
 import org.json.*;
 import simulator.factories.*;
+import simulator.misc.Pair;
 import simulator.model.*;
 
 public class Controller {
@@ -22,7 +23,12 @@ public class Controller {
 	public void loadEvents(InputStream in) {
 		
 		JSONObject jo = new JSONObject(new JSONTokener(in));
-		//TODO: todo
+		JSONArray array = jo.getJSONArray("events");
+		
+		for (int i = 0; i < array.length(); i++)
+		{
+			sim.addEvent(eventosFact.createInstance(array.getJSONObject(i)));
+		}
 	}
 	
 	public void run(int n, OutputStream out) {
