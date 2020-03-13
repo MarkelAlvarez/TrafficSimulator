@@ -3,7 +3,7 @@ POR COMPLETAR
 TrafficSimulator.java
 
 	- advance()	
-Controller.java
+Controller.java (DONE)
 
 	- loadEvents()
 	- run()
@@ -18,6 +18,6 @@ ORDEN EN EL QUE HACER EL PROYECTO
 7. (DONE) Implementar Eventos de añadir Vehicle, Road y Junction.
 8. Implementar TrafficSimulator.
 9. (DONE) Implementar las factorías y algunos builders, p.ej., los de eventos de añadir Road, Vehicle y Junction.
-10. Implementar el Controller y conectar con el Main.
+10. (DONE) Implementar el Controller y conectar con el Main.
 11. Probar la ejecución de los primeros eventos.
 12. Implementar y probar lo que queda de eventos.
