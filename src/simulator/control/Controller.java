@@ -25,6 +25,11 @@ public class Controller {
 		JSONObject jo = new JSONObject(new JSONTokener(in));
 		JSONArray array = jo.getJSONArray("events");
 		
+		if (!jo.has("events"))
+		{
+			throw new IllegalArgumentException("JSONObject tag in Controller.java loadEvents should be \"events\".");
+		}
+		
 		for (int i = 0; i < array.length(); i++)
 		{
 			sim.addEvent(eventosFact.createInstance(array.getJSONObject(i)));
