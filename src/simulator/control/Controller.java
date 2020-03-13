@@ -33,11 +33,18 @@ public class Controller {
 	
 	public void run(int n, OutputStream out) {
 		
+		JSONObject salida = new JSONObject();
+		JSONArray array = new JSONArray();
+		
 		for (int i = 0; i < n; i++) 
 		{
 			sim.advance();
+			array.put(sim.report());
 		}
-		//TODO: Escribir JSON
+		salida.put("states", array);
+		
+		PrintStream p = new PrintStream(out);
+		p.print(salida.toString());
 	}
 	
 	public void reset() {
