@@ -33,6 +33,9 @@ public class Junction extends SimulatedObject {
 		y = yCoor;
 		
 		mapaSalientes = new HashMap<Junction, Road>();
+		listaEntrantes = new ArrayList<Road>();
+		listaColas = new ArrayList<List<Vehicle>>();
+		carretera_cola = new HashMap<Road, List<Vehicle>>();
 	}
 
 	void addIncommingRoad(Road r) {

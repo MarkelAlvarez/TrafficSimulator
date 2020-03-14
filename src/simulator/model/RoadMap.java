@@ -80,6 +80,7 @@ public class RoadMap {
 		{
 			if (l.get(i).roadTo(l.get(i+1)) == null)
 			{
+				//TODO: orden de lista como debe ser?
 				throw new IllegalArgumentException("El itineario es nulo.");
 			}
 		}

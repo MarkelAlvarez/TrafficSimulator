@@ -10,12 +10,12 @@ public abstract class Road extends SimulatedObject {
 	private Junction cruceOrigen = null;
 	private Junction cruceDestino = null;
 	private int longitud;
-	private int velocMaxima;
+	protected int velocMaxima;
 	protected int limiteActual;
 	private int limiteCont;
 	private Weather condMet = null;
 	private int contTotal;
-	private List<Vehicle> vehiculos;
+	private List<Vehicle> vehiculos = new ArrayList<Vehicle>();
 	private String id;
 	private CompararVehiculos cmp;
 
@@ -213,6 +213,14 @@ public abstract class Road extends SimulatedObject {
 
 	public void setCruceOrigen(Junction cruceOrigen) {
 		this.cruceOrigen = cruceOrigen;
+	}
+
+	public int getContTotal() {
+		return contTotal;
+	}
+
+	public void setContTotal(int contTotal) {
+		this.contTotal = contTotal;
 	}
 
 	/**

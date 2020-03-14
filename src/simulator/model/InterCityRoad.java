@@ -5,7 +5,6 @@ public class InterCityRoad extends Road {
 	private Vehicle vehiculo;
 	private Weather clima;
 	private Road carretera;
-	private int contTotal;
 	
 	public InterCityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
 
@@ -13,38 +12,38 @@ public class InterCityRoad extends Road {
 	}
 
 	/**
-	 * Reduce la contaminación total medinte la formula:
+	 * Reduce la contaminaciï¿½n total medinte la formula:
 	 * (int)((100.0-x)/100.0)*tc)
 	 */
 	@Override
 	void reduceTotalContamination() {
 		
-		int tc = vehiculo.getContTotal(), x = weatherANumero();
+		int tc = getContTotal(), x = weatherANumero();
 		
-		contTotal = (int)((100.0-x)/100.0)*tc;
+		setContTotal((int)((100.0-x)/100.0)*tc);
 	}
 
 	/**
-	 * Si la contaminación total excede el límite de contaminación,entonces
-	 * pone el límite de la velocidad al 50% de la velocidad máxima mediante
+	 * Si la contaminaciÃ³n total excede el lÃ­mite de contaminaciÃ³n,entonces
+	 * pone el lÃ­mite de la velocidad al 50% de la velocidad mÃ¡xima mediante
 	 * esta formula:
 	 * (int)(maxSpeed*0.5)
 	 */
 	@Override
 	void updateSpeedLimit() {
 		
-		if (vehiculo.getContTotal() > carretera.getLimiteCont())
+		if (getContTotal() > getLimiteCont())
 		{
-			carretera.setLimiteActual((int)(getVelocMaxima()*0.5));
+			setLimiteActual((int)(getVelocMaxima()*0.5));
 		}
 		else
 		{
-			carretera.setLimiteActual(getVelocMaxima());
+			setLimiteActual(getVelocMaxima());
 		}
 	}
 
 	/**
-	 * Pone la velocidad del vehículo a la velocidad límite de la carretera
+	 * Pone la velocidad del vehï¿½culo a la velocidad lï¿½mite de la carretera
 	 * dependiendo del clima.
 	 * 
 	 * @param v
@@ -64,7 +63,7 @@ public class InterCityRoad extends Road {
 	
 	/**
 	 * Dependiendo del clima devuelve el valor de cada clima
-	 * para reducir la contaminación. 
+	 * para reducir la contaminaciï¿½n. 
 	 */
 	public int weatherANumero()
 	{

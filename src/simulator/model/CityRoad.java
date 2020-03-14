@@ -3,7 +3,6 @@ package simulator.model;
 public class CityRoad extends Road {
 
 	private Vehicle vehiculo;
-	private Road carretera;
 	private Weather clima;
 	private int limitCont;
 	
@@ -46,7 +45,7 @@ public class CityRoad extends Road {
 	@Override
 	void updateSpeedLimit() {
 		
-		carretera.setLimiteActual(carretera.getVelocMaxima());
+		limiteActual = velocMaxima;
 	}
 	
 	/**
@@ -59,9 +58,7 @@ public class CityRoad extends Road {
 	int calculateVehicleSpeed(Vehicle v) {
 		
 		int s = limiteActual, f = vehiculo.getGradoCont();
-		
-		v.setSpeed((int)(((11.0-f)/11.0)*s));
-		
-		return 0;
+				
+		return (int)(((11.0-f)/11.0)*s);
 	}
 }

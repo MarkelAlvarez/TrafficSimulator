@@ -35,6 +35,7 @@ public class TrafficSimulator {
 			Event event = listaEventos.get(indice);
 			if (time == event.getTime())
 			{
+				//TODO: cambiar de orden?
 				event.execute(mapaCarreteras);
 				listaEventos.remove(event);
 			}
