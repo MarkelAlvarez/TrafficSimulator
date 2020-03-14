@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewVehicleEvent extends Event {
@@ -29,7 +30,7 @@ public class NewVehicleEvent extends Event {
 	@Override
 	void execute(RoadMap map) {
 		
-		List<Junction> lista_pocha = null;
+		List<Junction> lista_pocha = new ArrayList<Junction>();
 		
 		for (int i = 0; i < itinerario.size(); i++)
 		{

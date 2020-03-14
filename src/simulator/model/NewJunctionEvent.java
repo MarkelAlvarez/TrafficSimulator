@@ -14,7 +14,7 @@ public class NewJunctionEvent extends Event {
 		super(time);
 		
 		if(lsStrategy == null && dqStrategy == null) throw new IllegalArgumentException("Ninguna de las estrategias no pueden ser null.");
-		if((xCoor >= 0) && (yCoor >= 0)) throw new IllegalArgumentException("Las coordenadas deben tener un valor positivo mayor que 0.");
+		if((xCoor < 0) || (yCoor < 0)) throw new IllegalArgumentException("Las coordenadas deben tener un valor positivo mayor que 0.");
 		
 		this.time = time;
 		this.id = id;

@@ -24,7 +24,7 @@ public class Junction extends SimulatedObject {
 		super(id);
 		
 		if(lsStrategy == null && dqStrategy == null) throw new IllegalArgumentException("Ninguna de las estrategias no pueden ser null.");
-		if((xCoor >= 0) && (yCoor >= 0)) throw new IllegalArgumentException("Las coordenadas deben tener un valor positivo mayor que 0.");
+		if((xCoor < 0) || (yCoor < 0)) throw new IllegalArgumentException("Las coordenadas deben tener un valor positivo mayor que 0.");
 		
 		this.id = id;
 		estratSem = lsStrategy;
@@ -54,7 +54,7 @@ public class Junction extends SimulatedObject {
 		}
 		if(mapaSalientes.get(r.getCruceDestino()) != null)
 		{
-			throw new IllegalArgumentException("Hay más de un cruce.");
+			throw new IllegalArgumentException("Hay mï¿½s de un cruce.");
 		}
 		
 		mapaSalientes.put(r.getCruceDestino(), r);

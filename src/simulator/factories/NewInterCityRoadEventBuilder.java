@@ -27,7 +27,7 @@ public class NewInterCityRoadEventBuilder extends Builder<Event> {
 		srcJunction = data.getString("src");
 		destJunction = data.getString("dest");
 		longitud = data.getInt("length");
-		limiteCO2 = data.getInt("cO2limit");
+		limiteCO2 = data.getInt("co2limit");
 		velocMaxima = data.getInt("maxspeed");
 		clima = Weather.valueOf(data.getString("weather"));
 		

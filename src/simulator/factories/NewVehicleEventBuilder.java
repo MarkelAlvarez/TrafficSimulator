@@ -1,5 +1,6 @@
 package simulator.factories;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.*;
@@ -11,7 +12,7 @@ public class NewVehicleEventBuilder extends Builder<Event> {
 	private String id;
 	private int gradoCont;
 	private int velocMaxima;
-	private List<String> itinerario;
+	private List<String> itinerario = new ArrayList<String>();
 	
 	public NewVehicleEventBuilder() {
 	

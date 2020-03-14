@@ -45,11 +45,11 @@ public class TrafficSimulator {
 			ultimo = (listaEventos.size() == indice);
 		}
 		
-		for (Junction junction : mapaCarreteras.)
+		for (Junction junction : mapaCarreteras.getJunctions())
 		{
 			junction.advance(time);
 		}
-		for (Road road : mapaCarreteras.)
+		for (Road road : mapaCarreteras.getRoads())
 		{
 			road.advance(time);
 		}

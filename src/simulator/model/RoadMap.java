@@ -164,7 +164,7 @@ public class RoadMap {
 		return null;
 	}
 	
-	public List<Junction>getJunctions() {
+	public List<Junction> getJunctions() {
 		
 		return Collections.unmodifiableList(listaCruces);
 	}
