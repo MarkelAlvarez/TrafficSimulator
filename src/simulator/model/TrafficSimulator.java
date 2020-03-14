@@ -14,7 +14,7 @@ public class TrafficSimulator {
 	public TrafficSimulator() {
 
 		listaEventos = new SortedArrayList<Event>();
-		mapaCarreteras = null;
+		mapaCarreteras = new RoadMap();
 		time = 0;
 	}
 	

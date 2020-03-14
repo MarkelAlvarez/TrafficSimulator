@@ -52,9 +52,9 @@ public class RoadMap {
 	 */
 	void addRoad(Road r) {
 		
-		if (!listaCarreteras.contains(r) && mapaCruces.containsValue(r.getCruceOrigen()) && mapaCruces.containsValue(r.getCruceDestino()))
+		if (listaCarreteras.contains(r.getId()) && mapaCruces.containsValue(r.getCruceOrigen()) && mapaCruces.containsValue(r.getCruceDestino()))
 		{
-			throw new IllegalArgumentException("No existe esa carretera.");
+			throw new IllegalArgumentException("La carretera ya existe.");
 		}
 		
 		listaCarreteras.add(r);
@@ -71,9 +71,9 @@ public class RoadMap {
 		
 		List<Junction> l = v.getItinerario();
 		
-		if (!listaVehiculos.contains(v))
+		if (listaVehiculos.contains(v))
 		{
-			throw new IllegalArgumentException("No existe esa carretera.");
+			throw new IllegalArgumentException("Ya existe este vehiculo.");
 		}
 		
 		for (int i = 0; i < l.size()-1; i++)

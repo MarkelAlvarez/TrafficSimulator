@@ -31,6 +31,8 @@ public class Junction extends SimulatedObject {
 		estratCola = dqStrategy;
 		x = xCoor;
 		y = yCoor;
+		
+		mapaSalientes = new HashMap<Junction, Road>();
 	}
 
 	void addIncommingRoad(Road r) {
@@ -77,7 +79,7 @@ public class Junction extends SimulatedObject {
 		
 		int next;
 		
-		if (indiceVerde != -1)
+		if (indiceVerde != -1 && !listaColas.isEmpty())
 		{	
 			List<Vehicle> q = listaColas.get(indiceVerde);
 			List<Vehicle> pasan = estratCola.dequeue(q);
