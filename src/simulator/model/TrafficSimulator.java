@@ -25,7 +25,34 @@ public class TrafficSimulator {
 	
 	public void advance() {
 		
-		time++; //TODO: lo demás
+		int indice = 0;
+		boolean ultimo = false;
+		
+		time++;
+		
+		while (!ultimo && !listaEventos.isEmpty())
+		{
+			Event event = listaEventos.get(indice);
+			if (time == event.getTime())
+			{
+				event.execute(mapaCarreteras);
+				listaEventos.remove(event);
+			}
+			else
+			{
+				indice++;
+			}
+			ultimo = (listaEventos.size() == indice);
+		}
+		
+		for (Junction junction : mapaCarreteras.)
+		{
+			junction.advance(time);
+		}
+		for (Road road : mapaCarreteras.)
+		{
+			road.advance(time);
+		}
 	}
 	
 	public void reset() {
