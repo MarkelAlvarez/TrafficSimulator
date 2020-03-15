@@ -38,6 +38,9 @@ public abstract class Road extends SimulatedObject {
 		longitud = length;
 		condMet = weather;
 		cmp = new CompararVehiculos();
+		
+		srcJunc.addOutGoingRoad(this);
+		destJunc.addIncommingRoad(this);
 	}
 
 	/**

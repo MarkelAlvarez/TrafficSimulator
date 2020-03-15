@@ -1,9 +1,5 @@
 POR COMPLETAR
 
-TrafficSimulator.java
-
-	- advance() -> ¿Cambia el orden y poner el de Ana Maria?
-
 RoadMap.java
 
 	- addVehicle() -> ¿En que orden debe ordenarse la lista?
