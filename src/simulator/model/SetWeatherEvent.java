@@ -7,7 +7,6 @@ import simulator.misc.Pair;
 public class SetWeatherEvent extends Event {
 	
 	private int time;
-	private Road carretera;
 	private List<Pair<String,Weather>> tiempo;
 
 	public SetWeatherEvent(int time, List<Pair<String,Weather>> ws) {

@@ -10,6 +10,7 @@ public class CityRoad extends Road {
 		super(id, srcJunc, destJunc, maxSpeed, contLimit, length, weather);
 		
 		limitCont = contLimit;
+		clima = weather;
 	}
 
 	/**

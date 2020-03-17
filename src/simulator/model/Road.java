@@ -15,7 +15,7 @@ public abstract class Road extends SimulatedObject {
 	private int limiteCont;
 	private Weather condMet = null;
 	private int contTotal;
-	private List<Vehicle> vehiculos = new ArrayList<Vehicle>();
+	private List<Vehicle> vehiculos;
 	private String id;
 	private CompararVehiculos cmp;
 
@@ -37,7 +37,7 @@ public abstract class Road extends SimulatedObject {
 		limiteCont = contLimit;
 		longitud = length;
 		condMet = weather;
-		cmp = new CompararVehiculos();
+		vehiculos = new ArrayList<Vehicle>();
 		
 		srcJunc.addOutGoingRoad(this);
 		destJunc.addIncommingRoad(this);
@@ -103,11 +103,12 @@ public abstract class Road extends SimulatedObject {
 		reduceTotalContamination();
 		updateSpeedLimit();
 
-		for (int i = 0; i < vehiculos.size(); i++)
+		for (Vehicle vehiculo: vehiculos)
 		{
-			vehiculos.get(i).setSpeed(calculateVehicleSpeed(vehiculos.get(i)));
+			vehiculo.setSpeed(calculateVehicleSpeed(vehiculo));
+			vehiculo.advance(time);
 		}
-
+		cmp = new CompararVehiculos();
 		vehiculos.sort(cmp);
 	}
 
