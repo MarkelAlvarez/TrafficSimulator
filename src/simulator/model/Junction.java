@@ -12,7 +12,7 @@ public class Junction extends SimulatedObject {
 	private List<List<Vehicle >> listaColas;
 	private Map<Road,List<Vehicle>> carretera_cola;
 	private int indiceVerde;
-	private int pasoSemaforo;
+	private int pasoSemaforo = 1;
 	private LightSwitchingStrategy estratSem;
 	private DequeuingStrategy estratCola;
 	private int x;

@@ -117,6 +117,7 @@ public class Vehicle extends SimulatedObject {
 		json.put("distance", distTotRec);
 		json.put("co2", contTotal);
 		json.put("class", gradoCont);
+		json.put("status", estado);
 		
 		if (estado != VehicleStatus.PENDING && estado != VehicleStatus.ARRIVED)
 		{

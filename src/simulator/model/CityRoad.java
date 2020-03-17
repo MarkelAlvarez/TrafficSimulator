@@ -31,7 +31,7 @@ public class CityRoad extends Road {
 		}
 		else
 		{
-			throw new IllegalArgumentException("El total de contaminación no puede ser negativo.");
+			setContTotal(0);
 		}
 		
 	}
