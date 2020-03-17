@@ -122,6 +122,7 @@ public abstract class Road extends SimulatedObject {
 		json.put("id", id);
 		json.put("speedlimit", limiteActual);
 		json.put("weather", condMet);
+		json.put("co2", contTotal);
 		
 		JSONArray jArray = new JSONArray();
 		json.put("vehicles", jArray);
