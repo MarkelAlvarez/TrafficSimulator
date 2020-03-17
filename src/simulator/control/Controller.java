@@ -36,19 +36,22 @@ public class Controller {
 		}
 	}
 	
-	public void run(int n, OutputStream out) { 
+	public void run(int n, OutputStream out) {
+		
 		PrintStream p = new PrintStream(out);
 		p.println("{");
 		p.println("\"states\" : [");
 		
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++)
+		{
 			sim.advance();
 			p.print(sim.report().toString());
-			if (i<n) {
+			if (i < n)
+			{
 				p.println(",");
 			}
 		}
-		//***
+		
 		p.println("]");
 		p.println("}");
 	}
