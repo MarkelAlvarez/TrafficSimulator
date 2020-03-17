@@ -1,10 +1,6 @@
 package simulator.model;
 
 public class InterCityRoad extends Road {
-
-	private Vehicle vehiculo;
-	private Weather clima;
-	private Road carretera;
 	
 	public InterCityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
 
@@ -51,7 +47,7 @@ public class InterCityRoad extends Road {
 	@Override
 	int calculateVehicleSpeed(Vehicle v) {
 
-		if (clima == Weather.STORM)
+		if (getCondMet() == Weather.STORM)
 		{
 			return (int) (limiteActual*0.8);
 		}
@@ -69,23 +65,23 @@ public class InterCityRoad extends Road {
 	{
 		int condicion = 0;
 		
-		if (clima == Weather.SUNNY)
+		if (getCondMet() == Weather.SUNNY)
 		{
 			condicion = 2;
 		}
-		else if (clima == Weather.CLOUDY)
+		else if (getCondMet() == Weather.CLOUDY)
 		{
 			condicion = 3;
 		}
-		else if (clima == Weather.RAINY)
+		else if (getCondMet() == Weather.RAINY)
 		{
 			condicion = 10;
 		}
-		else if (clima == Weather.WINDY)
+		else if (getCondMet() == Weather.WINDY)
 		{
 			condicion = 15;
 		}
-		else if (clima == Weather.STORM)
+		else if (getCondMet() == Weather.STORM)
 		{
 			condicion = 20;
 		}

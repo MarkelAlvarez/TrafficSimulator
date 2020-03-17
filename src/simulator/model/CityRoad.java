@@ -1,16 +1,10 @@
 package simulator.model;
 
 public class CityRoad extends Road {
-
-	private Weather clima;
-	private int limitCont;
 	
 	public CityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
 
 		super(id, srcJunc, destJunc, maxSpeed, contLimit, length, weather);
-		
-		limitCont = contLimit;
-		clima = weather;
 	}
 
 	/**
@@ -20,20 +14,20 @@ public class CityRoad extends Road {
 	@Override
 	void reduceTotalContamination() {
 		
-		int aReducir = 0, aux = limitCont;
+		int aReducir = 0, aux = getContTotal();
 		
-		if (clima == Weather.STORM || clima == Weather.WINDY)
+		if (getCondMet() == Weather.STORM || getCondMet() == Weather.WINDY)
 		{
 			aReducir = 10;
 		}
-		else if (clima == Weather.SUNNY || clima == Weather.CLOUDY || clima == Weather.RAINY)
+		else if (getCondMet() == Weather.SUNNY || getCondMet() == Weather.CLOUDY || getCondMet() == Weather.RAINY)
 		{
 			aReducir = 2;
 		}
 		
 		if (aux - aReducir >= 0)
 		{
-			limitCont -= aReducir;
+			setContTotal(aux - aReducir);
 		}
 		else
 		{
