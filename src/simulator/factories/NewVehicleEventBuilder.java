@@ -12,7 +12,7 @@ public class NewVehicleEventBuilder extends Builder<Event> {
 	private String id;
 	private int gradoCont;
 	private int velocMaxima;
-	private List<String> itinerario = new ArrayList<String>();
+	private List<String> itinerario;
 	
 	public NewVehicleEventBuilder() {
 	
@@ -26,10 +26,12 @@ public class NewVehicleEventBuilder extends Builder<Event> {
 		id = data.getString("id");
 		velocMaxima = data.getInt("maxspeed");
 		gradoCont = data.getInt("class");
+		itinerario = new ArrayList<String>();
 		
-		for (int i = 0; i < data.getJSONArray("itinerary").length(); i++)
+		JSONArray jArray = data.getJSONArray("itinerary");
+		for (int i = 0; i < jArray.length(); i++)
 		{
-			itinerario.add(data.getJSONArray("itinerary").getString(i));
+			itinerario.add(jArray.getString(i));
 		}
 		
 		return new NewVehicleEvent(time, id, velocMaxima, gradoCont, itinerario);

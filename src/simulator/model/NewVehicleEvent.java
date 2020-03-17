@@ -32,11 +32,12 @@ public class NewVehicleEvent extends Event {
 		
 		List<Junction> lista_pocha = new ArrayList<Junction>();
 		
-		for (int i = 0; i < itinerario.size(); i++)
+		for (String string: itinerario)
 		{
-			lista_pocha.add(map.getJunction(itinerario.get(i)));
+			lista_pocha.add(map.getJunction(string));
 		}
 		Vehicle v = new Vehicle(id, velocMaxima, gradoCont, lista_pocha);
 		map.addVehicle(v);
+		v.moveToNextRoad();
 	}
 }

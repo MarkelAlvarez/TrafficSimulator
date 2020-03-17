@@ -12,7 +12,7 @@ import simulator.model.*;
 public class SetContClassEventBuilder extends Builder<Event> {
 
 	private int tiempo;
-	private List<Pair<String, Integer>> lista = new ArrayList<Pair<String, Integer>>();
+	private List<Pair<String, Integer>> lista;
 	
 	public SetContClassEventBuilder() {
 	
@@ -24,6 +24,7 @@ public class SetContClassEventBuilder extends Builder<Event> {
 	
 		tiempo = data.getInt("time");
 		JSONArray jArray = data.getJSONArray("info");
+		lista = new ArrayList<Pair<String, Integer>>();
 		
 		for (int i = 0; i < jArray.length(); i++)
 		{

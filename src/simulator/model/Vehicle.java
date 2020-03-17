@@ -16,6 +16,8 @@ public class Vehicle extends SimulatedObject {
 	private int distTotRec = 0;
 	private String id;
 	private int ultimoCruce;
+	private Junction srcJunction = null;
+	private Junction desJunction = null;
 	
 	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
 		
@@ -30,6 +32,7 @@ public class Vehicle extends SimulatedObject {
 		gradoCont = contClass;
 		itinerario = Collections.unmodifiableList(new ArrayList<>(itinerary));
 		ultimoCruce = 0;
+		estado = VehicleStatus.PENDING;
 	}
 	
 	@Override
@@ -44,7 +47,6 @@ public class Vehicle extends SimulatedObject {
 			if(locNueva > carretera.getLongitud())
 			{
 				locNueva = carretera.getLongitud();
-				
 			}
 			
 			contProd = gradoCont * (locNueva - localizacion);
@@ -68,9 +70,9 @@ public class Vehicle extends SimulatedObject {
 	}
 
 	/**
-	 * Mueve el vehículo a la siguiente carretera. Este proceso se hace 
+	 * Mueve el vehï¿½culo a la siguiente carretera. Este proceso se hace 
 	 * saliendo de la carretera actual y entrando a la siguiente carretera
-	 * de su itinerario, en la localización 0.
+	 * de su itinerario, en la localizaciï¿½n 0.
 	 */
 	void moveToNextRoad() {
 		
@@ -92,15 +94,18 @@ public class Vehicle extends SimulatedObject {
 		}
 		else
 		{
-			carretera = itinerario.get(ultimoCruce).roadTo(itinerario.get(ultimoCruce + 1));
-			estado = VehicleStatus.TRAVELING;
+			srcJunction = itinerario.get(ultimoCruce);
+			desJunction = itinerario.get(ultimoCruce + 1);
 			localizacion = 0;
-			carretera.enter(this);
+			Road sigCarretera = srcJunction.roadTo(desJunction);
+			sigCarretera.enter(this);
+			carretera = sigCarretera;
+			estado = VehicleStatus.TRAVELING;		
 		}
 	}
 	
 	/**
-	 * Devuelve el estado del vehículo en formato JSON.
+	 * Devuelve el estado del vehï¿½culo en formato JSON.
 	 */
 	@Override
 	public JSONObject report() {
@@ -125,8 +130,8 @@ public class Vehicle extends SimulatedObject {
 	/*GETS & SETS*/
 	
 	/**
-	 * Pone la velocidad actual al valor mínimo entre s y la velocidad
-	 * máxima del vehículo. Lanza una excepción si s es negativo.
+	 * Pone la velocidad actual al valor mï¿½nimo entre s y la velocidad
+	 * mï¿½xima del vehï¿½culo. Lanza una excepciï¿½n si s es negativo.
 	 * 
 	 * @param s
 	 */
@@ -148,8 +153,8 @@ public class Vehicle extends SimulatedObject {
 	}
 	
 	/**
-	 * Pone el valor de contaminación del vehículo a 'c'. Lanza una 
-	 * excepción si 'c' no es un valor entre 0 y 10 (ambos incluidos).
+	 * Pone el valor de contaminaciï¿½n del vehï¿½culo a 'c'. Lanza una 
+	 * excepciï¿½n si 'c' no es un valor entre 0 y 10 (ambos incluidos).
 	 * 
 	 * @param c
 	 */
@@ -157,7 +162,7 @@ public class Vehicle extends SimulatedObject {
 		
 		if (gradoCont < 0 || gradoCont > 10)
 		{
-			throw new IllegalArgumentException("El valor de contaminación debe se entre 0 y 10 (ambos inclusive).");
+			throw new IllegalArgumentException("El valor de contaminaciï¿½n debe se entre 0 y 10 (ambos inclusive).");
 		}
 		
 		gradoCont = c;
@@ -207,6 +212,14 @@ public class Vehicle extends SimulatedObject {
 		this.contTotal = contTotal;
 	}
 	
+	public VehicleStatus getEstado() {
+		return estado;
+	}
+
+	public void setEstado(VehicleStatus estado) {
+		this.estado = estado;
+	}
+
 	public Road getCarretera() {
 		return carretera;
 	}

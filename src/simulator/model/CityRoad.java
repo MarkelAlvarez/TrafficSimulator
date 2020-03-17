@@ -2,7 +2,6 @@ package simulator.model;
 
 public class CityRoad extends Road {
 
-	private Vehicle vehiculo;
 	private Weather clima;
 	private int limitCont;
 	
@@ -22,11 +21,11 @@ public class CityRoad extends Road {
 		
 		int aReducir = 0, aux = limitCont;
 		
-		if (clima == Weather.WINDY)
+		if (clima == Weather.STORM || clima == Weather.WINDY)
 		{
 			aReducir = 10;
 		}
-		else if (clima == Weather.STORM)
+		else if (clima == Weather.SUNNY || clima == Weather.CLOUDY || clima == Weather.RAINY)
 		{
 			aReducir = 2;
 		}
@@ -57,8 +56,14 @@ public class CityRoad extends Road {
 	@Override
 	int calculateVehicleSpeed(Vehicle v) {
 		
-		int s = limiteActual, f = vehiculo.getGradoCont();
-				
-		return (int)(((11.0-f)/11.0)*s);
+		int veloc = 0;
+		
+		if (v.getEstado() == VehicleStatus.TRAVELING)
+		{
+			int s = limiteActual, f = v.getGradoCont();
+			
+			veloc = (int)(((11.0-f)/11.0)*s);
+		}
+		return veloc;
 	}
 }

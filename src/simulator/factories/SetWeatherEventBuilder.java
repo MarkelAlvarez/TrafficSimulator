@@ -12,7 +12,7 @@ import simulator.model.*;
 public class SetWeatherEventBuilder extends Builder<Event> {
 
 	private int tiempo;
-	private List<Pair<String, Weather>> lista = new ArrayList<Pair<String, Weather>>();
+	private List<Pair<String, Weather>> lista;
 	
 	public SetWeatherEventBuilder() {
 	
@@ -24,6 +24,7 @@ public class SetWeatherEventBuilder extends Builder<Event> {
 	
 		tiempo = data.getInt("time");
 		JSONArray jArray = data.getJSONArray("info");
+		lista = new ArrayList<Pair<String, Weather>>();
 		
 		for (int i = 0; i < jArray.length(); i++)
 		{

@@ -33,10 +33,10 @@ public class RoadMap {
 	 */
 	void addJunction(Junction j) {
 		
-		if(!listaCruces.contains(j))
+		if(!mapaCruces.containsKey(j.getId()))
 		{
-			listaCruces.add(j);
 			mapaCruces.put(j.getId(), j);
+			listaCruces.add(j);
 		}
 		else
 		{
@@ -80,7 +80,6 @@ public class RoadMap {
 		{
 			if (l.get(i).roadTo(l.get(i+1)) == null)
 			{
-				//TODO: sigue petando
 				throw new IllegalArgumentException("El itineario es nulo.");
 			}
 		}
@@ -137,12 +136,7 @@ public class RoadMap {
 	
 	public Junction getJunction(String id) {
 		
-		if(listaCruces.contains(mapaCruces.get(id)))
-		{
-			return mapaCruces.get(id);
-		}
-		
-		return null;
+		return mapaCruces.get(id);
 	}
 	
 	public Road getRoad(String id) {

@@ -46,7 +46,7 @@ public class Junction extends SimulatedObject {
 		}
 		
 		listaEntrantes.add(r);
-		LinkedList<Vehicle> aux_r = new LinkedList<Vehicle>();
+		List<Vehicle> aux_r = new LinkedList<Vehicle>();
 		listaColas.add(aux_r);
 		carretera_cola.put(r, aux_r);
 	}
@@ -126,6 +126,13 @@ public class Junction extends SimulatedObject {
 			JSONObject jsonCarreteras = new JSONObject();
 			jArray.put(jsonCarreteras);
 			jsonCarreteras.put("road", roads.getId());
+			
+			JSONArray jArray2 = new JSONArray();
+			json.put("vehicles", jArray2);
+			for (Vehicle v : carretera_cola.get(roads))
+			{
+				jArray2.put(v.getId());
+			}
 		}
 		
 		return json;
