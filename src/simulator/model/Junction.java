@@ -128,7 +128,7 @@ public class Junction extends SimulatedObject {
 			jsonCarreteras.put("road", roads.getId());
 			
 			JSONArray jArray2 = new JSONArray();
-			json.put("vehicles", jArray2);
+			jsonCarreteras.put("vehicles", jArray2);
 			for (Vehicle v : carretera_cola.get(roads))
 			{
 				jArray2.put(v.getId());

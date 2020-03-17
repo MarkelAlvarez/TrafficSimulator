@@ -23,9 +23,9 @@ public class NewSetContClassEvent extends Event {
 		
 		for (Pair<String, Integer> c : cont)
 		{
-			if(!map.getVehicles().contains(cont))
+			if(!map.getVehicles().contains(c))
 			{
-				throw new IllegalArgumentException("El vehiculo no existe.");
+				throw new IllegalArgumentException("El vehiculo con id "+ c.getFirst()+" no existe.");
 			}
 			map.getVehicle(c.getFirst()).setContaminationClass(c.getSecond());
 		}

@@ -40,7 +40,7 @@ public class RoadMap {
 		}
 		else
 		{
-			throw new IllegalArgumentException("Ya existe ese cruce.");
+			throw new IllegalArgumentException("Ya existe un cruce con id " + j.getId() + ".");
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class RoadMap {
 		
 		if (listaCarreteras.contains(r.getId()) && mapaCruces.containsValue(r.getCruceOrigen()) && mapaCruces.containsValue(r.getCruceDestino()))
 		{
-			throw new IllegalArgumentException("La carretera ya existe.");
+			throw new IllegalArgumentException("La carretera con id "+ r.getId() +"ya existe.");
 		}
 		
 		listaCarreteras.add(r);
@@ -73,7 +73,7 @@ public class RoadMap {
 		
 		if (listaVehiculos.contains(v))
 		{
-			throw new IllegalArgumentException("Ya existe este vehiculo.");
+			throw new IllegalArgumentException("Ya existe un vehiculo con id "+ v.getId() +".");
 		}
 		
 		for (int i = 0; i < l.size()-1; i++)
