@@ -16,6 +16,7 @@ public class InterCityRoad extends Road {
 		
 		int tc = getContTotal(), x = weatherANumero();
 		double res = ((100.0-x)/100.0)*tc;
+		
 		setContTotal((int)(res));
 	}
 

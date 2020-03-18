@@ -3,7 +3,6 @@ package simulator.control;
 import java.io.*;
 import org.json.*;
 import simulator.factories.*;
-import simulator.misc.Pair;
 import simulator.model.*;
 
 public class Controller {
@@ -51,6 +50,26 @@ public class Controller {
 		PrintStream p = new PrintStream(out);
 		p.println(salida.toString());
 	}
+	
+	/*public void run(int n, OutputStream out) {
+		
+		PrintStream salida = new PrintStream(out);
+		salida.println("{");
+		salida.println("\"states\" : [");
+		
+		for (int i = 0; i < n; i++)
+		{
+			sim.advance();
+			salida.print(sim.report().toString());
+			if (i < n)
+			{
+				salida.println(",");
+			}
+		}
+		
+		salida.println("]");
+		salida.println("}");
+	}*/
 	
 	public void reset() {
 
