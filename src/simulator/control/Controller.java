@@ -38,6 +38,26 @@ public class Controller {
 	
 	public void run(int n, OutputStream out) {
 		
+		PrintStream salida = new PrintStream(out);
+		salida.println("{");
+		salida.println("\"states\" : [");
+		
+		for (int i = 0; i < n; i++)
+		{
+			sim.advance();
+			salida.print(sim.report().toString());
+			if (i < n)
+			{
+				salida.println(",");
+			}
+		}
+		
+		salida.println("]");
+		salida.println("}");
+	}
+	
+	/*public void run(int n, OutputStream out) {
+		
 		JSONObject salida = new JSONObject();
 		JSONArray array = new JSONArray();
 		
@@ -49,8 +69,8 @@ public class Controller {
 		salida.put("states", array);
 		
 		PrintStream p = new PrintStream(out);
-		p.print(salida.toString());
-	}
+		p.println(salida.toString());
+	}*/
 	
 	public void reset() {
 
