@@ -15,8 +15,8 @@ public class InterCityRoad extends Road {
 	void reduceTotalContamination() {
 		
 		int tc = getContTotal(), x = weatherANumero();
-		
-		setContTotal((int)((100.0-x)/100.0)*tc);
+		double res = ((100.0-x)/100.0)*tc;
+		setContTotal((int)(res));
 	}
 
 	/**
