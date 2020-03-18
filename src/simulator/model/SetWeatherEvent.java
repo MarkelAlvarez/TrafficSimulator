@@ -24,7 +24,7 @@ public class SetWeatherEvent extends Event {
 
 		for (Pair<String, Weather> w : tiempo)
 		{
-			if (!map.getRoads().contains(tiempo))
+			if (map.getRoad(w.getFirst()) == null)
 			{
 				throw new IllegalArgumentException("La carretera no existe en el mapa de carreteras.");
 			}

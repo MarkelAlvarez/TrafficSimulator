@@ -38,38 +38,6 @@ public class Controller {
 	
 	public void run(int n, OutputStream out) {
 		
-		PrintStream p = new PrintStream(out);
-		p.println("{");
-		p.println("\"states\" : [");
-		
-
-		for (int i = 0; i < 99; i++) {
-
-			sim.advance();
-			p.print(sim.report().toString());
-			if (i < n)
-			{
-				p.println(",");
-			}
-		}
-
-		for (int i = 99; i < n; i++) {
-
-			sim.advance();
-			p.print(sim.report().toString());
-			if (i < n)
-			{
-				p.println(",");
-			}
-		}
-
-		
-		p.println("]");
-		p.println("}");
-	}
-	
-	/*public void run(int n, OutputStream out) {
-		
 		JSONObject salida = new JSONObject();
 		JSONArray array = new JSONArray();
 		
@@ -82,7 +50,7 @@ public class Controller {
 		
 		PrintStream p = new PrintStream(out);
 		p.print(salida.toString());
-	}*/
+	}
 	
 	public void reset() {
 
