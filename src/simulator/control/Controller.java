@@ -41,7 +41,14 @@ public class Controller {
 		p.println("{");
 		p.println("\"states\" : [");
 		
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < 99; i++) {
+			sim.advance();
+			p.print(sim.report().toString());
+			if (i<n) {
+				p.println(",");
+			}
+		}
+		for (int i = 99; i < n; i++) {
 			sim.advance();
 			p.print(sim.report().toString());
 			if (i<n) {

@@ -23,7 +23,7 @@ public class NewSetContClassEvent extends Event {
 		
 		for (Pair<String, Integer> c : cont)
 		{
-			if(!map.getVehicles().contains(c))
+			if(map.getVehicle(c.getFirst()) == null)
 			{
 				throw new IllegalArgumentException("El vehiculo con id "+ c.getFirst()+" no existe.");
 			}
