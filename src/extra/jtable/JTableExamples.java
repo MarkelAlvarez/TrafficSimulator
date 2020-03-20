@@ -32,16 +32,13 @@ import java.util.List;
 // In this example we will show the information stored in an List using
 // a JTable
 public class JTableExamples extends JFrame {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	private Border _defaultBorder = BorderFactory.createLineBorder(Color.red, 1);
 	private EventsTableModel _model;
 	private JTable _eventsTable;
 	private JButton addButton;
-
 	// this is what we show in the table
 	// esto es lo que mostramos en la table
 	private List<EventEx> _events;
@@ -55,6 +52,7 @@ public class JTableExamples extends JFrame {
 	}
 
 	public void initGUI() {
+		
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
 
@@ -70,7 +68,8 @@ public class JTableExamples extends JFrame {
 
 		// comboxfor selecting priority
 		_priotiry = new JComboBox<Integer>();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 10; i++)
+		{
 			_priotiry.addItem(i);
 		}
 
@@ -94,15 +93,13 @@ public class JTableExamples extends JFrame {
 		mainPanel.add(eventsPanel,BorderLayout.CENTER);
 		
 		// add border
-		eventsPanel.setBorder(BorderFactory.createTitledBorder(_defaultBorder, "Events", TitledBorder.LEFT,
-				TitledBorder.TOP));
+		eventsPanel.setBorder(BorderFactory.createTitledBorder(_defaultBorder, "Events", TitledBorder.LEFT, TitledBorder.TOP));
 
 		// the model
 		_model = new EventsTableModel();
 		_eventsTable = new JTable(_model);
 
-		eventsPanel.add(new JScrollPane(_eventsTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+		eventsPanel.add(new JScrollPane(_eventsTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 
 		// the actual events list
 		_events = new ArrayList<EventEx>();
@@ -115,6 +112,7 @@ public class JTableExamples extends JFrame {
 	}
 
 	public void addEvent() {
+		
 		try {
 			Integer time = (Integer) _time.getValue();
 			Integer priority = (Integer) _priotiry.getSelectedItem();
@@ -130,21 +128,17 @@ public class JTableExamples extends JFrame {
 			//
 			_model.update();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog( //
-					(Frame) SwingUtilities.getWindowAncestor(this), //
-					"Something went wrong ...",
-					"ERROR", //
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog((Frame) SwingUtilities.getWindowAncestor(this), "Something went wrong ...", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	public static void main(String[] args) {
 
 		SwingUtilities.invokeLater(new Runnable() {
+			
 			public void run() {
 				new JTableExamples();
 			}
 		});
 	}
-
 }

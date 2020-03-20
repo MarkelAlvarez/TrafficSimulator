@@ -24,30 +24,30 @@ import simulator.model.VehicleStatus;
 public class MapComponent extends JPanel implements TrafficSimObserver {
 
 	private static final long serialVersionUID = 1L;
-
 	private static final int _JRADIUS = 10;
-
 	private static final Color _BG_COLOR = Color.WHITE;
 	private static final Color _JUNCTION_COLOR = Color.BLUE;
 	private static final Color _JUNCTION_LABEL_COLOR = new Color(200, 100, 0);
 	private static final Color _GREEN_LIGHT_COLOR = Color.GREEN;
 	private static final Color _RED_LIGHT_COLOR = Color.RED;
-
 	private RoadMap _map;
-
 	private Image _car;
 
 	MapComponent(Controller ctrl) {
+		
 		initGUI();
 		ctrl.addObserver(this);
 	}
 
 	private void initGUI() {
+		
 		_car = loadImage("car_front.png");
 	}
 
 	public void paintComponent(Graphics graphics) {
+		
 		super.paintComponent(graphics);
+		
 		Graphics2D g = (Graphics2D) graphics;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -56,24 +56,29 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 		g.setColor(_BG_COLOR);
 		g.clearRect(0, 0, getWidth(), getHeight());
 
-		if (_map == null || _map.getJunctions().size() == 0) {
+		if (_map == null || _map.getJunctions().size() == 0)
+		{
 			g.setColor(Color.red);
 			g.drawString("No map yet!", getWidth() / 2 - 50, getHeight() / 2);
-		} else {
+		}
+		else
+		{
 			updatePrefferedSize();
 			drawMap(g);
 		}
 	}
 
 	private void drawMap(Graphics g) {
+		
 		drawRoads(g);
 		drawVehicles(g);
 		drawJunctions(g);
 	}
 
 	private void drawRoads(Graphics g) {
-		for (Road r : _map.getRoads()) {
-
+		
+		for (Road r : _map.getRoads())
+		{
 			// the road goes from (x1,y1) to (x2,y2)
 			int x1 = r.getSrc().getX();
 			int y1 = r.getSrc().getY();
@@ -83,13 +88,13 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 			// choose a color for the arrow depending on the traffic light of the road
 			Color arrowColor = _RED_LIGHT_COLOR;
 			int idx = r.getDest().getGreenLightIndex();
-			if (idx != -1 && r.equals(r.getDest().getInRoads().get(idx))) {
+			if (idx != -1 && r.equals(r.getDest().getInRoads().get(idx)))
+			{
 				arrowColor = _GREEN_LIGHT_COLOR;
 			}
 
 			// choose a color for the road depending on the total contamination, the darker
-			// the
-			// more contaminated (wrt its co2 limit)
+			// the more contaminated (wrt its co2 limit)
 			int roadColorValue = 200 - (int) (200.0 * Math.min(1.0, (double) r.getTotalCO2() / (1.0 + (double) r.getCO2Limit())));
 			Color roadColor = new Color(roadColorValue, roadColorValue, roadColorValue);
 
@@ -97,13 +102,14 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 			// color roadColor. The size of the arrow is 15px length and 5 px width
 			drawLineWithArrow(g, x1, y1, x2, y2, 15, 5, roadColor, arrowColor);
 		}
-
 	}
 
 	private void drawVehicles(Graphics g) {
-		for (Vehicle v : _map.getVehilces()) {
-			if (v.getStatus() != VehicleStatus.ARRIVED) {
-
+		
+		for (Vehicle v : _map.getVehilces())
+		{
+			if (v.getStatus() != VehicleStatus.ARRIVED)
+			{
 				// The calculation below compute the coordinate (vX,vY) of the vehicle on the
 				// corresponding road. It is calculated relativly to the length of the road, and
 				// the location on the vehicle.
@@ -119,7 +125,6 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 				double y = Math.cos(alpha) * relLoc;
 				int xDir = x1 < x2 ? 1 : -1;
 				int yDir = y1 < y2 ? 1 : -1;
-
 				int vX = x1 + xDir * ((int) x);
 				int vY = y1 + yDir * ((int) y);
 
@@ -137,8 +142,9 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	}
 
 	private void drawJunctions(Graphics g) {
-		for (Junction j : _map.getJunctions()) {
-
+		
+		for (Junction j : _map.getJunctions())
+		{
 			// (x,y) are the coordinates of the junction
 			int x = j.getX();
 			int y = j.getY();
@@ -156,9 +162,12 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	// this method is used to update the preffered and actual size of the component,
 	// so when we draw outside the visible area the scrollbars show up
 	private void updatePrefferedSize() {
+		
 		int maxW = 200;
 		int maxH = 200;
-		for (Junction j : _map.getJunctions()) {
+		
+		for (Junction j : _map.getJunctions())
+		{
 			maxW = Math.max(maxW, j.getX());
 			maxH = Math.max(maxH, j.getY());
 		}
@@ -171,12 +180,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	// This method draws a line from (x1,y1) to (x2,y2) with an arrow.
 	// The arrow is of height h and width w.
 	// The last two arguments are the colors of the arrow and the line
-	private void drawLineWithArrow(//
-			Graphics g, //
-			int x1, int y1, //
-			int x2, int y2, //
-			int w, int h, //
-			Color lineColor, Color arrowColor) {
+	private void drawLineWithArrow(Graphics g, int x1, int y1, int x2, int y2, int w, int h, Color lineColor, Color arrowColor) {
 
 		int dx = x2 - x1, dy = y2 - y1;
 		double D = Math.sqrt(dx * dx + dy * dy);
@@ -202,15 +206,19 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 	// loads an image from a file
 	private Image loadImage(String img) {
+		
 		Image i = null;
+		
 		try {
 			return ImageIO.read(new File("resources/icons/" + img));
 		} catch (IOException e) {
 		}
+		
 		return i;
 	}
 
 	public void update(RoadMap map) {
+		
 		_map = map;
 		repaint();
 	}
@@ -221,26 +229,30 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
+		
 		update(map);
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
+		
 		update(map);
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
+		
 		update(map);
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
+		
 		update(map);
 	}
 
 	@Override
 	public void onError(String err) {
+		
 	}
-
 }

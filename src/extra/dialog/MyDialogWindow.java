@@ -24,6 +24,7 @@ class MyDialogWindow extends JDialog {
 	private DefaultComboBoxModel<Dish> _dishesModel;
 
 	public MyDialogWindow(Frame parent) {
+		
 		super(parent, true);
 		initGUI();
 	}
@@ -41,13 +42,12 @@ class MyDialogWindow extends JDialog {
 		helpMsg.setAlignmentX(CENTER_ALIGNMENT);
 
 		mainPanel.add(helpMsg);
-
 		mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
 		JPanel viewsPanel = new JPanel();
 		viewsPanel.setAlignmentX(CENTER_ALIGNMENT);
+		
 		mainPanel.add(viewsPanel);
-
 		mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
 		JPanel buttonsPanel = new JPanel();
@@ -96,7 +96,9 @@ class MyDialogWindow extends JDialog {
 		//
 		_dishesModel.removeAllElements();
 		for (Dish v : dishes)
+		{
 			_dishesModel.addElement(v);
+		}
 
 		// You can chenge this to place the dialog in the middle of the parent window.
 		// It can be done using uing getParent().getWidth, this.getWidth(),
@@ -109,7 +111,7 @@ class MyDialogWindow extends JDialog {
 	}
 
 	Dish getDish() {
+		
 		return (Dish) _dishesModel.getSelectedItem();
 	}
-
 }
