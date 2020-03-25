@@ -172,4 +172,24 @@ public class Main {
 			e.printStackTrace();
 		}
 	}
+
+	public static String get_inFile() {
+		
+		return _inFile;
+	}
+
+	public static void set_inFile(String _inFile) {
+		
+		Main._inFile = _inFile;
+	}
+
+	public static Integer getTicks() {
+		
+		return ticks;
+	}
+
+	public static void setTicks(Integer ticks) {
+	
+		Main.ticks = ticks;
+	}
 }
