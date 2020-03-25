@@ -5,7 +5,7 @@ import org.json.*;
 import simulator.factories.*;
 import simulator.model.*;
 
-public class Controller {
+public class Controller implements Observable<TrafficSimObserver> {
 
 	private TrafficSimulator sim;
 	private Factory<Event> eventosFact;
@@ -74,5 +74,22 @@ public class Controller {
 	public void reset() {
 
 		sim.reset();
+	}
+
+	public void addEvent(Event e) {
+		
+		sim.addEvent(e);
+	}
+	
+	@Override
+	public void addObserver(TrafficSimObserver o) {
+		
+		sim.addObserver(o);
+	}
+
+	@Override
+	public void removeObserver(TrafficSimObserver o) {
+	
+		sim.removeObserver(o);	
 	}
 }

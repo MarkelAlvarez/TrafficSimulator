@@ -31,7 +31,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		
 		onAdvanceStart(mapaCarreteras, listaEventos, time);
 		
-		//TODO: ¿esta wea esta bien?
+		//TODO: ¿esta wea esta bien? y la excepcion de onError se lanza dentro del metodo?
 		try {
 			while (listaEventos.size() > 0 && listaEventos.get(0).getTime() == time)
 			{
@@ -47,8 +47,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 				road.advance(time);
 			}
 		} catch (Exception e) {
-			//onError(e.getMessage());
-			throw new IllegalArgumentException(onError(e.getMessage()));
+			onError(e.getMessage());
 		}
 		
 		onAdvanceEnd(mapaCarreteras, listaEventos, time);
