@@ -33,6 +33,7 @@ public class NewJunctionEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return "New Junction '" + id + "'" ;
+		
+		return "New Junction '" + id + "'";
 	}
 }

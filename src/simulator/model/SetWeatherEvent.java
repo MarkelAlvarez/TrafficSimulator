@@ -34,6 +34,7 @@ public class SetWeatherEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return "Change Weather '" + tiempo + "'" ;
+		
+		return "New Weather '" + tiempo + "'";
 	}
 }

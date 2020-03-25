@@ -33,6 +33,7 @@ public class NewSetContClassEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return "Change Contamination Class '" + cont + "'" ;
+		
+		return "New Contamination Class '" + cont + "'";
 	}
 }
