@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import simulator.misc.SortedArrayList;
 
-public class TrafficSimulator {
+public class TrafficSimulator implements Observable<TrafficSimObserver> {
 
 	private RoadMap mapaCarreteras;
 	private List<Event> listaEventos;
@@ -21,25 +21,37 @@ public class TrafficSimulator {
 	public void addEvent(Event e) {
 		
 		listaEventos.add(e);
+		
+		onEventAdded(mapaCarreteras, listaEventos, e, time);
 	}
 	
 	public void advance() {
 		
 		time++;
 		
-		while (listaEventos.size() > 0 && listaEventos.get(0).getTime() == time)
-		{
-	        listaEventos.remove(0).execute(mapaCarreteras);
-	    }
+		onAdvanceStart(mapaCarreteras, listaEventos, time);
 		
-		for (Junction junction : mapaCarreteras.getJunctions())
-		{
-			junction.advance(time);
+		//TODO: ¿esta wea esta bien?
+		try {
+			while (listaEventos.size() > 0 && listaEventos.get(0).getTime() == time)
+			{
+		        listaEventos.remove(0).execute(mapaCarreteras);
+		    }
+			
+			for (Junction junction : mapaCarreteras.getJunctions())
+			{
+				junction.advance(time);
+			}
+			for (Road road : mapaCarreteras.getRoads())
+			{
+				road.advance(time);
+			}
+		} catch (Exception e) {
+			//onError(e.getMessage());
+			throw new IllegalArgumentException(onError(e.getMessage()));
 		}
-		for (Road road : mapaCarreteras.getRoads())
-		{
-			road.advance(time);
-		}
+		
+		onAdvanceEnd(mapaCarreteras, listaEventos, time);
 	}
 	
 	public void reset() {
@@ -47,6 +59,8 @@ public class TrafficSimulator {
 		mapaCarreteras.reset();
 		listaEventos.clear();
 		time = 0;
+		
+		onReset(mapaCarreteras, listaEventos, time);
 	}
 	
 	public JSONObject report() {
@@ -57,5 +71,18 @@ public class TrafficSimulator {
 		json.put("state", mapaCarreteras.report());
 		
 		return json;
+	}
+
+	@Override
+	public void addObserver(TrafficSimObserver o) {
+		
+		// TODO Auto-generated method stub
+		onRegister(mapaCarreteras, listaEventos, time);
+	}
+
+	@Override
+	public void removeObserver(TrafficSimObserver o) {
+		
+		// TODO Auto-generated method stub
 	}
 }
