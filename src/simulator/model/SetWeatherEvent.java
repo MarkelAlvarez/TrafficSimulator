@@ -31,4 +31,9 @@ public class SetWeatherEvent extends Event {
 			map.getRoad(w.getFirst()).setWeather(w.getSecond());
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "Change Weather '" + tiempo + "'" ;
+	}
 }

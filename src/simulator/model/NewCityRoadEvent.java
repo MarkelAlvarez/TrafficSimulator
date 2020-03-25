@@ -39,4 +39,9 @@ public class NewCityRoadEvent extends Event {
 		Road r = new CityRoad(id, map.getJunction(srcJunction), map.getJunction(destJunction), velocMaxima, limiteCO2, longitud, clima);
 		map.addRoad(r);
 	}
+	
+	@Override
+	public String toString() {
+		return "New City Road '" + id + "'" ;
+	}
 }

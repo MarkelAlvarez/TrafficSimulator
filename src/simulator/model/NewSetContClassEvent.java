@@ -30,4 +30,9 @@ public class NewSetContClassEvent extends Event {
 			map.getVehicle(c.getFirst()).setContaminationClass(c.getSecond());
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "Change Contamination Class '" + cont + "'" ;
+	}
 }
