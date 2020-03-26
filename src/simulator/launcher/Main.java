@@ -2,11 +2,14 @@ package simulator.launcher;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
+
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -19,6 +22,7 @@ import org.apache.commons.cli.ParseException;
 import simulator.control.Controller;
 import simulator.factories.*;
 import simulator.model.*;
+import simulator.view.MainWindow;
 
 public class Main {
 
@@ -27,6 +31,7 @@ public class Main {
 	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null;
 	private static Integer ticks = 10;
+	private static boolean gui = true;
 
 	private static void parseArgs(String[] args) {
 
@@ -40,9 +45,10 @@ public class Main {
 			CommandLine line = parser.parse(cmdLineOptions, args);
 			parseHelpOption(line, cmdLineOptions);
 			parseInFileOption(line);
-			parseOutFileOption(line);
 			parseTicks(line);
-
+			parseViewOption(line);
+			parseOutFileOption(line);
+			
 			/* If there are some remaining arguments, then something 
 			 * wrong is provided in the command line!
 			 */
@@ -69,6 +75,7 @@ public class Main {
 		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
 		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").hasArg().desc("Ticks to the simulator's loop.").build());
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").hasArg().desc("GUI or console").build());
 		
 		return cmdLineOptions;
 	}
@@ -86,15 +93,18 @@ public class Main {
 	private static void parseInFileOption(CommandLine line) throws ParseException {
 
 		_inFile = line.getOptionValue("i");
-		if (_inFile == null)
+		/*if (_inFile == null)
 		{
 			throw new ParseException("An events file is missing");
-		}
+		}*/
 	}
 
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
 
-		_outFile = line.getOptionValue("o");
+		if (gui == false)
+		{
+			_outFile = line.getOptionValue("o");
+		}
 	}
 	
 	private static void parseTicks(CommandLine line) {
@@ -102,6 +112,14 @@ public class Main {
 		if (line.hasOption("t"))
 		{
 			ticks = Integer.parseInt(line.getOptionValue("t"));
+		}
+	}
+	
+	private static void parseViewOption(CommandLine line) {
+
+		if (line.hasOption("m") && line.getOptionValue("m").equalsIgnoreCase("console"))
+		{
+			gui = false;
 		}
 	}
 
@@ -155,9 +173,37 @@ public class Main {
 
 		initFactories();
 		parseArgs(args);
-		startBatchMode();
+		
+		if (gui  == true)
+		{
+			startGUIMode();
+		}
+		else
+		{
+			startBatchMode();
+		}
 	}
 
+	public static void startGUIMode() throws FileNotFoundException {
+		
+		TrafficSimulator sim = new TrafficSimulator();
+		Controller ctrl = new Controller(sim, _eventsFactory);
+		
+		if (gui == false)
+		{
+			InputStream in = new FileInputStream(new File(_inFile));
+			ctrl.loadEvents(in);
+		}
+		
+		SwingUtilities.invokeLater( new Runnable() {
+			
+			@ Override
+			public void run() {
+				new MainWindow(ctrl);
+			}
+		});
+	}
+	
 	/* example command lines:
 	 * -i resources/examples/ex1.json
 	 * -i resources/examples/ex1.json -t 300

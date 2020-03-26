@@ -49,7 +49,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		botonFichero = new JButton();
 		botonFichero.setActionCommand("cargar");
-		botonFichero.setIcon(new ImageIcon(this.getClass().getResource("./resources/open.png")));
+		botonFichero.setIcon(new ImageIcon("../resources/icons/open.png"));
 		/*botonFichero.addActionListener(this);
 		this.getContentPane().add(botonFichero);*/
 		
@@ -57,21 +57,21 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		botonCO2 = new JButton();
 		botonCO2.setActionCommand("co2");
-		botonCO2.setIcon(new ImageIcon(this.getClass().getResource("./resources/co2class.png")));
+		botonCO2.setIcon(new ImageIcon("./resources/icons/co2class.png"));
 		
 		botonWeather = new JButton();
 		botonWeather.setActionCommand("weather");
-		botonWeather.setIcon(new ImageIcon(this.getClass().getResource("./resources/weather.png")));
+		botonWeather.setIcon(new ImageIcon("./resources/icons/weather.png"));
 		
 		separador3 = new JSeparator(SwingConstants.VERTICAL);
 		
 		run = new JButton();
 		run.setActionCommand("run");
-		run.setIcon(new ImageIcon(this.getClass().getResource("./resources/run.png")));
+		run.setIcon(new ImageIcon("./resources/icons/run.png"));
 		
 		stop = new JButton();
 		stop.setActionCommand("stop");
-		stop.setIcon(new ImageIcon(this.getClass().getResource("./resources/stop.png")));
+		stop.setIcon(new ImageIcon("./resources/icons/stop.png"));
 		
 		textoTicks = new JLabel("Ticks: ", JLabel.CENTER);
 		ticks = new JSpinner(new SpinnerNumberModel(10, 1, 300, 1));
@@ -88,7 +88,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		botonExit = new JButton();
 		botonExit.setActionCommand("exit");
-		botonExit.setIcon(new ImageIcon(this.getClass().getResource("./resources/exit.png")));
+		botonExit.setIcon(new ImageIcon("./resources/icons/exit.png"));
 		
 		selectorFichero = new JFileChooser();
 		selectorFichero.setCurrentDirectory(new File("./resources/examples/"));
