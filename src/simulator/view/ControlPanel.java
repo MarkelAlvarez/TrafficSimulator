@@ -33,6 +33,11 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private ChangeWeatherDialog changeWeather;
 	private JDialog exit;
 	
+	private JSeparator separador1;
+	private JSeparator separador2;
+	private JSeparator separador3;
+	private JSeparator separador4;
+	
 	private Controller _ctrl;
 	private boolean _stopped = false;
 	
@@ -40,11 +45,15 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		this._ctrl = _ctrl;
 		
+		separador1 = new JSeparator(SwingConstants.VERTICAL);
+		
 		botonFichero = new JButton();
 		botonFichero.setActionCommand("cargar");
 		botonFichero.setIcon(new ImageIcon(this.getClass().getResource("./resources/open.png")));
 		/*botonFichero.addActionListener(this);
 		this.getContentPane().add(botonFichero);*/
+		
+		separador2 = new JSeparator(SwingConstants.VERTICAL);
 		
 		botonCO2 = new JButton();
 		botonCO2.setActionCommand("co2");
@@ -53,6 +62,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonWeather = new JButton();
 		botonWeather.setActionCommand("weather");
 		botonWeather.setIcon(new ImageIcon(this.getClass().getResource("./resources/weather.png")));
+		
+		separador3 = new JSeparator(SwingConstants.VERTICAL);
 		
 		run = new JButton();
 		run.setActionCommand("run");
@@ -72,6 +83,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				Main.setTicks((Integer) ticks.getValue());
 			}
 		});
+		
+		separador4 = new JSeparator(SwingConstants.VERTICAL);
 		
 		botonExit = new JButton();
 		botonExit.setActionCommand("exit");
