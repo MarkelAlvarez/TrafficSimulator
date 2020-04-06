@@ -166,15 +166,20 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 		int maxW = 200;
 		int maxH = 200;
 		
-		for (Junction j : _map.getJunctions())
+		for (Junction j: _map.getJunctions())
 		{
 			maxW = Math.max(maxW, j.getX());
 			maxH = Math.max(maxH, j.getY());
 		}
+		
 		maxW += 20;
 		maxH += 20;
-		setPreferredSize(new Dimension(maxW, maxH));
-		setSize(new Dimension(maxW, maxH));
+		
+		if ((maxW > getWidth()) || (maxH > getHeight()))
+		{
+			setPreferredSize(new Dimension(maxW, maxH));
+			setSize(new Dimension(maxW, maxH));
+		}
 	}
 
 	// This method draws a line from (x1,y1) to (x2,y2) with an arrow.
