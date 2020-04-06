@@ -54,7 +54,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		botonFichero = new JButton();
 		botonFichero.setActionCommand("cargar");
-		botonFichero.setIcon(new ImageIcon("../resources/icons/open.png")); //loadImge()
+		botonFichero.setIcon(new ImageIcon("./resources/icons/open.png"));
 		toolbar.add(botonFichero);
 		
 		separador2 = new JSeparator(SwingConstants.VERTICAL);
