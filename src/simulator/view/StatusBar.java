@@ -26,34 +26,41 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		
-		// TODO: ¿Esto está bien?
 		tiempo = new JLabel("Tiempo: " + time, JLabel.LEFT);
 		separador = new JSeparator(SwingConstants.VERTICAL);
+		//eventoAñadido = new JLabel("Event Added: (" + e.toString() + ")", JLabel.LEFT);
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		
-		// TODO Auto-generated method stub
+		tiempo = new JLabel("Tiempo: " + time, JLabel.LEFT);
+		separador = new JSeparator(SwingConstants.VERTICAL);
+		//eventoAñadido = new JLabel("Event Added: (" + e.toString() + ")", JLabel.LEFT);
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		
-		// TODO: aparece todo el rato o solo el instante?
-		eventoAñadido = new JLabel("Event Added: (" + e.toString() + ")", JLabel.LEFT);
+		tiempo = new JLabel("Tiempo: " + time, JLabel.LEFT);
+		separador = new JSeparator(SwingConstants.VERTICAL);
+		//eventoAñadido = new JLabel("Event Added: (" + e.toString() + ")", JLabel.LEFT);
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		
-		// TODO Auto-generated method stub
+		tiempo = new JLabel("Tiempo: " + time, JLabel.LEFT);
+		separador = new JSeparator(SwingConstants.VERTICAL);
+		//eventoAñadido = new JLabel("Event Added: (" + e.toString() + ")", JLabel.LEFT);
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 	
-		// TODO Auto-generated method stub
+		tiempo = new JLabel("Tiempo: " + time, JLabel.LEFT);
+		separador = new JSeparator(SwingConstants.VERTICAL);
+		//eventoAñadido = new JLabel("Event Added: (" + e.toString() + ")", JLabel.LEFT);
 	}
 
 	@Override

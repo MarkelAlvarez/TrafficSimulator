@@ -19,14 +19,20 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
 	@Override
 	public int getRowCount() {
 		
-		// TODO Auto-generated method stub
+		// TODO listaEventos.size()
 		return 0;
 	}
 
 	@Override
 	public int getColumnCount() {
 		
-		// TODO Auto-generated method stub
+		// TODO columnas.lenght()
+		return 0;
+	}
+
+	public int getColumnName()
+	{
+		//TODO
 		return 0;
 	}
 
