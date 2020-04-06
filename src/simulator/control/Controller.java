@@ -37,18 +37,21 @@ public class Controller implements Observable<TrafficSimObserver> {
 	
 	public void run(int n, OutputStream out) {
 		
-		JSONObject salida = new JSONObject();
-		JSONArray array = new JSONArray();
-		
-		for (int i = 0; i < n; i++) 
+		if(out != null)
 		{
-			sim.advance();
-			array.put(sim.report());
-		}
-		salida.put("states", array);
-		
-		PrintStream p = new PrintStream(out);
-		p.println(salida.toString());
+			JSONObject salida = new JSONObject();
+			JSONArray array = new JSONArray();
+			
+			for (int i = 0; i < n; i++) 
+			{
+				sim.advance();
+				array.put(sim.report());
+			}
+			salida.put("states", array);
+			
+			PrintStream p = new PrintStream(out);
+			p.println(salida.toString());
+		}	
 	}
 	
 	/*public void run(int n, OutputStream out) {
