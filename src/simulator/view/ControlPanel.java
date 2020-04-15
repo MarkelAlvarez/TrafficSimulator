@@ -82,14 +82,14 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonFichero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				int ret = selectorFichero.showOpenDialog(this);
+				int ret = selectorFichero.showOpenDialog(selectorFichero);
 				if (ret == JFileChooser.APPROVE_OPTION)
 				{
 					//TODO: cargar los datos en el programa	
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(this, "Se ha pulsado cancelar o ha ocurrido un error.");
+					JOptionPane.showMessageDialog(null, "Se ha pulsado cancelar o ha ocurrido un error.");
 				}			
 			}
 		});
