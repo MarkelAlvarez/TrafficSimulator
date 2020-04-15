@@ -31,6 +31,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 		
 		// TODO Auto-generated constructor stub
 		setPreferredSize(new Dimension(300, 200));
+		ctrl.addObserver(this);	
 	}
 
 	public void paintComponent() {
