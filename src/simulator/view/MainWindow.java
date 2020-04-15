@@ -2,6 +2,7 @@ package simulator.view;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
 import simulator.control.Controller;
 
@@ -11,7 +12,7 @@ public class MainWindow extends JFrame {
 	
 	public MainWindow(Controller ctrl ) {
 		
-		super ( "Traffic Simulator" );
+		super ("Traffic Simulator");
 		_ctrl = ctrl ;
 		initGUI();
 	}
@@ -63,6 +64,7 @@ public class MainWindow extends JFrame {
 		// TODO add a map for MapByRoadComponent
 		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.setResizable(true);
 		this.pack();
 		this.setVisible(true);
 	}
@@ -70,9 +72,32 @@ public class MainWindow extends JFrame {
 	private JPanel createViewPanel(JComponent c, String title) {
 		
 		JPanel p = new JPanel(new BorderLayout());
-		// TODO: add a framed border to p with title
+		if (title.equalsIgnoreCase("Events"))
+		{
+			p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 2), "Events", TitledBorder.LEFT, TitledBorder.TOP));
+		}
+		else if (title.equalsIgnoreCase("Vehicles"))
+		{
+			p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 2), "Vehicles", TitledBorder.LEFT, TitledBorder.TOP));
+		}
+		else if (title.equalsIgnoreCase("Roads"))
+		{
+			p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 2), "Roads", TitledBorder.LEFT, TitledBorder.TOP));
+		}
+		else if (title.equalsIgnoreCase("Junctions"))
+		{
+			p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 2), "Junctions", TitledBorder.LEFT, TitledBorder.TOP));
+		}
+		else if (title.equalsIgnoreCase("Map"))
+		{
+			p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 2), "Map", TitledBorder.LEFT, TitledBorder.TOP));
+		}
+		else if (title.equalsIgnoreCase("Map by Road"))
+		{
+			p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 2), "Map by Road", TitledBorder.LEFT, TitledBorder.TOP));
+		}
 		p.add(new JScrollPane(c));
 		
-		return p ;
+		return p;
 	}
 }
