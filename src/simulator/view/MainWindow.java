@@ -61,7 +61,6 @@ public class MainWindow extends JFrame {
 		JPanel roadView = createViewPanel(new MapByRoadComponent(_ctrl), "Map by Road");
 		roadView.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(roadView);
-		// TODO add a map for MapByRoadComponent
 		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setResizable(true);
