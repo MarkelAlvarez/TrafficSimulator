@@ -151,6 +151,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 			// draw a circle with center at (x,y) with radius _JRADIUS
 			g.setColor(_JUNCTION_COLOR);
+			// 2 primeros: coordenadas superiores izquierdas del rectangulo 
 			g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
 
 			// draw the junction's identifier at (x,y)
