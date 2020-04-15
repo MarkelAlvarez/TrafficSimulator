@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 
@@ -85,7 +88,13 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				int ret = selectorFichero.showOpenDialog(selectorFichero);
 				if (ret == JFileChooser.APPROVE_OPTION)
 				{
-					//TODO: cargar los datos en el programa	
+					InputStream in;
+					try {
+						in = new FileInputStream(selectorFichero.getSelectedFile());
+						ctrl.loadEvents(in);
+					} catch (FileNotFoundException e1) {
+						JOptionPane.showMessageDialog(null, "Error al cargar el archivo");
+					}					
 				}
 				else
 				{
