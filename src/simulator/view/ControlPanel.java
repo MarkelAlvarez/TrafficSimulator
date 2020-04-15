@@ -79,7 +79,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		selectorFichero.setFileFilter(new FileNameExtensionFilter("JavaScript Object Notation (JSON)", "json"));
 		
 		botonFichero = new JButton();
-		//botonFichero.setActionCommand("cargar");
 		botonFichero.setToolTipText("Carga los archivos de datos a la aplicación");
 		botonFichero.setIcon(new ImageIcon("./resources/icons/open.png"));
 		botonFichero.addActionListener(new ActionListener() {
@@ -109,13 +108,13 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void botonCO2() {
 		
 		botonCO2 = new JButton();
-		//botonCO2.setActionCommand("co2");
 		botonCO2.setIcon(new ImageIcon("./resources/icons/co2class.png"));
 		botonCO2.setToolTipText("Modificar información de la contaminación");
 		botonFichero.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO: ventana emergente				
+				changeCO2 = new ChangeCO2ClassDialog(this);
+				changeCO2.open();
 			}
 		});
 		
@@ -125,7 +124,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void botonWeather() {
 		
 		botonWeather = new JButton();
-		//botonWeather.setActionCommand("weather");
 		botonWeather.setToolTipText("Modificar información del clima");
 		botonWeather.setIcon(new ImageIcon("./resources/icons/weather.png"));
 		botonWeather.addActionListener(new ActionListener() {
@@ -141,7 +139,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void botonRun() {
 		
 		run = new JButton();
-		//run.setActionCommand("run");
 		run.setToolTipText("Iniciar simulación");
 		run.setIcon(new ImageIcon("./resources/icons/run.png"));
 		run.addActionListener(new ActionListener() {
@@ -159,7 +156,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void botonStop() {
 
 		stop = new JButton();
-		//stop.setActionCommand("stop");
 		stop.setToolTipText("Parar simulación");
 		stop.setIcon(new ImageIcon("./resources/icons/stop.png"));
 		stop.addActionListener(new ActionListener() {
@@ -195,7 +191,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void botonExit() {
 
 		botonExit = new JButton();
-		//botonExit.setActionCommand("exit");
 		botonExit.setAlignmentX(RIGHT_ALIGNMENT);
 		botonExit.setToolTipText("Cerrar aplicación");
 		botonExit.setIcon(new ImageIcon("./resources/icons/exit.png"));
@@ -213,48 +208,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		barraHerramientas.add(botonExit);
 	}
-
-	/*public void actionPerformed(ActionEvent e) {
-		
-		if (e.getActionCommand().equals("cargar"))
-		{
-			int ret = selectorFichero.showOpenDialog(this);
-			if (ret == JFileChooser.APPROVE_OPTION)
-			{
-				Main.set_inFile(selectorFichero.getSelectedFile());
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(this, "Se ha pulsado cancelar o ha ocurrido un error.");
-			}
-		}
-		else if (e.getActionCommand().equals("co2"))
-		{
-			//TODO: clase de co2 selector. Los ticks se suman a lo que ya hay (time)
-		}
-		else if (e.getActionCommand().equals("weather"))
-		{
-			//TODO: clase de weather selector
-		}
-		else if (e.getActionCommand().equals("run"))
-		{
-			_stopped = false;
-			run_sim((Integer) ticks.getValue());
-		}
-		else if (e.getActionCommand().equals("stop"))
-		{
-			stop();
-		}
-		else if (e.getActionCommand().equals("exit"))
-		{
-			int ret = JOptionPane.showConfirmDialog(this, "¿Desea cerrar el programa?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
-			
-			if (ret == 0)
-			{
-				System.exit(0);
-			}
-		}
-	}*/
 	
 	private void run_sim(int n) {
 		
