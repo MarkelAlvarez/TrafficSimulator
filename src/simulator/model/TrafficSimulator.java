@@ -1,6 +1,10 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import org.json.JSONObject;
 
 import simulator.misc.SortedArrayList;
@@ -10,10 +14,12 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 	private RoadMap mapaCarreteras;
 	private List<Event> listaEventos;
 	private int time;
+	private List<TrafficSimObserver> observadores;
 	
 	public TrafficSimulator() {
 
 		listaEventos = new SortedArrayList<Event>();
+		observadores = new ArrayList<TrafficSimObserver>();
 		mapaCarreteras = new RoadMap();
 		time = 0;
 	}
@@ -22,16 +28,21 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		
 		listaEventos.add(e);
 		
-		onEventAdded(mapaCarreteras, listaEventos, e, time);
+		for (TrafficSimObserver obs : observadores)
+		{
+			//obs.onEventAdded(mapaCarreteras, listaEventos, e, time);
+		}
 	}
 	
 	public void advance() {
 		
 		time++;
 		
-		onAdvanceStart(mapaCarreteras, listaEventos, time);
+		for (TrafficSimObserver obs : observadores)
+		{
+			//obs.onAdvanceStart(mapaCarreteras, listaEventos, time);
+		}
 		
-		//TODO: ¿esta wea esta bien? y la excepcion de onError se lanza dentro del metodo?
 		try {
 			while (listaEventos.size() > 0 && listaEventos.get(0).getTime() == time)
 			{
@@ -47,10 +58,17 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 				road.advance(time);
 			}
 		} catch (Exception e) {
-			onError(e.getMessage());
+			for (TrafficSimObserver obs : observadores)
+			{
+				//obs.onError(e.getMessage());
+			}
+			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 		
-		onAdvanceEnd(mapaCarreteras, listaEventos, time);
+		for (TrafficSimObserver obs : observadores)
+		{
+			//obs.onAdvanceEnd(mapaCarreteras, listaEventos, time);
+		}
 	}
 	
 	public void reset() {
@@ -59,7 +77,10 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		listaEventos.clear();
 		time = 0;
 		
-		onReset(mapaCarreteras, listaEventos, time);
+		for (TrafficSimObserver obs : observadores)
+		{
+			//obs.onReset(mapaCarreteras, listaEventos, time);
+		}
 	}
 	
 	public JSONObject report() {
@@ -75,13 +96,20 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 	@Override
 	public void addObserver(TrafficSimObserver o) {
 		
-		// TODO Auto-generated method stub
-		onRegister(mapaCarreteras, listaEventos, time);
+		if (!observadores.contains(o))
+		{
+			observadores.add(o);
+		}
+		//o.onRegister(mapaCarreteras, listaEventos, time);
 	}
 
 	@Override
 	public void removeObserver(TrafficSimObserver o) {
 		
-		// TODO Auto-generated method stub
+		if (observadores.contains(o))
+		{
+			observadores.remove(o);
+		}
+		//TODO: se tiene que quitar del register? o.onRegister(mapaCarreteras, listaEventos, time);
 	}
 }

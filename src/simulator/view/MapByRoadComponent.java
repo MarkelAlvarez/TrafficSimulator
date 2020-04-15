@@ -25,10 +25,12 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	private Graphics2D g;
 	
 	private JLabel coche;
+	private Controller ctrl;
 	
 	
 	public MapByRoadComponent(Controller _ctrl) {
 		
+		ctrl = _ctrl;
 		// TODO Auto-generated constructor stub
 		setPreferredSize(new Dimension(300, 200));
 		ctrl.addObserver(this);	
