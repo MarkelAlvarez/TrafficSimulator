@@ -84,6 +84,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonFichero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				updateUI();
 				int ret = selectorFichero.showOpenDialog(selectorFichero);
 				if (ret == JFileChooser.APPROVE_OPTION)
 				{
@@ -113,14 +114,26 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonFichero.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				changeCO2 = new ChangeCO2ClassDialog(this);
-				changeCO2.open();
+				cambiarCO2();
 			}
 		});
 		
 		barraHerramientas.add(botonCO2);
 	}
 	
+	protected void cambiarCO2() {
+		
+		int estado = 0;
+		changeCO2 = new ChangeCO2ClassDialog(null); //TODO: null?
+		
+		estado = changeCO2.open();
+		if (estado != 0)
+		{
+			//TODO: cambiar el co2
+			//System.out.println("Your favorite dish is: " + dialog.getDish());
+		}
+	}
+
 	private void botonWeather() {
 		
 		botonWeather = new JButton();
@@ -129,12 +142,25 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonWeather.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO: ventana emergente				
+				cambiarTiempo();				
 			}
 		});
 		barraHerramientas.add(botonWeather);
 	}
 	
+
+	protected void cambiarTiempo() {
+		
+		int estado = 0;
+		changeWeather = new ChangeWeatherDialog(null); //TODO: null?
+		
+		estado = changeCO2.open();
+		if (estado != 0)
+		{
+			//TODO: cambiar el co2
+			//System.out.println("Your favorite dish is: " + dialog.getDish());
+		}
+	}
 
 	private void botonRun() {
 		
