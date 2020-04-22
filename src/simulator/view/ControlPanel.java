@@ -16,7 +16,9 @@ import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import simulator.control.Controller;
+import simulator.factories.SetContClassEventBuilder;
 import simulator.launcher.Main;
+import simulator.misc.Pair;
 import simulator.model.*;
 import simulator.model.Event;
 
@@ -40,6 +42,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JDialog exit;
 	
 	private Controller ctrl;
+	private RoadMap mapa;
+	private int tiempo;
 	private boolean _stopped;
 	
 	public ControlPanel(Controller _ctrl) {
@@ -56,6 +60,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.setLayout(new BorderLayout());
 		this.add(barraHerramientas, BorderLayout.PAGE_START);
 
+		selectorFichero = new JFileChooser();
+		
 		barraHerramientas.addSeparator();
 		botonCargaFichero();
 		barraHerramientas.addSeparator();
@@ -72,7 +78,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private void botonCargaFichero() {
 		
-		selectorFichero = new JFileChooser();
 		selectorFichero.setDialogTitle("Carga de fichero de datos");
 		selectorFichero.setCurrentDirectory(new File("./resources/examples/"));
 		selectorFichero.setMultiSelectionEnabled(false);
@@ -83,27 +88,33 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonFichero.setIcon(new ImageIcon("./resources/icons/open.png"));
 		botonFichero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				updateUI();
-				int ret = selectorFichero.showOpenDialog(selectorFichero);
-				if (ret == JFileChooser.APPROVE_OPTION)
-				{
-					InputStream in;
-					try {
-						in = new FileInputStream(selectorFichero.getSelectedFile());
-						ctrl.loadEvents(in);
-					} catch (FileNotFoundException e1) {
-						JOptionPane.showMessageDialog(null, "Error al cargar el archivo");
-					}					
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null, "Se ha pulsado cancelar o ha ocurrido un error.");
-				}			
+		
+				load();			
 			}
 		});
 		
 		barraHerramientas.add(botonFichero);
+	}
+	
+	private void load() {
+		
+		updateUI();
+		int ret = selectorFichero.showOpenDialog(this.getParent());
+		if (ret == JFileChooser.APPROVE_OPTION)
+		{
+			InputStream in;
+			try {
+				in = new FileInputStream(selectorFichero.getSelectedFile());
+				ctrl.reset();
+				ctrl.loadEvents(in);
+			} catch (FileNotFoundException e1) {
+				JOptionPane.showMessageDialog((Frame) SwingUtilities.getWindowAncestor(this), "Error al cargar el archivo");
+			}					
+		}
+		else
+		{
+			JOptionPane.showMessageDialog((Frame) SwingUtilities.getWindowAncestor(this), "Se ha pulsado cancelar o ha ocurrido un error.");
+		}	
 	}
 	
 	private void botonCO2() {
@@ -111,7 +122,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonCO2 = new JButton();
 		botonCO2.setIcon(new ImageIcon("./resources/icons/co2class.png"));
 		botonCO2.setToolTipText("Modificar información de la contaminación");
-		botonFichero.addActionListener(new ActionListener() {
+		botonCO2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				cambiarCO2();
@@ -124,13 +135,18 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	protected void cambiarCO2() {
 		
 		int estado = 0;
-		changeCO2 = new ChangeCO2ClassDialog(null); //TODO: null?
+		changeCO2 = new ChangeCO2ClassDialog((Frame) SwingUtilities.getWindowAncestor(this));
 		
-		estado = changeCO2.open();
+		estado = changeCO2.open(mapa);
 		if (estado != 0)
 		{
-			//TODO: cambiar el co2
-			//System.out.println("Your favorite dish is: " + dialog.getDish());
+			List<Pair<String, Integer>> cs = new ArrayList<>();
+			cs.add(new Pair<String, Integer>(changeCO2.getVehicle().getId(), changeCO2.getCO2Class()));
+			try {
+				ctrl.addEvent(new NewSetContClassEvent(tiempo+changeCO2.getTicks(), cs));
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog((Frame) SwingUtilities.getWindowAncestor(this), "Ha ocurrido un error al cambiar el CO2.");
+			}
 		}
 	}
 
@@ -152,9 +168,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	protected void cambiarTiempo() {
 		
 		int estado = 0;
-		changeWeather = new ChangeWeatherDialog(null); //TODO: null?
+		changeWeather = new ChangeWeatherDialog((Frame) SwingUtilities.getWindowAncestor(this));
 		
-		estado = changeCO2.open();
+		estado = changeWeather.open();
 		if (estado != 0)
 		{
 			//TODO: cambiar el co2
@@ -171,7 +187,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				enableToolBar(false);
-				_stopped = false; //TODO: comprobar 
+				_stopped = false;
 				run_sim((Integer) ticks.getValue());			
 			}
 		});
@@ -201,17 +217,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		ticks.setMinimumSize(new Dimension(80, 30));
 		ticks.setMaximumSize(new Dimension(200, 30));
 		ticks.setPreferredSize(new Dimension(80, 30));
-		ticks.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-
-				_ticks = Integer.valueOf(ticks.getValue().toString());
-			}
-		});
-		
+				
 		barraHerramientas.add(textoTicks);
 		barraHerramientas.add(ticks);
-		
 	}
 	
 	private void botonExit() {
@@ -223,16 +231,21 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int ret = JOptionPane.showConfirmDialog(null, "¿Desea cerrar el programa?", "Salir", JOptionPane.YES_NO_OPTION);
-				
-				if (ret == 0)
-				{
-					System.exit(0);
-				}
+				exit();
 			}
 		});
 		
 		barraHerramientas.add(botonExit);
+	}
+	
+	public void exit() {
+		
+		int ret = JOptionPane.showConfirmDialog((Frame) SwingUtilities.getWindowAncestor(this), "¿Desea cerrar el programa?", "Salir", JOptionPane.YES_NO_OPTION);
+		
+		if (ret == 0)
+		{
+			System.exit(0);
+		}
 	}
 	
 	private void run_sim(int n) {
@@ -275,19 +288,16 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private void stop() {
 		
-		_stopped = true ;
+		_stopped = true;
 	}
 	
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		
-		// TODO Auto-generated method stub
 		mapa = map;
 		tiempo = time;	
 	}
@@ -295,7 +305,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		
-		// TODO Auto-generated method stub
 		mapa = map;
 		tiempo = time;
 	}
@@ -303,20 +312,18 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		
-		// TODO Auto-generated method stub
+		mapa = map;
+		tiempo = time;
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 		
-		// TODO Auto-generated method stub
 		mapa = map;
 		tiempo = time;
 	}
 
 	@Override
 	public void onError(String err) {
-		
-		// TODO Auto-generated method stub
 	}
 }

@@ -16,8 +16,8 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	private JLabel tiempo;
 	private JLabel eventoAñadido;
 	
-	private JLabel currentTime;
-	private JLabel currentEvent;
+	private JLabel currentTime = new JLabel();
+	private JLabel currentEvent = new JLabel();
 	
 	private Controller ctrl;
 	
@@ -33,19 +33,24 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setBorder(BorderFactory.createBevelBorder(1));
 		
-		tiempo = new JLabel("Time: " + currentTime, JLabel.LEFT);
+		tiempo = new JLabel("Time: ", JLabel.LEFT);
+		currentTime = new JLabel("");
 		this.add(tiempo);
+		this.add(currentTime);
 		
 		this.add(new JSeparator(SwingConstants.VERTICAL));
 		
-		eventoAñadido = new JLabel("Event added: " + currentEvent, JLabel.LEFT);
+		eventoAñadido = new JLabel("Event added: ", JLabel.LEFT);
+		currentEvent = new JLabel("");
 		this.add(eventoAñadido);
+		this.add(currentEvent);
 	}
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		
 		currentTime.setText(String.valueOf(time));
+		currentEvent.setText("");
 	}
 
 	@Override
@@ -56,20 +61,21 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		
 		currentEvent.setText(String.valueOf(events.get(time)));
+		currentEvent.setText(e.toString());
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		
 		currentTime.setText(String.valueOf(0));
-		currentEvent.setText(String.valueOf(events.get(time)));
+		currentEvent.setText("");
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 	
 		currentTime.setText(String.valueOf(time));
-		currentEvent.setText(String.valueOf(events.get(time)));
+		currentEvent.setText("");
 	}
 
 	@Override
