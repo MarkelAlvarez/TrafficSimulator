@@ -30,7 +30,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		
 		for (TrafficSimObserver obs : observadores)
 		{
-			//obs.onEventAdded(mapaCarreteras, listaEventos, e, time);
+			obs.onEventAdded(mapaCarreteras, listaEventos, e, time);
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		
 		for (TrafficSimObserver obs : observadores)
 		{
-			//obs.onAdvanceStart(mapaCarreteras, listaEventos, time);
+			obs.onAdvanceStart(mapaCarreteras, listaEventos, time);
 		}
 		
 		try {
@@ -60,14 +60,14 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		} catch (Exception e) {
 			for (TrafficSimObserver obs : observadores)
 			{
-				//obs.onError(e.getMessage());
+				obs.onError(e.getMessage());
 			}
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 		
 		for (TrafficSimObserver obs : observadores)
 		{
-			//obs.onAdvanceEnd(mapaCarreteras, listaEventos, time);
+			obs.onAdvanceEnd(mapaCarreteras, listaEventos, time);
 		}
 	}
 	
@@ -79,7 +79,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		
 		for (TrafficSimObserver obs : observadores)
 		{
-			//obs.onReset(mapaCarreteras, listaEventos, time);
+			obs.onReset(mapaCarreteras, listaEventos, time);
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		{
 			observadores.add(o);
 		}
-		//o.onRegister(mapaCarreteras, listaEventos, time);
+		o.onRegister(mapaCarreteras, listaEventos, time);
 	}
 
 	@Override
@@ -110,6 +110,5 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		{
 			observadores.remove(o);
 		}
-		//TODO: se tiene que quitar del register? o.onRegister(mapaCarreteras, listaEventos, time);
 	}
 }
