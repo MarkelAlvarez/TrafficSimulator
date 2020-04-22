@@ -51,7 +51,14 @@ public class Controller implements Observable<TrafficSimObserver> {
 			
 			PrintStream p = new PrintStream(out);
 			p.println(salida.toString());
-		}	
+		}
+		else
+		{
+			for (int i = 0; i < n; i++) 
+			{
+				sim.advance();
+			}
+		}
 	}
 	
 	/*public void run(int n, OutputStream out) {
