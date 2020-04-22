@@ -170,11 +170,16 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		int estado = 0;
 		changeWeather = new ChangeWeatherDialog((Frame) SwingUtilities.getWindowAncestor(this));
 		
-		estado = changeWeather.open();
+		estado = changeWeather.open(mapa);
 		if (estado != 0)
 		{
-			//TODO: cambiar el co2
-			//System.out.println("Your favorite dish is: " + dialog.getDish());
+			List<Pair<String, Integer>> cs = new ArrayList<>();
+			cs.add(new Pair<String, Integer>(changeCO2.getVehicle().getId(), changeCO2.getCO2Class()));
+			try {
+				ctrl.addEvent(new NewSetContClassEvent(tiempo+changeCO2.getTicks(), cs));
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog((Frame) SwingUtilities.getWindowAncestor(this), "Ha ocurrido un error al cambiar el CO2.");
+			}
 		}
 	}
 

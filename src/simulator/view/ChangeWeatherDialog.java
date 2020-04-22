@@ -5,28 +5,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import simulator.model.*;
 
 public class ChangeWeatherDialog extends JDialog {
 	
 	private JPanel emergente;
 	private JLabel texto;
 	private JLabel textoRoad;
-	private JComboBox<> road;
+	private JComboBox<Road> road;
 	private JLabel textoWeather;
-	private JComboBox<> weather;
+	private JComboBox<Weather> weather;
 	private JLabel textoTicks;
 	private JSpinner ticks;
-	
+		
 	private JPanel botones;
+	private JPanel opciones;
 	private JButton ok;
 	private JButton cancel;
 
 	private int estado = 0;
+	private int valor = 0;
+	private DefaultComboBoxModel<Road> roadModel;
+	private DefaultComboBoxModel<Weather> weatherModel;
 
-	//TODO: boton cancel y ok: setVisile(false) para esconder la ventana o dispose() para quitarla por completo (hay que distingir )
-	// casting a vehicle para el comboBox para obtener lo que queremos
 	public ChangeWeatherDialog(Frame padre) {
 		
 		super(padre, true);
@@ -34,77 +35,109 @@ public class ChangeWeatherDialog extends JDialog {
 	}
 
 	private void initGUI() {
-		
+	
 		setTitle("Change Road Weather");
-		
+			
 		emergente = new JPanel();
 		emergente.setLayout(new BoxLayout(emergente, BoxLayout.Y_AXIS));
 		setContentPane(emergente);
-		
-		texto = new JLabel("Schedule an event to change the weather of a road after a given number os simulation ticks form now.");
+			
+		texto = new JLabel("<html>Schedule an event to change the weather class of a road after a given number of<br>simulation ticks form now.</html>");
+		texto.setAlignmentX(CENTER_ALIGNMENT);
 		emergente.add(texto);
 		emergente.add(Box.createRigidArea(new Dimension(0, 20)));		
-	
+		
 		botones = new JPanel();
 		botones.setAlignmentX(CENTER_ALIGNMENT);
 		emergente.add(botones);
-		
+			
 		textoRoad = new JLabel("Road: ", JLabel.CENTER);
-		road = new JComboBox<>();
-		textoWeather = new JLabel("Weather: ", JLabel.CENTER);
-		weather = new JComboBox<>;
+		roadModel = new DefaultComboBoxModel<Road>();
+		road = new JComboBox<Road>(roadModel);
+		road.setVisible(true);
+		botones.add(textoRoad);
+		botones.add(road);
+			
+		textoWeather = new JLabel("CO2 Class: ", JLabel.CENTER);
+		weatherModel = new DefaultComboBoxModel<Weather>();
+		weather = new JComboBox<Weather>(weatherModel);
+		weather.setVisible(true);
+		botones.add(textoWeather);
+		botones.add(weather);
+			
 		ticks = new JSpinner();
 		textoTicks = new JLabel("Ticks: ", JLabel.CENTER);
 		ticks = new JSpinner(new SpinnerNumberModel(10, 1, 300, 1));
 		ticks.setMinimumSize(new Dimension(80, 30));
 		ticks.setMaximumSize(new Dimension(200, 30));
 		ticks.setPreferredSize(new Dimension(80, 30));
-		ticks.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-
-				_ticks = Integer.valueOf(ticks.getValue().toString());
-			}
-		});
-		
+			
 		botones.add(textoTicks);
 		botones.add(ticks);
+			
+		opciones = new JPanel();
+		opciones.setAlignmentX(CENTER_ALIGNMENT);
+		emergente.add(opciones);
 		
 		cancel = new JButton("Cancel");
 		cancel.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				estado = 0;
-				ChangeWeatherDialog.this.setVisible(false);
+				ChangeWeatherDialog.this.setVisible(false);	
 			}
 		});
-		botones.add(cancel);
+		opciones.add(cancel);
 
 		ok = new JButton("OK");
 		ok.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (_dishesModel.getSelectedItem() != null) {
+				if ((weatherModel.getSelectedItem() != null) && (roadModel.getSelectedItem() != null))
+				{
 					estado = 1;
 					ChangeWeatherDialog.this.setVisible(false);
 				}
 			}
 		});
-		botones.add(ok);
+		opciones.add(ok);
 
 		setPreferredSize(new Dimension(500, 200));
 		pack();
 		setResizable(false);
 		setVisible(false);
 	}
-	
-	public int open() {
 		
+	public int open(RoadMap mapa) {
+		
+		for (Road r : mapa.getRoads())
+		{
+			roadModel.addElement(r);
+		}
+		for (Weather w : Weather.values())
+		{
+			weatherModel.addElement(w);
+		}
 		setLocation(getParent().getLocation().x + 10, getParent().getLocation().y + 10);
 		setVisible(true);
+			
 		return estado;
 	}
 
+	public Integer getTicks() {
+		
+		return (Integer) ticks.getValue();
+	}
+
+	public Integer getWeather() {
+			
+		return (Integer) weatherModel.getSelectedItem();
+	}
+		
+	public Vehicle getRoad() {
+		
+		return (Vehicle) roadModel.getSelectedItem();
+	}
 }
