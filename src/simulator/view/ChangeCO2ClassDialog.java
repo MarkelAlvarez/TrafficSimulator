@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import extra.dialog.MyDialogWindow;
+import simulator.model.RoadMap;
 import simulator.model.Vehicle;
 
 public class ChangeCO2ClassDialog extends JDialog {
@@ -16,20 +16,22 @@ public class ChangeCO2ClassDialog extends JDialog {
 	private JPanel emergente;
 	private JLabel texto;
 	private JLabel textoVehicle;
-	private JComboBox<> vehicle;
+	private JComboBox<Vehicle> vehicle;
 	private JLabel textoCO2;
-	private JComboBox<> co2;
+	private JComboBox<Integer> co2;
 	private JLabel textoTicks;
 	private JSpinner ticks;
 	
 	private JPanel botones;
+	private JPanel opciones;
 	private JButton ok;
 	private JButton cancel;
 
 	private int estado = 0;
+	private int valor = 0;
+	private DefaultComboBoxModel<Vehicle> vehicleModel;
+	private DefaultComboBoxModel<Integer> co2Model;
 
-	//TODO: boton cancel y ok: setVisile(false) para esconder la ventana o dispose() para quitarla por completo (hay que distingir )
-	// casting a vehicle para el comboBox para obtener lo que queremos
 	public ChangeCO2ClassDialog(Frame padre) {
 		
 		super(padre, true);
@@ -44,7 +46,8 @@ public class ChangeCO2ClassDialog extends JDialog {
 		emergente.setLayout(new BoxLayout(emergente, BoxLayout.Y_AXIS));
 		setContentPane(emergente);
 		
-		texto = new JLabel("Schedule an event to change the CO2 class of a vehicle after a given number os simulation ticks form now.");
+		texto = new JLabel("<html>Schedule an event to change the CO2 class of a vehicle after a given number of<br>simulation ticks form now.</html>");
+		texto.setAlignmentX(CENTER_ALIGNMENT);
 		emergente.add(texto);
 		emergente.add(Box.createRigidArea(new Dimension(0, 20)));		
 	
@@ -53,25 +56,32 @@ public class ChangeCO2ClassDialog extends JDialog {
 		emergente.add(botones);
 		
 		textoVehicle = new JLabel("Vehicle: ", JLabel.CENTER);
-		vehicle = new JComboBox<>();
+		vehicleModel = new DefaultComboBoxModel<Vehicle>();
+		vehicle = new JComboBox<Vehicle>(vehicleModel);
+		vehicle.setVisible(true);
+		botones.add(textoVehicle);
+		botones.add(vehicle);
+		
 		textoCO2 = new JLabel("CO2 Class: ", JLabel.CENTER);
-		co2 = new JComboBox<>;
+		co2Model = new DefaultComboBoxModel<Integer>();
+		co2 = new JComboBox<Integer>(co2Model);
+		co2.setVisible(true);
+		botones.add(textoCO2);
+		botones.add(co2);
+		
 		ticks = new JSpinner();
 		textoTicks = new JLabel("Ticks: ", JLabel.CENTER);
 		ticks = new JSpinner(new SpinnerNumberModel(10, 1, 300, 1));
 		ticks.setMinimumSize(new Dimension(80, 30));
 		ticks.setMaximumSize(new Dimension(200, 30));
 		ticks.setPreferredSize(new Dimension(80, 30));
-		ticks.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-
-				_ticks = Integer.valueOf(ticks.getValue().toString());
-			}
-		});
 		
 		botones.add(textoTicks);
 		botones.add(ticks);
+		
+		opciones = new JPanel();
+		opciones.setAlignmentX(CENTER_ALIGNMENT);
+		emergente.add(opciones);
 		
 		cancel = new JButton("Cancel");
 		cancel.addActionListener(new ActionListener() {
@@ -82,20 +92,21 @@ public class ChangeCO2ClassDialog extends JDialog {
 				ChangeCO2ClassDialog.this.setVisible(false);
 			}
 		});
-		botones.add(cancel);
+		opciones.add(cancel);
 
 		ok = new JButton("OK");
 		ok.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (_dishesModel.getSelectedItem() != null) {
+				if ((vehicleModel.getSelectedItem() != null) && (co2Model.getSelectedItem() != null))
+				{
 					estado = 1;
 					ChangeCO2ClassDialog.this.setVisible(false);
 				}
 			}
 		});
-		botones.add(ok);
+		opciones.add(ok);
 
 		setPreferredSize(new Dimension(500, 200));
 		pack();
@@ -103,10 +114,34 @@ public class ChangeCO2ClassDialog extends JDialog {
 		setVisible(false);
 	}
 	
-	public int open() {
+	public int open(RoadMap mapa) {
 		
+		for (Vehicle v : mapa.getVehicles())
+		{
+			vehicleModel.addElement(v);
+		}
+		for (int i = 0; i <= 10; i++)
+		{
+			co2Model.addElement(i);
+		}
 		setLocation(getParent().getLocation().x + 10, getParent().getLocation().y + 10);
 		setVisible(true);
+		
 		return estado;
+	}
+
+	public Integer getTicks() {
+		
+		return (Integer) ticks.getValue();
+	}
+
+	public Integer getCO2Class() {
+		
+		return (Integer) co2Model.getSelectedItem();
+	}
+	
+	public Vehicle getVehicle() {
+		
+		return (Vehicle) vehicleModel.getSelectedItem();
 	}
 }
