@@ -14,7 +14,7 @@ import simulator.model.TrafficSimObserver;
 public class StatusBar extends JPanel implements TrafficSimObserver {
 
 	private JLabel tiempo;
-	private JLabel eventoAñadido;
+	private JLabel eventoAnadido;
 	
 	private JLabel currentTime = new JLabel();
 	private JLabel currentEvent = new JLabel();
@@ -40,9 +40,9 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		
 		this.add(new JSeparator(SwingConstants.VERTICAL));
 		
-		eventoAñadido = new JLabel("Event added: ", JLabel.LEFT);
+		eventoAnadido = new JLabel("Event added: ", JLabel.LEFT);
 		currentEvent = new JLabel("");
-		this.add(eventoAñadido);
+		this.add(eventoAnadido);
 		this.add(currentEvent);
 	}
 
