@@ -131,13 +131,13 @@ public class ChangeWeatherDialog extends JDialog {
 		return (Integer) ticks.getValue();
 	}
 
-	public Integer getWeather() {
+	public Weather getWeather() {
 			
-		return (Integer) weatherModel.getSelectedItem();
+		return (Weather) weatherModel.getSelectedItem();
 	}
 		
-	public Vehicle getRoad() {
+	public Road getRoad() {
 		
-		return (Vehicle) roadModel.getSelectedItem();
+		return (Road) roadModel.getSelectedItem();
 	}
 }

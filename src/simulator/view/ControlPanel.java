@@ -145,7 +145,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			try {
 				ctrl.addEvent(new NewSetContClassEvent(tiempo+changeCO2.getTicks(), cs));
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog((Frame) SwingUtilities.getWindowAncestor(this), "Ha ocurrido un error al cambiar el CO2.");
+				JOptionPane.showMessageDialog((Frame) SwingUtilities.getWindowAncestor(this), "Ha ocurrido un error al cambiar el CO2 (" + e + ")");
 			}
 		}
 	}
@@ -173,12 +173,12 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		estado = changeWeather.open(mapa);
 		if (estado != 0)
 		{
-			List<Pair<String, Integer>> cs = new ArrayList<>();
-			cs.add(new Pair<String, Integer>(changeCO2.getVehicle().getId(), changeCO2.getCO2Class()));
+			List<Pair<String, Weather>> cs = new ArrayList<>();
+			cs.add(new Pair<String, Weather>(changeWeather.getRoad().getId(), changeWeather.getWeather()));
 			try {
-				ctrl.addEvent(new NewSetContClassEvent(tiempo+changeCO2.getTicks(), cs));
+				ctrl.addEvent(new SetWeatherEvent(tiempo+changeWeather.getTicks(), cs));
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog((Frame) SwingUtilities.getWindowAncestor(this), "Ha ocurrido un error al cambiar el CO2.");
+				JOptionPane.showMessageDialog((Frame) SwingUtilities.getWindowAncestor(this), "Ha ocurrido un error al cambiar el clima (" + e + ")");
 			}
 		}
 	}
@@ -218,7 +218,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		textoTicks = new JLabel("Ticks: ", JLabel.CENTER);
 		
-		ticks = new JSpinner(new SpinnerNumberModel(10, 1, 300, 1));
+		ticks = new JSpinner(new SpinnerNumberModel(10, 1, 99999, 1));
 		ticks.setMinimumSize(new Dimension(80, 30));
 		ticks.setMaximumSize(new Dimension(200, 30));
 		ticks.setPreferredSize(new Dimension(80, 30));
