@@ -71,7 +71,7 @@ public class ChangeCO2ClassDialog extends JDialog {
 		
 		ticks = new JSpinner();
 		textoTicks = new JLabel("Ticks: ", JLabel.CENTER);
-		ticks = new JSpinner(new SpinnerNumberModel(10, 1, 300, 1));
+		ticks = new JSpinner(new SpinnerNumberModel(10, 1, 99999, 1));
 		ticks.setMinimumSize(new Dimension(80, 30));
 		ticks.setMaximumSize(new Dimension(200, 30));
 		ticks.setPreferredSize(new Dimension(80, 30));
@@ -120,10 +120,11 @@ public class ChangeCO2ClassDialog extends JDialog {
 		{
 			vehicleModel.addElement(v);
 		}
-		for (int i = 0; i <= 10; i++)
+		for (int i = 0; i < 11; i++)
 		{
 			co2Model.addElement(i);
 		}
+		
 		setLocation(getParent().getLocation().x + 10, getParent().getLocation().y + 10);
 		setVisible(true);
 		
