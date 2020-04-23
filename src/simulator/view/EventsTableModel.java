@@ -1,39 +1,98 @@
 package simulator.view;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
+import extra.jtable.EventEx;
 import simulator.control.Controller;
 import simulator.model.*;
 
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
 
+	private List<EventEx> _events;
+	private String[] _colNames = { "Time", "Descripción" };
+	private Controller ctrl;
+
 	public EventsTableModel(Controller _ctrl) {
 		
-		// TODO Auto-generated constructor stub
+		_events = null;
+		ctrl = _ctrl;
 	}
 
-	@Override
-	public int getRowCount() {
+	public void update() {
+		// observar que si no refresco la tabla no se carga
+		// La tabla es la represantación visual de una estructura de datos,
+		// en este caso de un ArrayList, hay que notificar los cambios.
+		// We need to notify changes, otherwise the table does not refresh.
+		fireTableDataChanged();	
+	}
+	
+	public void setEventsList(List<EventEx> events) {
 		
-		// TODO Auto-generated method stub
-		return 0;
+		_events = events;
+		update();
 	}
 
 	@Override
+	public boolean isCellEditable(int row, int column) {
+		
+		return false;
+	}
+
+	//si no pongo esto no coge el nombre de las columnas
+	//this is for the column header
+	@Override
+	public String getColumnName(int col) {
+		
+		return _colNames[col];
+	}
+
+	@Override
+	// método obligatorio, probad a quitarlo, no compila
+	// this is for the number of columns
 	public int getColumnCount() {
 		
-		// TODO Auto-generated method stub
-		return 0;
+		return _colNames.length;
 	}
 
 	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
+	// método obligatorio
+	// the number of row, like those in the events list
+	public int getRowCount() {
 		
-		// TODO Auto-generated method stub
-		return null;
+		return _events == null ? 0 : _events.size();
 	}
 
+	@Override
+	// método obligatorio
+	// así es como se va a cargar la tabla desde el ArrayList
+	// el índice del arrayList es el número de fila pq en este ejemplo
+	// quiero enumerarlos.
+	// returns the value of a particular cell 
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		
+		Object s = null;
+		
+		switch (columnIndex)
+		{
+			case 0:
+				s = rowIndex;
+				break;
+			case 1:
+				s = _events.get(rowIndex).getTime();
+				break;
+			case 2:
+				s = _events.get(rowIndex).getPriority();
+				break;
+		}
+		
+		return s;
+	}
+	
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		
