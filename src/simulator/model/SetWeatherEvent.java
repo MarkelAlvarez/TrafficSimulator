@@ -35,6 +35,6 @@ public class SetWeatherEvent extends Event {
 	@Override
 	public String toString() {
 		
-		return "New Weather '" + tiempo + "'";
+		return "Event added (Change Weather [(" + tiempo.get(0).getFirst() + ", " + tiempo.get(0).getSecond() + ")])";
 	}
 }

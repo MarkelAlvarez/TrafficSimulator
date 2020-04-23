@@ -34,6 +34,6 @@ public class NewSetContClassEvent extends Event {
 	@Override
 	public String toString() {
 		
-		return "New Contamination Class '" + cont + "'";
+		return "Event added (Change CO2 Class [(" + cont.get(0).getFirst() + ", " + cont.get(0).getSecond() + ")])";
 	}
 }
