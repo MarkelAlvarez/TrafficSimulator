@@ -12,7 +12,7 @@ public class MainWindow extends JFrame {
 	
 	public MainWindow(Controller ctrl ) {
 		
-		super ("Traffic Simulator");
+		super("Traffic Simulator");
 		_ctrl = ctrl ;
 		initGUI();
 	}
