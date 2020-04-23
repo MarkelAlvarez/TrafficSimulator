@@ -40,9 +40,10 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		
 		this.add(new JSeparator(SwingConstants.VERTICAL));
 		
-		eventoAnadido = new JLabel("Event added: ", JLabel.LEFT);
+		//eventoAnadido = new JLabel();
+		//this.add(eventoAnadido);
+		//TODO: texto welcome al principio?
 		currentEvent = new JLabel("");
-		this.add(eventoAnadido);
 		this.add(currentEvent);
 	}
 
