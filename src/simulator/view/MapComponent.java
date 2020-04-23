@@ -80,22 +80,22 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 		for (Road r : _map.getRoads())
 		{
 			// the road goes from (x1,y1) to (x2,y2)
-			int x1 = r.getSrc().getX();
-			int y1 = r.getSrc().getY();
-			int x2 = r.getDest().getX();
-			int y2 = r.getDest().getY();
+			int x1 = r.getCruceOrigen().getX();
+			int y1 = r.getCruceOrigen().getY();
+			int x2 = r.getCruceDestino().getX();
+			int y2 = r.getCruceDestino().getY();
 
 			// choose a color for the arrow depending on the traffic light of the road
 			Color arrowColor = _RED_LIGHT_COLOR;
-			int idx = r.getDest().getGreenLightIndex();
-			if (idx != -1 && r.equals(r.getDest().getInRoads().get(idx)))
+			int idx = r.getCruceDestino().getIndiceVerde();
+			if (idx != -1 && r.equals(r.getCruceDestino().getListaEntrantes().get(idx)))
 			{
 				arrowColor = _GREEN_LIGHT_COLOR;
 			}
 
 			// choose a color for the road depending on the total contamination, the darker
 			// the more contaminated (wrt its co2 limit)
-			int roadColorValue = 200 - (int) (200.0 * Math.min(1.0, (double) r.getTotalCO2() / (1.0 + (double) r.getCO2Limit())));
+			int roadColorValue = 200 - (int) (200.0 * Math.min(1.0, (double) r.getContTotal() / (1.0 + (double) r.getLimiteCont())));
 			Color roadColor = new Color(roadColorValue, roadColorValue, roadColorValue);
 
 			// draw line from (x1,y1) to (x2,y2) with arrow of color arrowColor and line of
@@ -106,21 +106,21 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 	private void drawVehicles(Graphics g) {
 		
-		for (Vehicle v : _map.getVehilces())
+		for (Vehicle v : _map.getVehicles())
 		{
-			if (v.getStatus() != VehicleStatus.ARRIVED)
+			if (v.getEstado() != VehicleStatus.ARRIVED)
 			{
 				// The calculation below compute the coordinate (vX,vY) of the vehicle on the
 				// corresponding road. It is calculated relativly to the length of the road, and
 				// the location on the vehicle.
-				Road r = v.getRoad();
-				int x1 = r.getSrc().getX();
-				int y1 = r.getSrc().getY();
-				int x2 = r.getDest().getX();
-				int y2 = r.getDest().getY();
+				Road r = v.getCarretera();
+				int x1 = r.getCruceOrigen().getX();
+				int y1 = r.getCruceOrigen().getY();
+				int x2 = r.getCruceDestino().getX();
+				int y2 = r.getCruceDestino().getY();
 				double roadLength = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 				double alpha = Math.atan(((double) Math.abs(x1 - x2)) / ((double) Math.abs(y1 - y2)));
-				double relLoc = roadLength * ((double) v.getLocation()) / ((double) r.getLength());
+				double relLoc = roadLength * ((double) v.getLocalizacion()) / ((double) r.getLongitud());
 				double x = Math.sin(alpha) * relLoc;
 				double y = Math.cos(alpha) * relLoc;
 				int xDir = x1 < x2 ? 1 : -1;
@@ -130,7 +130,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 				// Choose a color for the vehcile's label and background, depending on its
 				// contamination class
-				int vLabelColor = (int) (25.0 * (10.0 - (double) v.getContClass()));
+				int vLabelColor = (int) (25.0 * (10.0 - (double) v.getGradoCont()));
 				g.setColor(new Color(0, vLabelColor, 0));
 
 				// draw an image of a car (with circle as background) and it identifier
