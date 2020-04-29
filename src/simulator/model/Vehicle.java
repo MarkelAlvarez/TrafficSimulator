@@ -229,15 +229,15 @@ public class Vehicle extends SimulatedObject {
 		this.carretera = carretera;
 	}
 
-	public Junction getSrcJunction() {
-		return srcJunction;
-	}
-
 	public int getVelocMaxima() {
 		return velocMaxima;
 	}
 
 	public int getDistTotRec() {
 		return distTotRec;
+	}
+
+	public Junction getDesJunction() {
+		return desJunction;
 	}
 }

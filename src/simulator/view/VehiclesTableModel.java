@@ -88,7 +88,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 						texto.append("Pending");
 						break;
 					case WAITING:    
-						texto.append("Waiting:"+ _vehicle.get(rowIndex).getSrcJunction());
+						texto.append("Waiting:"+ _vehicle.get(rowIndex).getDesJunction());
 						break;
 					case TRAVELING:  
 						texto.append(_vehicle.get(rowIndex).getCarretera() + ": " + _vehicle.get(rowIndex).getLocalizacion());
