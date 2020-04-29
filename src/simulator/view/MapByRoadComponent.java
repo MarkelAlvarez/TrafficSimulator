@@ -20,8 +20,11 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	private int y;
 	private int i;
 	
+	private RoadMap _map;
+	private Image _car;
+	private Image _clima;
+	private Image _cont;
 	private int xCoche;
-	//array de Image para almacenar las imagenes y luego cogerlas en initGui() para cargar las imagenes con loadImages()	
 	private JLabel coche;
 	
 	private static final int _JRADIUS = 10;
@@ -30,11 +33,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	private static final Color _JUNCTION_LABEL_COLOR = new Color(200, 100, 0);
 	private static final Color _GREEN_LIGHT_COLOR = Color.GREEN;
 	private static final Color _RED_LIGHT_COLOR = Color.RED;
-	private RoadMap _map;
-	private Image _car;
-	private Image _clima;
-	
-	
+		
 	public MapByRoadComponent(Controller ctrl) {
 		
 		initGUI();
@@ -75,69 +74,85 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 		
 		int A, B;
 		
-		//TODO: como obtener i (lista de carreteras)
 		i = 0;
 		x1 = 50;
 		x2 = getWidth() - 100;
 		
-		for (Road r : _map.getRoads()) {
-			
+		for (Road r : _map.getRoads())
+		{	
 			y = (i+1)*50;
-			
+			//Dibuja id carretera, la linea  
 			g.setColor(Color.BLACK);
 			g.drawString(r.getId(), x1 - 30, y + _JRADIUS/2);
 			g.drawLine(x1, y, x2, y);
-			g.drawString(r.getCruceDestino().toString(), x2, y - _JRADIUS);
-			g.drawImage(_clima, x2 + 15, y - _JRADIUS*2, _JRADIUS*3, _JRADIUS*3, this);
-			
-			//TODO: circulos que representas los cruces
+						
+			//Dibuja los circulos del principio
 			g.setColor(_JUNCTION_COLOR);
 			g.fillOval(x1 - _JRADIUS/2, y - _JRADIUS/2, _JRADIUS, _JRADIUS);
-			if(r.getCruceDestino().getIndiceVerde() == -1) {
+			
+			//Dibuja los circulos del final de un color u otro
+			if(r.getCruceDestino().getIndiceVerde() == -1)
+			{
 				g.setColor(_RED_LIGHT_COLOR);
 			}
-			else {
+			else
+			{
 				g.setColor(_GREEN_LIGHT_COLOR);
 			}
 			g.fillOval(x2 - _JRADIUS/2, y - _JRADIUS/2, _JRADIUS, _JRADIUS);
 			
-			switch(r.getCondMet()) {
-			case SUNNY:
-				_clima = loadImage("sun.png");
-				break;
-			case CLOUDY:
-				_clima = loadImage("cloud.png");
-				break;
-			case RAINY:
-				_clima = loadImage("rain.png");
-				break;
-			case WINDY:
-				_clima = loadImage("wind.png");
-				break;
-			case STORM:
-				_clima = loadImage("storm.png");
-				break;
+			//Dibuja los nombres de los junction
+			g.setColor(_JUNCTION_LABEL_COLOR);
+			g.drawString(r.getCruceOrigen().toString(), x1, y - _JRADIUS);
+			g.drawString(r.getCruceDestino().toString(), x2, y - _JRADIUS);
+			
+			//Dibuja la imagen del clima
+			switch(r.getCondMet())
+			{
+				case SUNNY:
+					_clima = loadImage("sun.png");
+					break;
+				case CLOUDY:
+					_clima = loadImage("cloud.png");
+					break;
+				case RAINY:
+					_clima = loadImage("rain.png");
+					break;
+				case WINDY:
+					_clima = loadImage("wind.png");
+					break;
+				case STORM:
+					_clima = loadImage("storm.png");
+					break;
 			}
 			g.drawImage(_clima, x2 + 15, y - _JRADIUS*2, _JRADIUS*3, _JRADIUS*3, this);
 			
-//			switch(r.getContTotal()) {
-//			case SUNNY:
-//				_clima = loadImage("sun.png");
-//				break;
-//			case CLOUDY:
-//				_clima = loadImage("cloud.png");
-//				break;
-//			case RAINY:
-//				_clima = loadImage("rain.png");
-//				break;
-//			case WINDY:
-//				_clima = loadImage("wind.png");
-//				break;
-//			case STORM:
-//				_clima = loadImage("storm.png");
-//				break;
-//			}
-			g.drawImage(_clima, x2 + 15, y - _JRADIUS*2, _JRADIUS*3, _JRADIUS*3, this);
+			//Dibuja la imagen de la contaminación
+			switch(r.getContTotal())
+			{
+				case 0:
+					_cont = loadImage("cont_0.png");
+					break;
+				case 1:
+					_cont = loadImage("cont_1.png");
+					break;
+				case 2:
+					_cont = loadImage("cont_2.png");
+					break;
+				case 3:
+					_cont = loadImage("cont_3.png");
+					break;
+				case 4:
+					_cont = loadImage("cont_4.png");
+					break;
+				case 5:
+					_cont = loadImage("cont_5.png");
+					break;
+				case 6:
+					_cont = loadImage("cont_6.png");
+					break;
+			}
+			g.drawImage(_cont, x2 + 55, y - _JRADIUS*2, _JRADIUS*3, _JRADIUS*3, this);
 			//xCoche = x1+(int)((x2-x1)*((double)A/(double)B));
 			i++;
 		}
