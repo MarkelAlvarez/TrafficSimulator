@@ -32,6 +32,8 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	private static final Color _RED_LIGHT_COLOR = Color.RED;
 	private RoadMap _map;
 	private Image _car;
+	private Image _clima;
+	
 	
 	public MapByRoadComponent(Controller ctrl) {
 		
@@ -65,55 +67,86 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 		else
 		{
 			updatePrefferedSize();
-			//drawMap(g);
+			drawMap(g);
 		}
 	}
 
-	/*private void drawMap(Graphics g) {
+	private void drawMap(Graphics g) {
 		
 		int A, B;
-		 
-		selectorColor = new JColorChooser();
-		Color color = JColorChooser.showDialog(this, "Color de fondo", new Color(255, 255, 255));
-
+		
 		//TODO: como obtener i (lista de carreteras)
-		i = 50;
+		i = 0;
 		x1 = 50;
-		x2 = getWidth();
-		y = (i+1)*50;
-		g.drawLine(x1, y, x2, y);
+		x2 = getWidth() - 100;
 		
-		//TODO: circulos que representas los cruces
-		g.drawOval(x, y, width, height);
-		
-		//TODO: A y B como acceder
-		coche = new JLabel(new ImageIcon("./resources/icons/car.png"));
-		xCoche = x1+(int)((x2-x1)*((double)A/(double)B));
-
-		drawVehicle(g);
+		for (Road r : _map.getRoads()) {
+			
+			y = (i+1)*50;
+			
+			g.setColor(Color.BLACK);
+			g.drawString(r.getId(), x1 - 30, y + _JRADIUS/2);
+			g.drawLine(x1, y, x2, y);
+			
+			g.setColor(_JUNCTION_LABEL_COLOR);
+			g.drawString(r.getCruceOrigen().toString(), x1, y - _JRADIUS);
+			
+			if(r.getCruceOrigen().getIndiceVerde() == -1) {
+				g.setColor(_RED_LIGHT_COLOR);
+			}
+			else {
+				g.setColor(_GREEN_LIGHT_COLOR);
+			}
+			
+			g.drawString(r.getCruceDestino().toString(), x2, y - _JRADIUS);
+			g.drawImage(_clima, x2 + 15, y - _JRADIUS*2, _JRADIUS*3, _JRADIUS*3, this);
+			
+			//TODO: circulos que representas los cruces
+			g.setColor(_JUNCTION_COLOR);
+			g.fillOval(x1 - _JRADIUS/2, y - _JRADIUS/2, _JRADIUS, _JRADIUS);
+			g.fillOval(x2 - _JRADIUS/2, y - _JRADIUS/2, _JRADIUS, _JRADIUS);
+			
+			switch(r.getCondMet()) {
+			case SUNNY:
+				_clima = loadImage("sun.png");
+				break;
+			case CLOUDY:
+				_clima = loadImage("cloud.png");
+				break;
+			case RAINY:
+				_clima = loadImage("rain.png");
+				break;
+			case WINDY:
+				_clima = loadImage("wind.png");
+				break;
+			case STORM:
+				_clima = loadImage("storm.png");
+				break;
+			}
+			g.drawImage(_clima, x2 + 15, y - _JRADIUS*2, _JRADIUS*3, _JRADIUS*3, this);
+			
+//			switch(r.getContTotal()) {
+//			case SUNNY:
+//				_clima = loadImage("sun.png");
+//				break;
+//			case CLOUDY:
+//				_clima = loadImage("cloud.png");
+//				break;
+//			case RAINY:
+//				_clima = loadImage("rain.png");
+//				break;
+//			case WINDY:
+//				_clima = loadImage("wind.png");
+//				break;
+//			case STORM:
+//				_clima = loadImage("storm.png");
+//				break;
+//			}
+			g.drawImage(_clima, x2 + 15, y - _JRADIUS*2, _JRADIUS*3, _JRADIUS*3, this);
+			//xCoche = x1+(int)((x2-x1)*((double)A/(double)B));
+			i++;
+		}
 	}
-
-	private void drawVehicle(Graphics g) {
-		
-		int A, B;
-		 
-		selectorColor = new JColorChooser();
-		Color color = JColorChooser.showDialog(this, "Color de fondo", new Color(255, 255, 255));
-		
-		//TODO: como obtener i (lista de carreteras)
-		i = 50;
-		x1 = 50;
-		x2 = getWidth();
-		y = (i+1)*50;
-		g.drawLine(x1, y, x2, y);
-		
-		//TODO: circulos que representas los cruces
-		g.drawOval(x, y, width, height);
-		
-		//TODO: A y B como acceder
-		coche = new JLabel(new ImageIcon("./resources/icons/car.png"));
-		xCoche = x1+(int)((x2-x1)*((double)A/(double)B));
-	}*/
 	
 	// this method is used to update the preffered and actual size of the component,
 	// so when we draw outside the visible area the scrollbars show up
