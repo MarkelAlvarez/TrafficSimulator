@@ -228,4 +228,16 @@ public class Vehicle extends SimulatedObject {
 	public void setCarretera(Road carretera) {
 		this.carretera = carretera;
 	}
+
+	public Junction getSrcJunction() {
+		return srcJunction;
+	}
+
+	public int getVelocMaxima() {
+		return velocMaxima;
+	}
+
+	public int getDistTotRec() {
+		return distTotRec;
+	}
 }

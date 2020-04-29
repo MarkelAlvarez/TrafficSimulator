@@ -170,6 +170,11 @@ public abstract class Road extends SimulatedObject {
 		return longitud;
 	}
 
+	public int getLimiteActual() {
+		
+		return limiteActual;
+	}
+
 	public void setLimiteActual(int limiteActual) {
 		
 		this.limiteActual = limiteActual;
