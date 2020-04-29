@@ -73,7 +73,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		
 		Object s = null;
-		//TODO: todos los valores los da iguales
+
 		switch (columnIndex)
 		{
 			case 0:
@@ -101,16 +101,22 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 				break;
 			case 2:
 				s = _vehicle.get(rowIndex).getItinerario();
+				break;
 			case 3:
 				s = _vehicle.get(rowIndex).getGradoCont();
+				break;
 			case 4:
 				s = _vehicle.get(rowIndex).getVelocMaxima();
+				break;
 			case 5:
 				s = _vehicle.get(rowIndex).getVelocActual();
+				break;
 			case 6:
 				s = _vehicle.get(rowIndex).getContTotal();
+				break;
 			case 7:
 				s = _vehicle.get(rowIndex).getDistTotRec();
+				break;
 			default:
 				break;
 		}
@@ -144,6 +150,8 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
+		
+		setVehicleList(map.getVehicles());
 	}
 
 	@Override

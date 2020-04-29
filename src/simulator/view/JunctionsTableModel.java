@@ -98,6 +98,7 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 					queue += r.getId() + ":" + r.getVehiculos().toString()+ " ";
 				}
 				s = queue;
+				break;
 			default:
 				break;
 		}

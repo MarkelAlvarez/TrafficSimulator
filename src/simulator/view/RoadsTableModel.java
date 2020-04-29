@@ -73,7 +73,7 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		
 		Object s = null;
-		//TODO: los datos aparecen mal
+
 		switch (columnIndex)
 		{
 			case 0:
@@ -84,14 +84,19 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
 				break;
 			case 2:
 				s = _roads.get(rowIndex).getCondMet();
+				break;
 			case 3:
 				s = _roads.get(rowIndex).getVelocMaxima();
+				break;
 			case 4:
 				s = _roads.get(rowIndex).getLimiteActual();
+				break;
 			case 5:
 				s = _roads.get(rowIndex).getContTotal();
+				break;
 			case 6:
 				s = _roads.get(rowIndex).getLimiteCont();
+				break;
 			default:
 				break;
 		}
