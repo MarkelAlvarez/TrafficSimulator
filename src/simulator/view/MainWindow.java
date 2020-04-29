@@ -62,6 +62,7 @@ public class MainWindow extends JFrame {
 		roadView.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(roadView);
 		
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage("./resources/icons/weather.png"));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setResizable(true);
