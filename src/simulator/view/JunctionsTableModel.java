@@ -132,6 +132,8 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
+		
+		setJunctionsList(map.getJunctions());
 	}
 
 	@Override
