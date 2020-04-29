@@ -72,8 +72,6 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
 	private void drawMap(Graphics g) {
 		
-		int A, B;
-		
 		i = 0;
 		x1 = 50;
 		x2 = getWidth() - 100;
@@ -90,14 +88,16 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			g.setColor(_JUNCTION_COLOR);
 			g.fillOval(x1 - _JRADIUS/2, y - _JRADIUS/2, _JRADIUS, _JRADIUS);
 			
+			//TODO: comprobar que esta bien
 			//Dibuja los circulos del final de un color u otro
-			if(r.getCruceDestino().getIndiceVerde() == -1)
+			int idx = r.getCruceDestino().getIndiceVerde();
+			if (idx != -1 && r.equals(r.getCruceDestino().getListaEntrantes().get(idx)))
 			{
-				g.setColor(_RED_LIGHT_COLOR);
+				g.setColor(_GREEN_LIGHT_COLOR);
 			}
 			else
 			{
-				g.setColor(_GREEN_LIGHT_COLOR);
+				g.setColor(_RED_LIGHT_COLOR);
 			}
 			g.fillOval(x2 - _JRADIUS/2, y - _JRADIUS/2, _JRADIUS, _JRADIUS);
 			
@@ -125,10 +125,11 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 					_clima = loadImage("storm.png");
 					break;
 			}
-			g.drawImage(_clima, x2 + 15, y - _JRADIUS*2, _JRADIUS*3, _JRADIUS*3, this);
+			g.drawImage(_clima, x2 + 15, y - _JRADIUS*2, 32, 32, this);
 			
 			//Dibuja la imagen de la contaminación
-			switch(r.getContTotal())
+			int c = (int) Math.floor(Math.min((double)r.getContTotal()/(1.0 + (double)r.getLimiteCont()),1.0) / 0.19);
+			switch(c)
 			{
 				case 0:
 					_cont = loadImage("cont_0.png");
@@ -152,8 +153,20 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 					_cont = loadImage("cont_6.png");
 					break;
 			}
-			g.drawImage(_cont, x2 + 55, y - _JRADIUS*2, _JRADIUS*3, _JRADIUS*3, this);
-			//xCoche = x1+(int)((x2-x1)*((double)A/(double)B));
+			g.drawImage(_cont, x2 + 55, y - _JRADIUS*2, 32, 32, this);
+			
+			//Dibuja el coche y calcula el movimiento
+			if (!r.getVehiculos().isEmpty())
+			{
+				for (Vehicle v : r.getVehiculos())
+				{
+					xCoche = x1+(int)((x2-x1)*((double)v.getLocalizacion()/(double)r.getLongitud()));
+					g.setColor(_GREEN_LIGHT_COLOR);
+					g.drawString(v.getId(), xCoche, y - _JRADIUS-5);
+					g.drawImage(_car, xCoche, y - _JRADIUS-3, 16, 16, this);
+				}
+			}			
+			
 			i++;
 		}
 	}
