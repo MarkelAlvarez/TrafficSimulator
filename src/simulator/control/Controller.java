@@ -35,7 +35,7 @@ public class Controller implements Observable<TrafficSimObserver> {
 		}
 	}
 	
-	public void run(int n, OutputStream out) {
+	public void run(int n, OutputStream out) throws InterruptedException {
 		
 		if(out != null)
 		{
@@ -57,6 +57,7 @@ public class Controller implements Observable<TrafficSimObserver> {
 			for (int i = 0; i < n; i++) 
 			{
 				sim.advance();
+				Thread.sleep(80);
 			}
 		}
 	}

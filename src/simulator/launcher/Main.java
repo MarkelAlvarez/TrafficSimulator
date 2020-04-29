@@ -145,7 +145,7 @@ public class Main {
 		_eventsFactory = new BuilderBasedFactory<>(ebs);
 	}
 	
-	private static void startBatchMode() throws IOException {
+	private static void startBatchMode() throws IOException, InterruptedException {
 
 		OutputStream out;
 		InputStream in = new FileInputStream(new File(_inFile));
@@ -168,7 +168,7 @@ public class Main {
 		out.close();
 	}
 
-	private static void start(String[] args) throws IOException {
+	private static void start(String[] args) throws IOException, InterruptedException {
 
 		initFactories();
 		parseArgs(args);
