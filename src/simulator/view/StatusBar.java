@@ -42,7 +42,6 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		
 		//eventoAnadido = new JLabel();
 		//this.add(eventoAnadido);
-		//TODO: texto welcome al principio?
 		currentEvent = new JLabel("");
 		this.add(currentEvent);
 	}
@@ -76,7 +75,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 	
 		currentTime.setText("" + time);
-		currentEvent.setText("");
+		currentEvent.setText("Welcome!");
 	}
 
 	@Override
