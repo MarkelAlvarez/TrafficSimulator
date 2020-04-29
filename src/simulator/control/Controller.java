@@ -57,7 +57,7 @@ public class Controller implements Observable<TrafficSimObserver> {
 			for (int i = 0; i < n; i++) 
 			{
 				sim.advance();
-				Thread.sleep(80);
+				Thread.sleep(30);
 			}
 		}
 	}
