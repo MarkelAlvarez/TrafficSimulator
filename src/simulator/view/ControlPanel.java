@@ -57,6 +57,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void initGUI() {
 		
 		barraHerramientas = new JToolBar();
+		barraHerramientas.setFloatable(false);
 		this.setLayout(new BorderLayout());
 		this.add(barraHerramientas, BorderLayout.PAGE_START);
 
@@ -286,7 +287,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonCO2.setEnabled(b);
 		botonWeather.setEnabled(b);
 		run.setEnabled(b);
-		stop.setEnabled(b);
+		//stop.setEnabled(b);
 		botonExit.setEnabled(b);
 		ticks.setEnabled(b);
 	}
