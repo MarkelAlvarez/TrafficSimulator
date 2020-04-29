@@ -1,26 +1,23 @@
 package simulator.view;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-import extra.jtable.EventEx;
 import simulator.control.Controller;
 import simulator.model.*;
 
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
 
-	private List<EventEx> _events;
+	private List<Event> _events;
 	private String[] _colNames = { "Time", "Descripción" };
 	private Controller ctrl;
 
 	public EventsTableModel(Controller _ctrl) {
 		
-		_events = null;
 		ctrl = _ctrl;
+		_events = new ArrayList<Event>();
+		ctrl.addObserver(this);
 	}
 
 	public void update() {
@@ -31,7 +28,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 		fireTableDataChanged();	
 	}
 	
-	public void setEventsList(List<EventEx> events) {
+	public void setEventsList(List<Event> events) {
 		
 		_events = events;
 		update();
@@ -80,13 +77,12 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 		switch (columnIndex)
 		{
 			case 0:
-				s = rowIndex;
-				break;
-			case 1:
 				s = _events.get(rowIndex).getTime();
 				break;
-			case 2:
-				s = _events.get(rowIndex).getPriority();
+			case 1:
+				s = _events.get(rowIndex).toString();
+				break;
+			default:
 				break;
 		}
 		
@@ -96,36 +92,32 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		
-		// TODO Auto-generated method stub
+		setEventsList(events);
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		
-		// TODO Auto-generated method stub
+		setEventsList(events);
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		
-		// TODO Auto-generated method stub
+		setEventsList(events);
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		
-		// TODO Auto-generated method stub
+		setEventsList(events);
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void onError(String err) {
-		
-		// TODO Auto-generated method stub
 	}
 }
