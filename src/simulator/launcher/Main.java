@@ -26,7 +26,6 @@ import simulator.view.MainWindow;
 
 public class Main {
 
-	private final static Integer _timeLimitDefaultValue = 10;
 	private static String _inFile = null;
 	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null;

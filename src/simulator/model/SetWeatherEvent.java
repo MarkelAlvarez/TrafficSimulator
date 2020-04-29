@@ -6,7 +6,6 @@ import simulator.misc.Pair;
 
 public class SetWeatherEvent extends Event {
 	
-	private int time;
 	private List<Pair<String,Weather>> tiempo;
 
 	public SetWeatherEvent(int time, List<Pair<String,Weather>> ws) {
@@ -15,7 +14,6 @@ public class SetWeatherEvent extends Event {
 		
 		if(ws == null) throw new IllegalArgumentException("La lista no puede estar vacia.");
 		
-		this.time = time;
 		tiempo = ws;
 	}
 

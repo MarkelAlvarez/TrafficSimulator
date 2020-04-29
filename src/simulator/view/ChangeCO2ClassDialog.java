@@ -1,12 +1,20 @@
 package simulator.view;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 import simulator.model.RoadMap;
 import simulator.model.Vehicle;
@@ -28,7 +36,6 @@ public class ChangeCO2ClassDialog extends JDialog {
 	private JButton cancel;
 
 	private int estado = 0;
-	private int valor = 0;
 	private DefaultComboBoxModel<Vehicle> vehicleModel;
 	private DefaultComboBoxModel<Integer> co2Model;
 

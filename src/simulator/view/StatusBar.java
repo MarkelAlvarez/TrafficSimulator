@@ -1,12 +1,15 @@
 package simulator.view;
 
+import java.awt.FlowLayout;
 import java.util.List;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import simulator.control.Controller;
-import simulator.launcher.Main;
 import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
@@ -14,7 +17,6 @@ import simulator.model.TrafficSimObserver;
 public class StatusBar extends JPanel implements TrafficSimObserver {
 
 	private JLabel tiempo;
-	private JLabel eventoAnadido;
 	
 	private JLabel currentTime = new JLabel();
 	private JLabel currentEvent = new JLabel();
@@ -40,8 +42,6 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		
 		this.add(new JSeparator(SwingConstants.VERTICAL));
 		
-		//eventoAnadido = new JLabel();
-		//this.add(eventoAnadido);
 		currentEvent = new JLabel("");
 		this.add(currentEvent);
 	}

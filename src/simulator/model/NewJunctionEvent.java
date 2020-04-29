@@ -2,7 +2,6 @@ package simulator.model;
 
 public class NewJunctionEvent extends Event {
 
-	private int time;
 	private LightSwitchingStrategy estratSem;
 	private DequeuingStrategy estratCola;
 	private int x;
@@ -16,7 +15,6 @@ public class NewJunctionEvent extends Event {
 		if(lsStrategy == null && dqStrategy == null) throw new IllegalArgumentException("Ninguna de las estrategias no pueden ser null.");
 		if((xCoor < 0) || (yCoor < 0)) throw new IllegalArgumentException("Las coordenadas deben tener un valor positivo mayor que 0.");
 		
-		this.time = time;
 		this.id = id;
 		estratSem = lsStrategy;
 		estratCola = dqStrategy;

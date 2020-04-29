@@ -1,26 +1,38 @@
 package simulator.view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JToolBar;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import simulator.control.Controller;
-import simulator.factories.SetContClassEventBuilder;
-import simulator.launcher.Main;
 import simulator.misc.Pair;
-import simulator.model.*;
 import simulator.model.Event;
+import simulator.model.NewSetContClassEvent;
+import simulator.model.RoadMap;
+import simulator.model.SetWeatherEvent;
+import simulator.model.TrafficSimObserver;
+import simulator.model.Weather;
 
 public class ControlPanel extends JPanel implements TrafficSimObserver {
 
@@ -34,12 +46,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	private JLabel textoTicks;
 	private JSpinner ticks;
-	private int _ticks;
 	
 	private JFileChooser selectorFichero;
 	private ChangeCO2ClassDialog changeCO2;
 	private ChangeWeatherDialog changeWeather;
-	private JDialog exit;
 	
 	private Controller ctrl;
 	private RoadMap mapa;

@@ -5,7 +5,6 @@ import simulator.misc.Pair;
 
 public class NewSetContClassEvent extends Event {
 
-	private int time;
 	private List<Pair<String,Integer>> cont;
 	
 	public NewSetContClassEvent(int time, List<Pair<String,Integer>> cs) {
@@ -14,7 +13,6 @@ public class NewSetContClassEvent extends Event {
 		
 		if(cs == null) throw new IllegalArgumentException("La lista no puede estar vacia.");
 		
-		this.time = time;
 		cont = cs;
 	}
 

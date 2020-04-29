@@ -24,7 +24,6 @@ public class ChangeWeatherDialog extends JDialog {
 	private JButton cancel;
 
 	private int estado = 0;
-	private int valor = 0;
 	private DefaultComboBoxModel<Road> roadModel;
 	private DefaultComboBoxModel<Weather> weatherModel;
 

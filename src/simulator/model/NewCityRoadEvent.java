@@ -2,7 +2,6 @@ package simulator.model;
 
 public class NewCityRoadEvent extends Event {
 
-	private int time;
 	private String id;
 	private String srcJunction;
 	private String destJunction;
@@ -23,7 +22,6 @@ public class NewCityRoadEvent extends Event {
 		if(maxSpeed <= 0) throw new IllegalArgumentException("La velocidad maxima tiene que ser un numero positivo.");
 		if(weather == null) throw new IllegalArgumentException("La condicion meteorologica no puede ser nula.");
 		
-		this.time = time;
 		this.id = id;
 		srcJunction = srcJun;
 		destJunction = destJunc;
