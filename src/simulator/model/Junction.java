@@ -9,7 +9,7 @@ public class Junction extends SimulatedObject {
 
 	private List<Road> listaEntrantes;
 	private Map<Junction,Road> mapaSalientes;
-	private List<List<Vehicle >> listaColas;
+	private List<List<Vehicle>> listaColas;
 	private Map<Road,List<Vehicle>> carretera_cola;
 	private int indiceVerde;
 	private int pasoSemaforo = 1;
