@@ -87,23 +87,18 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			g.setColor(Color.BLACK);
 			g.drawString(r.getId(), x1 - 30, y + _JRADIUS/2);
 			g.drawLine(x1, y, x2, y);
-			
-			g.setColor(_JUNCTION_LABEL_COLOR);
-			g.drawString(r.getCruceOrigen().toString(), x1, y - _JRADIUS);
-			
-			if(r.getCruceOrigen().getIndiceVerde() == -1) {
-				g.setColor(_RED_LIGHT_COLOR);
-			}
-			else {
-				g.setColor(_GREEN_LIGHT_COLOR);
-			}
-			
 			g.drawString(r.getCruceDestino().toString(), x2, y - _JRADIUS);
 			g.drawImage(_clima, x2 + 15, y - _JRADIUS*2, _JRADIUS*3, _JRADIUS*3, this);
 			
 			//TODO: circulos que representas los cruces
 			g.setColor(_JUNCTION_COLOR);
 			g.fillOval(x1 - _JRADIUS/2, y - _JRADIUS/2, _JRADIUS, _JRADIUS);
+			if(r.getCruceDestino().getIndiceVerde() == -1) {
+				g.setColor(_RED_LIGHT_COLOR);
+			}
+			else {
+				g.setColor(_GREEN_LIGHT_COLOR);
+			}
 			g.fillOval(x2 - _JRADIUS/2, y - _JRADIUS/2, _JRADIUS, _JRADIUS);
 			
 			switch(r.getCondMet()) {
