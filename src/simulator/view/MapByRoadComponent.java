@@ -72,7 +72,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 		}
 		else
 		{
-			updatePrefferedSize();
+			//updatePrefferedSize();
 			drawMap(g);
 		}
 	}

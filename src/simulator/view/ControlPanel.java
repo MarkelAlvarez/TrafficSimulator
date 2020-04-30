@@ -280,7 +280,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {		
-					run_sim( n - 1);
+					run_sim(n - 1);
 				}
 			});
 		}
@@ -297,7 +297,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonCO2.setEnabled(b);
 		botonWeather.setEnabled(b);
 		run.setEnabled(b);
-		//stop.setEnabled(b);
 		botonExit.setEnabled(b);
 		ticks.setEnabled(b);
 	}
