@@ -46,20 +46,22 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	private JLabel textoTicks;
 	private JSpinner ticks;
+	private JLabel textoDelay;
+	private JSpinner ticksDelay;
 	
 	private JFileChooser selectorFichero;
 	private ChangeCO2ClassDialog changeCO2;
 	private ChangeWeatherDialog changeWeather;
 	
+	volatile Thread _thread;
+	
 	private Controller ctrl;
 	private RoadMap mapa;
 	private int tiempo;
-	private boolean _stopped;
 	
 	public ControlPanel(Controller _ctrl) {
 		
 		ctrl = _ctrl;
-		_stopped = true;
 		initGUI();
 		ctrl.addObserver(this);	
 	}
@@ -82,6 +84,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonRun();
 		botonStop();
 		spinnerTicks();
+		delayTicks();
 		barraHerramientas.add(Box.createHorizontalGlue());
 		barraHerramientas.addSeparator();
 		botonExit();
@@ -175,7 +178,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		barraHerramientas.add(botonWeather);
 	}
 	
-
 	protected void cambiarTiempo() {
 		
 		int estado = 0;
@@ -203,8 +205,14 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				enableToolBar(false);
-				_stopped = false;
-				run_sim((Integer) ticks.getValue());			
+				_thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						run_sim((Integer) ticks.getValue(), (Integer) ticksDelay.getValue());
+						enableToolBar(true);
+					}
+				});
+				_thread.start();
 			}
 		});
 		
@@ -219,7 +227,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		stop.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				stop();		
+				if (_thread != null)
+				{
+					_thread.interrupt();
+				}
 			}
 		});
 		barraHerramientas.add(stop);
@@ -236,6 +247,19 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				
 		barraHerramientas.add(textoTicks);
 		barraHerramientas.add(ticks);
+	}
+	
+	private void delayTicks() {
+		
+		textoDelay = new JLabel(" Delay: ", JLabel.CENTER);
+		
+		ticksDelay = new JSpinner(new SpinnerNumberModel(10, 1, 99999, 1));
+		ticksDelay.setMinimumSize(new Dimension(80, 30));
+		ticksDelay.setMaximumSize(new Dimension(200, 30));
+		ticksDelay.setPreferredSize(new Dimension(80, 30));
+				
+		barraHerramientas.add(textoDelay);
+		barraHerramientas.add(ticksDelay);
 	}
 	
 	private void botonExit() {
@@ -264,31 +288,36 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		}
 	}
 	
-	private void run_sim(int n) {
+	private void run_sim(int n, int delay) {
 		
-		if (n > 0 && !_stopped)
+		while (n > 0 && !Thread.interrupted())
 		{
 			try {
 				ctrl.run(1, null);
 			} catch (Exception e ) {
-				JOptionPane.showMessageDialog(null, "Se ha producido un error");
-				enableToolBar(true);
-				_stopped = true;
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						JOptionPane.showMessageDialog(null, "Se ha producido un error");
+					}
+				});
 				return;
 			}
 			
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {		
-					run_sim(n - 1);
-				}
-			});
+			try {
+				Thread.sleep(delay);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
+			n--;
 		}
-		else
-		{
-			enableToolBar(true);
-			_stopped = true;
-		}
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {		
+				enableToolBar(true);
+			}
+		});
 	}
 	
 	private void enableToolBar(boolean b) {
@@ -300,11 +329,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		botonExit.setEnabled(b);
 		ticks.setEnabled(b);
 	}
-
-	private void stop() {
-		
-		_stopped = true;
-	}
 	
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
@@ -313,29 +337,49 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		
-		mapa = map;
-		tiempo = time;	
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				mapa = map;
+				tiempo = time;
+			}
+		});
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		
-		mapa = map;
-		tiempo = time;
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				mapa = map;
+				tiempo = time;
+			}
+		});
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		
-		mapa = map;
-		tiempo = time;
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				mapa = map;
+				tiempo = time;
+			}
+		});
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 		
-		mapa = map;
-		tiempo = time;
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				mapa = map;
+				tiempo = time;
+			}
+		});
 	}
 
 	@Override

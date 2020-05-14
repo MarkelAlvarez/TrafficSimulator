@@ -2,6 +2,8 @@ package simulator.view;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 import simulator.control.Controller;
@@ -127,31 +129,56 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		
-		setVehicleList(map.getVehicles());
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				setVehicleList(map.getVehicles());
+			}
+		});
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		
-		setVehicleList(map.getVehicles());
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				setVehicleList(map.getVehicles());
+			}
+		});
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		
-		setVehicleList(map.getVehicles());
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				setVehicleList(map.getVehicles());
+			}
+		});
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		
-		setVehicleList(map.getVehicles());
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				setVehicleList(map.getVehicles());
+			}
+		});
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 		
-		setVehicleList(map.getVehicles());
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				setVehicleList(map.getVehicles());
+			}
+		});
 	}
 
 	@Override

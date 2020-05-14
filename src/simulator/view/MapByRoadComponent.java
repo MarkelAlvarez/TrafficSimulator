@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
 
 import simulator.control.Controller;
 import simulator.model.Event;
@@ -227,25 +228,45 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		
-		update(map);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				update(map);
+			}
+		});
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		
-		update(map);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				update(map);
+			}
+		});
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		
-		update(map);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				update(map);
+			}
+		});
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 		
-		update(map);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				update(map);
+			}
+		});
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import simulator.control.Controller;
 import simulator.model.Event;
@@ -49,8 +50,13 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		
-		currentTime.setText("" + time);
-		currentEvent.setText("");
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {		
+				currentTime.setText("" + time);
+				currentEvent.setText("");
+			}
+		});
 	}
 
 	@Override
@@ -60,22 +66,37 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		
-		currentTime.setText("" + time);
-		currentEvent.setText(e.toString());
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {		
+				currentTime.setText("" + time);
+				currentEvent.setText(e.toString());
+			}
+		});
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		
-		currentTime.setText("" + time);
-		currentEvent.setText("");
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {		
+				currentTime.setText("" + time);
+				currentEvent.setText("");
+			}
+		});
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 	
-		currentTime.setText("" + time);
-		currentEvent.setText("Welcome!");
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {		
+				currentTime.setText("" + time);
+				currentEvent.setText("Welcome!");
+			}
+		});
 	}
 
 	@Override
